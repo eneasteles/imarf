@@ -7,7 +7,7 @@ from django.db.models.fields.related import ForeignKey
 from django.utils.regex_helper import Group
 from django.utils import timezone
 from django.utils.tree import Node
-from django_pgviews import view as pg
+#from django_pgviews import view as pg
 
 class Pessoa(models.Model):
     nome = models.CharField(max_length=100)
