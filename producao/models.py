@@ -472,7 +472,7 @@ VIEW_SQL = """
     SELECT * FROM public.vw_serrada
 """
 
-
+"""
 class Vw_serrada(pg.View):
     serrada = models.IntegerField(primary_key=True)
     bloco = models.CharField(max_length=15)
@@ -512,7 +512,7 @@ class Vw_serrada(pg.View):
     class Meta:
       managed = False
       db_table = 'vw_serrada'
-
+"""
 class Folha_de_Pagamento(models.Model):
     centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=Node, default=1)
     ano = models.IntegerField(default=timezone.now().year)
