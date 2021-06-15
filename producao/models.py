@@ -465,6 +465,18 @@ class Resinamento(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+class Faturamento(models.Model):
+    empresa = models.ForeignKey(Empresa, on_delete=CASCADE)
+    ano = models.IntegerField()
+    mes = models.ForeignKey(Mes, on_delete=CASCADE)
+    mercado  = models.CharField(max_length=1,default='I', choices=(('I','INTERNO'),('E','EXTERNO')))
+    valor = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.mes)
+
 
         
 """
