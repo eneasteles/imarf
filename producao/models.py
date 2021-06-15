@@ -475,7 +475,7 @@ class Faturamento(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.mes)
+        return str(self.ano)
 
 
         
