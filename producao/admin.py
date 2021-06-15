@@ -99,4 +99,5 @@ admin.site.register(Resinamento)
 admin.site.register(Mes)
 admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)
+admin.site.register(Faturamento)
 
