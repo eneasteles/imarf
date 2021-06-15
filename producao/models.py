@@ -457,6 +457,13 @@ class Operador(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+class Resina(models.Model):
+    resina = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.resina)
 class Resinamento(models.Model):
     linha = models.ForeignKey(Linha_Resinamento, on_delete=CASCADE)
     ano = models.IntegerField()
@@ -464,6 +471,16 @@ class Resinamento(models.Model):
     operador = models.ForeignKey(Operador, on_delete=CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return str(self.ano)
+class Resinamento_item(models.Model):
+    resinamento_id = ForeignKey(Resinamento, on_delete=CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=CASCADE)
+    resina = models.ForeignKey(Resina, on_delete=CASCADE)
+    quantidade = models.FloatField()
+    observacao = models.CharField(max_length=200)
+
 
 class Faturamento(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=CASCADE)
