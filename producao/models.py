@@ -467,8 +467,8 @@ class Resinamento(models.Model):
 
 
         
-
-VIEW_SQL = """
+"""
+VIEW_SQL = 
     SELECT * FROM public.vw_serrada
 """
 
