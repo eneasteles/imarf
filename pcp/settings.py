@@ -84,9 +84,9 @@ DATABASES = {
 
         'USER': 'ezwdfevynjhsqj',
 
-        'PASSWORD': 'juparana',
+        'PASSWORD': '88fd242d156c90feeb03b47752aba662be11e182cfeb5db30b032bf166adaa33',
 
-        'HOST': '88fd242d156c90feeb03b47752aba662be11e182cfeb5db30b032bf166adaa33',
+        'HOST': 'ec2-52-86-2-228.compute-1.amazonaws.com',
 
         'PORT': '5432',
 
