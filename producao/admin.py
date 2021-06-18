@@ -61,6 +61,7 @@ class Pedido_venda_Admin(admin.ModelAdmin):
        # Forma_pagamento_inline,
     ]
 class SerradaAdmin(admin.ModelAdmin):
+    list_display = ('serrada','data_final')
     inlines = [
         Chapas_produzidasinline,
         Paradainline,
