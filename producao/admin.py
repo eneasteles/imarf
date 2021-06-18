@@ -21,6 +21,14 @@ class BlocoAdmin(admin.ModelAdmin):
         BlocoIteminline
     ]
 
+class Resinamento_itemInline(admin.TabularInline):
+    model = Resinamento_item
+    extra = 1
+
+class ResinamentoAdmin(admin.ModelAdmin):
+    inlines = [
+        Resinamento_itemInline
+    ]
 class Fio_diamantadoinline(admin.TabularInline):
     model = Fio_diamantado
     extra = 1
@@ -61,7 +69,7 @@ class Pedido_venda_Admin(admin.ModelAdmin):
        # Forma_pagamento_inline,
     ]
 class SerradaAdmin(admin.ModelAdmin):
-    list_display = ('serrada','data_final')
+    list_display = ('serrada','data_final', 'created')
     inlines = [
         BlocoSerradaInline,
         Chapas_produzidasinline,
@@ -101,7 +109,7 @@ admin.site.register(Empresa)
 admin.site.register(Status_venda)
 admin.site.register(Frete)
 admin.site.register(FioFatorConversao)
-admin.site.register(Resinamento)
+admin.site.register(Resinamento, ResinamentoAdmin)
 admin.site.register(Mes)
 admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)
