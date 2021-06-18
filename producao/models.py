@@ -176,6 +176,16 @@ class Serrada(models.Model):
     def __str__(self):
         return str(self.serrada)
 
+class BlocoSerrada(models.Model):
+    serrada = ForeignKey(Serrada, on_delete=CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
+    comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return str(self.bloco)
 
 class Chapas_produzidas(models.Model):
     serrada = models.ForeignKey(Serrada, on_delete=models.CASCADE)

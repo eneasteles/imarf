@@ -11,6 +11,11 @@ class Chapas_produzidasinline(admin.TabularInline):
 class BlocoIteminline(admin.TabularInline):
     model = BlocoItem
     extra = 1
+
+class BlocoSerradaInline(admin.TabularInline):
+    model = BlocoSerrada
+    extra = 1
+
 class BlocoAdmin(admin.ModelAdmin):
     inlines = [
         BlocoIteminline
@@ -59,7 +64,7 @@ class SerradaAdmin(admin.ModelAdmin):
     inlines = [
         Chapas_produzidasinline,
         Paradainline,
-    
+        BlocoSerradaInline,
     ]
 
 admin.site.register(Material)
