@@ -189,7 +189,7 @@ class BlocoSerrada(models.Model):
 
 class Chapas_produzidas(models.Model):
     serrada = models.ForeignKey(Serrada, on_delete=models.CASCADE)
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE, default=21)
     quantidade = models.IntegerField()
     espessura = models.ForeignKey(Espessura, on_delete=models.CASCADE) 
     created = models.DateTimeField(auto_now_add=True)
