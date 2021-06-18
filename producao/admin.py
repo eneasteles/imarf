@@ -63,9 +63,10 @@ class Pedido_venda_Admin(admin.ModelAdmin):
 class SerradaAdmin(admin.ModelAdmin):
     list_display = ('serrada','data_final')
     inlines = [
+        BlocoSerradaInline,
         Chapas_produzidasinline,
         Paradainline,
-        BlocoSerradaInline,
+        
     ]
 
 admin.site.register(Material)
