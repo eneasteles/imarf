@@ -81,7 +81,6 @@ admin.site.register(Insumo)
 admin.site.register(Unidade)
 admin.site.register(Maquina)     #       admin.site.register()
 admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
-admin.site.register(Chapas_produzidas)
 admin.site.register(Fio_diamantado)
 admin.site.register(Pessoa)
 admin.site.register(Grupo)
