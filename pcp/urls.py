@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', admin.site.urls),
-    path('current_datetime/', include("current_datetime.urls")),
+    path('producao/', include("producao.urls")),
 ]
