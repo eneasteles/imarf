@@ -1,4 +1,5 @@
 from datetime import date
+from django.conf.urls import url
 from django.contrib.admin.sites import DefaultAdminSite
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
@@ -7,6 +8,7 @@ from django.db.models.fields.related import ForeignKey
 from django.utils.regex_helper import Group
 from django.utils import timezone
 from django.utils.tree import Node
+from django.contrib.auth.models import User
 #from django_pgviews import view as pg
 
 class Pessoa(models.Model):
@@ -37,14 +39,15 @@ class Bloco(models.Model):
         ('B','SEGUNDA LINHA')
     )
     bloco = models.CharField(max_length=15)
-    material = models.ForeignKey(Material, on_delete=models.CASCADE) 
+    material = models.ForeignKey(Material, on_delete=models.PROTECT) 
     tipo = models.CharField(max_length=1, default='A', choices=TIPO_CHOICES)   
     comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
-    status = models.ForeignKey(Status_bloco, on_delete=models.CASCADE) 
+    status = models.ForeignKey(Status_bloco, on_delete=models.PROTECT) 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
 
 
 
@@ -80,10 +83,10 @@ class Observacao_chapa(models.Model):
 
 class Chapa(models.Model):
     chapa = models.IntegerField()
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
-    acabamento = models.ForeignKey(Acabamento, on_delete=CASCADE)
-    espessura = models.ForeignKey(Espessura, on_delete=models.CASCADE)
-    observacao_chapa = models.ForeignKey(Observacao_chapa, on_delete=models.CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    espessura = models.ForeignKey(Espessura, on_delete=models.PROTECT)
+    observacao_chapa = models.ForeignKey(Observacao_chapa, on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -123,14 +126,14 @@ class Liga(models.Model):
 
 class Fio_diamantado(models.Model):
     jogo_fio= models.IntegerField(primary_key=True)
-    maquina = models.ForeignKey(Maquina, on_delete=CASCADE)
+    maquina = models.ForeignKey(Maquina, on_delete=PROTECT)
     espessura_fio = models.DecimalField(max_digits=6, decimal_places=3)
     referencia = models.CharField(max_length=50, blank=True)
-    nome = models.ForeignKey(Pessoa, on_delete=CASCADE)
+    nome = models.ForeignKey(Pessoa, on_delete=PROTECT)
     nota_fiscal = models.IntegerField()
     status_fio = models.CharField(max_length=1,default='A', choices=(('A','ATIVO'),('F','FINALIZADO')))
     valor_metro_fio = models.FloatField()
-    liga = models.ForeignKey(Liga, on_delete=CASCADE)
+    liga = models.ForeignKey(Liga, on_delete=PROTECT)
     quantidade_fio = models.IntegerField(default=0)
     comprimento_fio = models.FloatField(default=0)
     garantia = models.FloatField(default=0)
@@ -152,7 +155,7 @@ class Serrada(models.Model):
     serrada = models.IntegerField()
     data_inicial = models.DateTimeField()
     data_final = models.DateTimeField()
-    maquina = models.ForeignKey(Maquina, on_delete=CASCADE)
+    maquina = models.ForeignKey(Maquina, on_delete=PROTECT)
     horimetro_inicial = models.IntegerField()
     horimetro_final = models.IntegerField()
     amperagem_max = models.DecimalField(max_digits=8, decimal_places=3)
@@ -162,9 +165,9 @@ class Serrada(models.Model):
     observacoes = models.TextField()
     periferica = models.DecimalField(max_digits=5, decimal_places=3)
     cala = models.IntegerField(default=10)
-    jogo_fio = models.ForeignKey(Fio_diamantado, on_delete=CASCADE)
+    jogo_fio = models.ForeignKey(Fio_diamantado, on_delete=PROTECT)
     consumo_kwh = models.DecimalField(max_digits=7, decimal_places=3, default=0)
-    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=CASCADE,default=1)
+    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT,default=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
@@ -172,8 +175,8 @@ class Serrada(models.Model):
         return str(self.serrada)
 
 class BlocoSerrada(models.Model):
-    serrada = ForeignKey(Serrada, on_delete=CASCADE)
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
+    serrada = ForeignKey(Serrada, on_delete=PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
@@ -183,11 +186,15 @@ class BlocoSerrada(models.Model):
         return str(self.bloco)
 
 class Chapas_produzidas(models.Model):
-    serrada = models.ForeignKey(Serrada, on_delete=models.CASCADE)
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE, default=21)
+    serrada = models.ForeignKey(Serrada, on_delete=models.PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     quantidade = models.IntegerField()
-    espessura = models.ForeignKey(Espessura, on_delete=models.CASCADE) 
+    espessura = models.ForeignKey(Espessura, on_delete=models.PROTECT) 
     created = models.DateTimeField(auto_now_add=True)
+  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
         return str(self.quantidade)
@@ -207,11 +214,12 @@ class Classe(models.Model):
 
 class Produto(models.Model):
     produto = models.CharField(max_length=100)
-    unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
-    grupo = models.ForeignKey(Grupo, on_delete=CASCADE)
-    classe = models.ForeignKey(Classe, on_delete=CASCADE)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT)
+    grupo = models.ForeignKey(Grupo, on_delete=PROTECT)
+    classe = models.ForeignKey(Classe, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def  __str__(self):
         return str(self.produto)
@@ -221,6 +229,7 @@ class Produto(models.Model):
 class Pedreira(models.Model):
     pedreira = CharField(max_length=100)
     cidade = CharField(max_length=100, blank=True, null=True)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
     
     def __str__(self):
         return str(self.pedreira)
@@ -230,32 +239,35 @@ class Aplicacao(models.Model):
     descricao = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+   
 
     def __str__(self):
         return str(self.aplicacao)
 
 class Despesa(models.Model):
-    pedreira = models.ForeignKey(Pedreira, on_delete=CASCADE)
-    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=CASCADE)
-    aplicacao = models.ForeignKey(Aplicacao, on_delete=CASCADE)
+    pedreira = models.ForeignKey(Pedreira, on_delete=PROTECT)
+    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT)
+    aplicacao = models.ForeignKey(Aplicacao, on_delete=PROTECT)
     data = models.DateField()    
     valor = models.FloatField()
     descricao = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
 
     def __str__(self):
         return str(self.centro_de_custo)
 
 class DespesaItem(models.Model):
-    despesa = models.ForeignKey(Despesa, on_delete=CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=CASCADE)
+    despesa = models.ForeignKey(Despesa, on_delete=PROTECT)
+    produto = models.ForeignKey(Produto, on_delete=PROTECT)
     quantidade = models.FloatField()
-    unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT)
     preco = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
         return str(self.produto)
@@ -272,10 +284,10 @@ class Qualidade(models.Model):
     def __str__(self):
         return str(self.qualidade)
 class Estoque_ladrilho(models.Model):
-    material = models.ForeignKey(Material, on_delete=CASCADE)
-    acabamento = models.ForeignKey(Acabamento, on_delete=CASCADE)
-    qualidade = models.ForeignKey(Qualidade, on_delete=CASCADE)
-    detalhe = models.ForeignKey(Detalhe, on_delete=CASCADE)
+    material = models.ForeignKey(Material, on_delete=PROTECT)
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    qualidade = models.ForeignKey(Qualidade, on_delete=PROTECT)
+    detalhe = models.ForeignKey(Detalhe, on_delete=PROTECT)
     quantidade = models.FloatField()
     comprimento = DecimalField(max_digits=6, decimal_places=3)
     espessura = DecimalField(max_digits=6, decimal_places=3)
@@ -288,10 +300,10 @@ class Estoque_ladrilho(models.Model):
         return str(self.material)
 
 class Entrada_ladrilho(models.Model):
-    material = models.ForeignKey(Material, on_delete=CASCADE)
-    acabamento = models.ForeignKey(Acabamento, on_delete=CASCADE)
-    qualidade = models.ForeignKey(Qualidade, on_delete=CASCADE)
-    detalhe = models.ForeignKey(Detalhe, on_delete=CASCADE)
+    material = models.ForeignKey(Material, on_delete=PROTECT)
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    qualidade = models.ForeignKey(Qualidade, on_delete=PROTECT)
+    detalhe = models.ForeignKey(Detalhe, on_delete=PROTECT)
     quantidade = models.FloatField()
     comprimento = DecimalField(max_digits=6, decimal_places=3)
     espessura = DecimalField(max_digits=6, decimal_places=3)
@@ -299,15 +311,16 @@ class Entrada_ladrilho(models.Model):
     preco = models.FloatField()    
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return str(self.material)
 
 class Estoque_chapa(models.Model):
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
-    acabamento = models.ForeignKey(Acabamento, on_delete=CASCADE)
-    qualidade = models.ForeignKey(Qualidade, on_delete=CASCADE)
-    detalhe = models.ForeignKey(Detalhe, on_delete=CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    qualidade = models.ForeignKey(Qualidade, on_delete=PROTECT)
+    detalhe = models.ForeignKey(Detalhe, on_delete=PROTECT)
     quantidade = models.FloatField()
     comprimento = DecimalField(max_digits=6, decimal_places=3)
     espessura = DecimalField(max_digits=6, decimal_places=3)
@@ -315,15 +328,16 @@ class Estoque_chapa(models.Model):
     preco = models.FloatField()    
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return str(self.material)
 
 class Entrada_chapa(models.Model):
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
-    acabamento = models.ForeignKey(Acabamento, on_delete=CASCADE)
-    qualidade = models.ForeignKey(Qualidade, on_delete=CASCADE)
-    detalhe = models.ForeignKey(Detalhe, on_delete=CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    qualidade = models.ForeignKey(Qualidade, on_delete=PROTECT)
+    detalhe = models.ForeignKey(Detalhe, on_delete=PROTECT)
     quantidade = models.FloatField()
     comprimento = DecimalField(max_digits=6, decimal_places=3)
     espessura = DecimalField(max_digits=6, decimal_places=3)
@@ -332,26 +346,29 @@ class Entrada_chapa(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+
     def __str__(self):
         return str(self.material)
 
 class BlocoItem(models.Model):
-    bloco = models.ForeignKey(Bloco, on_delete=CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=CASCADE)
-    unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
+    produto = models.ForeignKey(Produto, on_delete=PROTECT)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT)
     quantidade = models.FloatField()
     valor = models.FloatField()
     descricao = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+
 class Parada(models.Model):
-    serrada = models.ForeignKey(Serrada, on_delete=CASCADE)
+    serrada = models.ForeignKey(Serrada, on_delete=PROTECT)
     data_inicial = models.DateTimeField()
     data_final = models.DateTimeField() 
     motivo = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
 
 
 
@@ -364,16 +381,18 @@ class Empresa(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+
     def __str__(self):
         return str(self.empresa)
 
 class FioFatorConversao(models.Model):
-    maquina = models.ForeignKey(Maquina, on_delete=CASCADE)
-    fornecedor = models.ForeignKey(Pessoa, on_delete=CASCADE)
+    maquina = models.ForeignKey(Maquina, on_delete=PROTECT)
+    fornecedor = models.ForeignKey(Pessoa, on_delete=PROTECT)
     dureza = models.IntegerField()
     fator = models.FloatField(default=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
 
 class Status_venda(models.Model):
     status_venda = CharField(max_length=25)
@@ -389,6 +408,7 @@ class Forma_pagamento(models.Model):
     intervalo = models.IntegerField(default=0)
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
+  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
 
     def __str__(self):
@@ -401,37 +421,39 @@ class Frete(models.Model):
         return str(self.frete)
 
 class Pedido_venda(models.Model):
-    empresa = models.ForeignKey(Empresa, on_delete=CASCADE)
-    pessoa = models.ForeignKey(Pessoa, on_delete=CASCADE, verbose_name="Cliente")
+    empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
+    pessoa = models.ForeignKey(Pessoa, on_delete=PROTECT, verbose_name="Cliente")
     data = models.DateField(default=timezone.now) 
     entrada = models.FloatField(default=100, verbose_name='Entrada %')
-    forma_pagamento = models.ForeignKey(Forma_pagamento, on_delete=CASCADE)
+    forma_pagamento = models.ForeignKey(Forma_pagamento, on_delete=PROTECT)
     prazo_entrega = models.IntegerField(default=0)
-    frete = models.ForeignKey(Frete, on_delete=CASCADE)
-    status_venda = models.ForeignKey(Status_venda, on_delete=CASCADE, verbose_name="Status")
+    frete = models.ForeignKey(Frete, on_delete=PROTECT)
+    status_venda = models.ForeignKey(Status_venda, on_delete=PROTECT, verbose_name="Status")
     observacao = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     #created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
         return str(self.pessoa)
 
 class Pedido_venda_item(models.Model):
-    pedido_venda = models.ForeignKey(Pedido_venda, on_delete=CASCADE)
-    grupo = models.ForeignKey(Grupo, on_delete=CASCADE)
-    material = models.ForeignKey(Material, on_delete=CASCADE)
-    unidade = models.ForeignKey(Unidade,on_delete=CASCADE)
+    pedido_venda = models.ForeignKey(Pedido_venda, on_delete=PROTECT)
+    grupo = models.ForeignKey(Grupo, on_delete=PROTECT)
+    material = models.ForeignKey(Material, on_delete=PROTECT)
+    unidade = models.ForeignKey(Unidade,on_delete=PROTECT)
     quantidade = models.FloatField()
     altura_espessura = models.FloatField(verbose_name="Alt/Esp")
     comprimento = models.FloatField()
     largura = models.FloatField()
-    acabamento = models.ForeignKey(Acabamento, on_delete=CASCADE)
-    bloco = models.ForeignKey(Bloco, on_delete=CASCADE, blank=True, null=True)
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=PROTECT, blank=True, null=True)
     identificacao = models.CharField(max_length=20)
     percentual_ipi = models.FloatField(default=5)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
     
 
 
@@ -459,48 +481,55 @@ class Setor(models.Model):
 
 class Operador(models.Model):
     operador = models.CharField(max_length=100)
-    setor = models.ForeignKey(Setor, on_delete=CASCADE)
+    setor = models.ForeignKey(Setor, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
 
 class Resina(models.Model):
     resina = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
         return str(self.resina)
 class Resinamento(models.Model):
-    linha = models.ForeignKey(Linha_Resinamento, on_delete=CASCADE)
+    linha = models.ForeignKey(Linha_Resinamento, on_delete=PROTECT)
     ano = models.IntegerField()
-    mes = models.ForeignKey(Mes, on_delete=CASCADE)
-    operador = models.ForeignKey(Operador, on_delete=CASCADE)
+    mes = models.ForeignKey(Mes, on_delete=PROTECT)
+    operador = models.ForeignKey(Operador, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return str(self.ano)
 class Resinamento_item(models.Model):
-    resinamento_id = ForeignKey(Resinamento, on_delete=CASCADE)
-    bloco = models.ForeignKey(Bloco, on_delete=CASCADE)
-    resina = models.ForeignKey(Resina, on_delete=CASCADE)
+    resinamento_id = ForeignKey(Resinamento, on_delete=PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
+    resina = models.ForeignKey(Resina, on_delete=PROTECT)
     quantidade = models.FloatField()
     observacao = models.CharField(max_length=200)
+ #   usuario = models.ForeignKey(User, on_delete=PROTECT)
 
 
 class Faturamento(models.Model):
-    empresa = models.ForeignKey(Empresa, on_delete=CASCADE)
+    empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     ano = models.IntegerField()
-    mes = models.ForeignKey(Mes, on_delete=CASCADE)
+    mes = models.ForeignKey(Mes, on_delete=PROTECT)
     mercado  = models.CharField(max_length=1,default='I', choices=(('I','INTERNO'),('E','EXTERNO')))
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    """
+    usuario = models.ForeignKey(User, on_delete=PROTECT)
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.resquest.user
+        url = super().form_valid(form)
+        return url
 
-    def __str__(self):
-        return str(self.ano)
-
-
+"""
         
 """
 VIEW_SQL = 
@@ -540,18 +569,14 @@ class Vw_serrada(pg.View):
     ano = models.IntegerField(default=0)
     custo_m2 = models.FloatField()
 
-   # material = models.ForeignKey(Material, on_delete=models.CASCADE)
-
-    sql = VIEW_SQL
-
     class Meta:
       managed = False
-      db_table = 'vw_serrada'
+
 """
 class Folha_de_Pagamento(models.Model):
     centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=Node, default=1)
     ano = models.IntegerField(default=timezone.now().year)
-    mes = models.ForeignKey(Mes, on_delete=CASCADE)
+    mes = models.ForeignKey(Mes, on_delete=PROTECT)
     qtde_funcionarios = models.IntegerField()
     folha = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
