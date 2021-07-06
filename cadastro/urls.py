@@ -13,4 +13,5 @@ urlpatterns = [
     path('deletar/faturamento/<int:pk>', FaturamentoDelete.as_view(), name='deletar-faturamento'),
     path('listar/faturamento/', FaturamentoList.as_view(), name='lista-faturamento'),
     path('listar/serrada/', SerradaList.as_view(), name='lista-serrada'),
+    path('listar/serrada2/', SerradaList2.as_view(), name='lista-serrada2'),
 ]

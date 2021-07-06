@@ -75,3 +75,7 @@ class SerradaList(LoginRequiredMixin ,ListView):
         self.object_list = Faturamento.objects.filter(usuario=self.request.user)
         return self.object_list
 """
+class SerradaList2(LoginRequiredMixin ,ListView):
+    login_url = reverse_lazy('login')
+    model = View_serrada
+    template_name = 'cadastro/lista/lista-serrada2.html'

@@ -586,6 +586,45 @@ class Folha_de_Pagamento(models.Model):
         return str(self.mes)
 
 
+"""
+VIEW_SQL = 
+    SELECT * FROM public.view_serrada
+"""
 
+class View_serrada(models.Model):
+    serrada = models.IntegerField(primary_key=True)
+    bloco = models.CharField(max_length=15)
+    comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    m3_bruto = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
+    m3_liquido = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
+    #m3_perda = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
+    m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    jogo_fio_id = models.IntegerField()
+    qtde_fios = models.IntegerField()
+    qtde_chapas  = models.IntegerField()
+    data_inicial = models.DateTimeField()
+    data_final = models.DateTimeField()
+    maquina = models.CharField(max_length= 100)
+    horimetro_inicial = models.IntegerField()
+    horimetro_final = models.IntegerField()
+    #amperagem_max = models.DecimalField(max_digits=8, decimal_places=3)
+    espessura_fio_inicial = models.DecimalField(max_digits=6, decimal_places=3, default=0)
+    espessura_fio_final = models.DecimalField(max_digits=6, decimal_places=3, default=0)
+    qtde_fios = models.IntegerField()
+    observacoes = models.TextField()
+    periferica = models.DecimalField(max_digits=5, decimal_places=3)
+    cala = models.IntegerField(default=10)
+    consumo_kwh = models.DecimalField(max_digits=7, decimal_places=3, default=0)
+    custo_bloco = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    custo_m2 = models.FloatField()
+    #mes = models.IntegerField(default=0)
+    #ano = models.IntegerField(default=0)
+    #centro_de_custo_id = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT,default=1)
+    class Meta:
+        managed: False
+        db_table = 'view_serrada'
+                
 
 
