@@ -8,7 +8,7 @@ class Chapas_produzidasinline(admin.TabularInline):
     model = Chapas_produzidas
     extra = 1
 
-class BlocoIteminline(admin.TabularInline):
+class BlocoIteminline(admin.TabularInline):    
     model = BlocoItem
     extra = 1
 
@@ -78,6 +78,10 @@ class SerradaAdmin(admin.ModelAdmin):
         
     ]
 
+class FaturamentoAdmin(admin.ModelAdmin):
+    list_display = ('ano','mes', 'mercado','valor')
+   
+
 admin.site.register(Material)
 admin.site.register(Bloco, BlocoAdmin)
 admin.site.register(Status_bloco)
@@ -114,6 +118,6 @@ admin.site.register(Resinamento, ResinamentoAdmin)
 admin.site.register(Mes)
 admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)
-admin.site.register(Faturamento)
+admin.site.register(Faturamento,FaturamentoAdmin)
 admin.site.register(Resina)
 

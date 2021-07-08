@@ -10,67 +10,33 @@
     <table class="table table-striped" id="tabela-listar-serrada">
     <thead>
         <tr>
-            <th>Serrada</th>
-            <th>Ano</th>
             <th>Mês</th>
             <th>Máquina</th>
-            <th>Bloco</th>
-            <th>Material</th>
             <th>m2</th>
             <th>Qtde Ch</th>
-            <th>Com</th>
-            <th>Alt</th>
-            <th>lar</th>
             <th>m3 bru</th>
             <th>m3 liq</th>
             <th>m3 Perda</th>
-            <th>Início</th>
-            <th>Fim</th>            
-            <th>Hor. Inic</th>
-            <th>Hor. Final</th>
-            <th>Amp. Max.</th>
-            <th>Jogo Fio</th>
-            <th>Qt Fio</th>
             <th>Prd Fio m2</th>
             <th>Custo m2</th>
-            <th>Esp Fio Ini</th>
-            <th>Esp Fio Fin</th>            
-            <th>Periférica</th>
-            <th>Cala</th>            
-            <th>Cons Kwh</th>
         </tr>
     </thead>
     <tbody>
         {% for view_serrada in object_list %}
         <tr>
-            <td>{{ view_serrada.serrada }}</td>
-            <td>{{ view_serrada.data_final| date:"Y" }}</td>  
+
             <td>{{ view_serrada.data_final| date:"m" }}</td>
             <td>{{ view_serrada.maquina }}</td>
-            <td>{{ view_serrada.bloco }}</td>
-            <td>{{ view_serrada.material }}</td>
             <td>{{ view_serrada.m2 }}</td>
             <td>{{ view_serrada.qtde_chapas }}</td>
-            <td>{{ view_serrada.comprimento }}</td>
-            <td>{{ view_serrada.altura }}</td>
-            <td>{{ view_serrada.largura }}</td>
             <td>{{ view_serrada.m3_bruto }}</td>
             <td>{{ view_serrada.m3_liquido }}</td>
             <td>{{ view_serrada.m3_perda }}</td>            
-            <td>{{ view_serrada.data_inicial| date:"d/m/Y" }}</td>
-            <td>{{ view_serrada.data_final| date:"d/m/Y" }}</td>
-            <td>{{ view_serrada.horimetro_inicial }}</td>
-            <td>{{ view_serrada.horimetro_final }}</td>
-            <td>{{ view_serrada.amperagem_max }}</td>
-            <td>{{ view_serrada.jogo_fio_id }}</td>
+            
             <td>{{ view_serrada.qtde_fios }}</td>
             <td>{{ view_serrada.prd_fio_m2 }}</td>
             <td>{{ view_serrada.custo_fio_por_m2 }}</td>
-            <td>{{ view_serrada.espessura_fio_inicial }}</td>
-            <td>{{ view_serrada.espessura_fio_final }}</td>            
-            <td>{{ view_serrada.periferica }}</td>
-            <td>{{ view_serrada.cala }}</td>            
-            <td>{{ view_serrada.consumo_kwh }}</td>
+
 
         </tr>
 

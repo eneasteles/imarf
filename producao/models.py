@@ -517,10 +517,13 @@ class Faturamento(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     ano = models.IntegerField()
     mes = models.ForeignKey(Mes, on_delete=PROTECT)
-    mercado  = models.CharField(max_length=1,default='I', choices=(('I','INTERNO'),('E','EXTERNO')))
+    mercado  = models.CharField(max_length=1,default='I', choices=(('I','INTERNO'),('E','EXTERNO'),('G','GERAL')))
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.ano} {self.mes} {self.mercado} Valor: {self.valor}'
     """
     usuario = models.ForeignKey(User, on_delete=PROTECT)
     
@@ -593,35 +596,36 @@ VIEW_SQL =
 
 class View_serrada(models.Model):
     serrada = models.IntegerField(primary_key=True)
-    bloco = models.CharField(max_length=15)
+    bloco = models.CharField(max_length=15, default=0)
+    material = models.CharField(max_length=100, default='')
     comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     m3_bruto = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
     m3_liquido = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
-    #m3_perda = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
+    m3_perda = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
     m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)
     jogo_fio_id = models.IntegerField()
     qtde_fios = models.IntegerField()
-    qtde_chapas  = models.IntegerField()
+    qtde_chapas  = models.IntegerField(default=0)
     data_inicial = models.DateTimeField()
     data_final = models.DateTimeField()
     maquina = models.CharField(max_length= 100)
     horimetro_inicial = models.IntegerField()
     horimetro_final = models.IntegerField()
-    #amperagem_max = models.DecimalField(max_digits=8, decimal_places=3)
+    amperagem_max = models.DecimalField(max_digits=8, decimal_places=3, default=0)
     espessura_fio_inicial = models.DecimalField(max_digits=6, decimal_places=3, default=0)
     espessura_fio_final = models.DecimalField(max_digits=6, decimal_places=3, default=0)
     qtde_fios = models.IntegerField()
+    prd_fio_m2 = models.DecimalField(max_digits=15, decimal_places=3, default=0)
     observacoes = models.TextField()
     periferica = models.DecimalField(max_digits=5, decimal_places=3)
     cala = models.IntegerField(default=10)
     consumo_kwh = models.DecimalField(max_digits=7, decimal_places=3, default=0)
     custo_bloco = models.DecimalField(max_digits=15, decimal_places=3, default=0)
-    custo_m2 = models.FloatField()
-    #mes = models.IntegerField(default=0)
-    #ano = models.IntegerField(default=0)
-    #centro_de_custo_id = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT,default=1)
+    custo_m2 = models.FloatField(default=0)
+    mes = models.IntegerField(default=0)
+    ano = models.IntegerField(default=0)    
     class Meta:
         managed: False
         db_table = 'view_serrada'
