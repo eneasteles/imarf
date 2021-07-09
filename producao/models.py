@@ -631,17 +631,16 @@ class View_serrada(models.Model):
         db_table='view_serrada'
 
 class View_producao_fio(models.Model):
+    maquina = models.CharField(max_length= 100)
+    jogo_fio_id = models.IntegerField()
+    liga = models.CharField(max_length= 25)
+    valor_metro_fio =  models.FloatField(default=0)
+    qtde_fios = models.IntegerField()
     m3_bruto = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
     m3_liquido = models.DecimalField(max_digits=15, decimal_places=3, default=0) 
     m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)
-    jogo_fio_id = models.IntegerField()
-    qtde_fios = models.IntegerField()
-    maquina = models.CharField(max_length= 100)
-    espessura_fio_inicial = models.DecimalField(max_digits=6, decimal_places=3, default=0)
-    espessura_fio_final = models.DecimalField(max_digits=6, decimal_places=3, default=0)
+    espessura_fio = models.DecimalField(max_digits=6, decimal_places=3, default=0)
     prd_fio_m2 = models.DecimalField(max_digits=15, decimal_places=3, default=0)
-    custo_m2 = models.FloatField(default=0)
-  
     class Meta:
         managed=False
         db_table='view_producao_fio'
