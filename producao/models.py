@@ -632,10 +632,9 @@ class View_serrada(models.Model):
 
 class View_producao_fio(models.Model):
     maquina = models.CharField(max_length= 100)
-    jogo_fio_id = models.IntegerField()
+    jogo_fio_id = models.IntegerField(primary_key=True)
     liga = models.CharField(max_length= 25)
     valor_metro_fio =  models.FloatField(default=0)
-    qtde_fios = models.IntegerField()
     m3_bruto = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
     m3_liquido = models.DecimalField(max_digits=15, decimal_places=3, default=0) 
     m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)

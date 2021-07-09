@@ -79,3 +79,8 @@ class SerradaList2(LoginRequiredMixin ,ListView):
     login_url = reverse_lazy('login')
     model = View_serrada
     template_name = 'cadastro/lista/lista-serrada2.html'
+
+class ProducaoFio(LoginRequiredMixin ,ListView):
+    login_url = reverse_lazy('login')
+    model = View_producao_fio
+    template_name = 'cadastro/lista/lista-fio-producao.html'
