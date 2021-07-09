@@ -160,8 +160,7 @@ class Serrada(models.Model):
     horimetro_final = models.IntegerField()
     amperagem_max = models.DecimalField(max_digits=8, decimal_places=3)
     espessura_fio_inicial = models.DecimalField(max_digits=6, decimal_places=3, default=0)
-    espessura_fio_final = models.DecimalField(max_digits=6, decimal_places=3, default=0)
-    qtde_fios = models.IntegerField()
+    espessura_fio_final = models.DecimalField(max_digits=6, decimal_places=3, default=0)    
     observacoes = models.TextField()
     periferica = models.DecimalField(max_digits=5, decimal_places=3)
     cala = models.IntegerField(default=10)
@@ -191,6 +190,7 @@ class Chapas_produzidas(models.Model):
     comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    qtde_fios = models.IntegerField(default=0)
     quantidade = models.IntegerField()
     espessura = models.ForeignKey(Espessura, on_delete=models.PROTECT) 
     created = models.DateTimeField(auto_now_add=True)
@@ -517,8 +517,8 @@ class Faturamento(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     ano = models.IntegerField()
     mes = models.ForeignKey(Mes, on_delete=PROTECT)
-    mercado  = models.CharField(max_length=1,default='I', choices=(('I','INTERNO'),('E','EXTERNO'),('G','GERAL')))
-    valor = models.FloatField()
+    valor_interno = models.FloatField(default=0)
+    valor_externo = models.FloatField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -627,8 +627,23 @@ class View_serrada(models.Model):
     mes = models.IntegerField(default=0)
     ano = models.IntegerField(default=0)    
     class Meta:
-        managed: False
-        db_table = 'view_serrada'
-                
+        managed=False
+        db_table='view_serrada'
 
+class View_producao_fio(models.Model):
+    m3_bruto = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
+    m3_liquido = models.DecimalField(max_digits=15, decimal_places=3, default=0) 
+    m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    jogo_fio_id = models.IntegerField()
+    qtde_fios = models.IntegerField()
+    maquina = models.CharField(max_length= 100)
+    espessura_fio_inicial = models.DecimalField(max_digits=6, decimal_places=3, default=0)
+    espessura_fio_final = models.DecimalField(max_digits=6, decimal_places=3, default=0)
+    prd_fio_m2 = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    custo_m2 = models.FloatField(default=0)
+  
+    class Meta:
+        managed=False
+        db_table='view_producao_fio'
+                
 

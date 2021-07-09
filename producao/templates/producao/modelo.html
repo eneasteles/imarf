@@ -33,11 +33,12 @@
                 <a class="nav-link" href="{% url 'lista-faturamento' %}">Faturamento</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Departamentos</a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
                 <ul class="dropdown-menu" aria-labelledby="dropdown09">
                   <li><a class="dropdown-item" href="#">Comercial</a></li>
-                  <li><a class="dropdown-item" href="#">Produção</a></li>
-                  <li><a class="dropdown-item" href="#">Relatórios</a></li>
+                  <li><a class="dropdown-item" href="#">Faturamento</a></li>
+                  <li><a class="dropdown-item" href="{% url 'lista-serrada2' %}">Serrada</a></li>
+                  <li><a class="dropdown-item" href="#">Producao Fio</a></li>
                 </ul>
               </li>
               {% if request.user.is_authenticated %}
