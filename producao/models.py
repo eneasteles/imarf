@@ -243,6 +243,7 @@ class Produto(models.Model):
 class Pedreira(models.Model):
     pedreira = CharField(max_length=100)
     cidade = CharField(max_length=100, blank=True, null=True)
+    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT, default=1)
    # usuario = models.ForeignKey(User, on_delete=PROTECT)
     
     def __str__(self):
@@ -659,14 +660,24 @@ class View_producao_fio(models.Model):
         managed=False
         db_table='view_producao_fio'
 
-class Custos_Producao(models.Model):
-    
+class Custos_Pedreira(models.Model):
+    id = models.AutoField(primary_key=True)    
     ano = models.IntegerField(default=timezone.now().year)
     mes = models.IntegerField(choices=MES_CHOICES)
     pedreira = models.ForeignKey(Pedreira, on_delete=models.PROTECT) 
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)    
+
+
+class Producao_Pedreira(models.Model):
+    custos_producao_pedreira_id = models.ForeignKey(Custos_Pedreira, on_delete=PROTECT)
+    material = models.ForeignKey(Material, on_delete=PROTECT)
+    m3 = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True) 
+
+
 
 
 

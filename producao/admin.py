@@ -22,6 +22,15 @@ class BlocoAdmin(admin.ModelAdmin):
         BlocoIteminline
     ]
 
+class ProducaoPedreiraInline(admin.TabularInline):
+    model = Producao_Pedreira
+    extra = 1
+class CustoPedreiraAdmin(admin.ModelAdmin):
+    list_display = ('mes','ano','pedreira')
+    inlines = [
+        ProducaoPedreiraInline
+    ]
+
 class Resinamento_itemInline(admin.TabularInline):
     model = Resinamento_item
     extra = 1
@@ -120,4 +129,5 @@ admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)
 admin.site.register(Faturamento,FaturamentoAdmin)
 admin.site.register(Resina)
+admin.site.register(Custos_Pedreira, CustoPedreiraAdmin)
 
