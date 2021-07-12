@@ -11,6 +11,20 @@ from django.utils.tree import Node
 from django.contrib.auth.models import User
 #from django_pgviews import view as pg
 
+MES_CHOICES = (
+        (1,'JANEIRO'),
+        (2,'FEVEREIRO'),
+        (3,'MARÇO'),
+        (4,'ABRIL'),
+        (5,'MAIO'),
+        (6,'JUNHO'),
+        (7,'JULHO'),
+        (8,'AGOSTO'),
+        (9,'SETEMBRO'),
+        (10,'OUTUBRO'),
+        (11,'NOVEMBRO'),
+        (12,'DEZEMBRO')
+    )
 class Pessoa(models.Model):
     nome = models.CharField(max_length=100)
     cnpjcpf = models.CharField(max_length=14)
@@ -460,13 +474,14 @@ class Pedido_venda_item(models.Model):
     def __str__(self):
         return str(self.material)
 
+"""
 class Mes(models.Model):
     mes = models.PositiveSmallIntegerField(primary_key=True)
 
     def __str__(self):
         return str(self.mes)
 
-
+"""
 class Linha_Resinamento(models.Model):
     linha = CharField(max_length=15)
 
@@ -497,7 +512,7 @@ class Resina(models.Model):
 class Resinamento(models.Model):
     linha = models.ForeignKey(Linha_Resinamento, on_delete=PROTECT)
     ano = models.IntegerField()
-    mes = models.ForeignKey(Mes, on_delete=PROTECT)
+    mes = models.IntegerField(choices=MES_CHOICES)
     operador = models.ForeignKey(Operador, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -516,7 +531,7 @@ class Resinamento_item(models.Model):
 class Faturamento(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     ano = models.IntegerField()
-    mes = models.ForeignKey(Mes, on_delete=PROTECT)
+    mes = models.IntegerField(choices=MES_CHOICES)
     valor_interno = models.FloatField(default=0)
     valor_externo = models.FloatField(default=0)
     created = models.DateTimeField(auto_now_add=True)
@@ -579,14 +594,14 @@ class Vw_serrada(pg.View):
 class Folha_de_Pagamento(models.Model):
     centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=Node, default=1)
     ano = models.IntegerField(default=timezone.now().year)
-    mes = models.ForeignKey(Mes, on_delete=PROTECT)
+    mes = models.IntegerField(choices=MES_CHOICES, default=1)
     qtde_funcionarios = models.IntegerField()
     folha = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.mes)
+        return str(self.centro_de_custo)
 
 
 """
@@ -643,5 +658,17 @@ class View_producao_fio(models.Model):
     class Meta:
         managed=False
         db_table='view_producao_fio'
+
+class Custos_Producao(models.Model):
+    
+    ano = models.IntegerField(default=timezone.now().year)
+    mes = models.IntegerField(choices=MES_CHOICES)
+    pedreira = models.ForeignKey(Pedreira, on_delete=models.PROTECT) 
+    valor = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)    
+
+
+
                 
 
