@@ -21,7 +21,7 @@ class MaterialCreate(CreateView):
 
 class FaturamentoCreate(CreateView):
     model = Faturamento
-    fields = ['empresa','ano', 'mes', 'mercado', 'valor']
+    fields = ['empresa','ano', 'mes', 'valor_interno', 'valor_externo']
     template_name = 'cadastro/form_faturamento.html'
     success_url = reverse_lazy('lista-faturamento')
 ###########  update  ################
@@ -34,7 +34,7 @@ class MaterialUpdate(UpdateView):
 
 class FaturamentoUpdate(UpdateView):
     model = Faturamento
-    fields = ['empresa','ano', 'mes', 'mercado', 'valor']
+    fields = ['empresa','ano', 'mes', 'valor_interno', 'valor_externo']
     template_name = 'cadastro/form_faturamento.html'
     success_url = reverse_lazy('lista-faturamento')
 """

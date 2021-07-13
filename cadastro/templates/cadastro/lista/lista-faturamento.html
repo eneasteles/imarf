@@ -13,7 +13,8 @@
             <th>Empresa</th>
             <th>Ano</th>
             <th>Mês</th>
-            <th>Valor</th>
+            <th>Merc. Interno</th>
+            <th>Merc. Externo</th>
             <th>Opções</th>
         </tr>
     </thead>
@@ -23,7 +24,8 @@
             <td>{{ faturamento.empresa}}</td>
             <td>{{ faturamento.ano}}</td>
             <td>{{ faturamento.mes}}</td>
-            <td>{{ faturamento.valor}}</td>
+            <td>{{ faturamento.valor_interno}}</td>
+            <td>{{ faturamento.valor_externo}}</td>
             <td>
                 <a href="{% url 'editar-faturamento' faturamento.pk %}" class="btn btn-success btn-sm">editar</a>
                 <a href="{% url 'deletar-faturamento'  faturamento.pk %}" class="btn btn-danger btn-sm">excluir</a> 
