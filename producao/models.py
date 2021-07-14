@@ -25,6 +25,13 @@ MES_CHOICES = (
         (11,'NOVEMBRO'),
         (12,'DEZEMBRO')
     )
+
+LINHA_CHOICES = (
+        ('1', 'MESAS'),
+        ('2', 'AUTOMÁTICA'),
+        ('3', 'AUTOMÁTICA C/30 BANDEIJAS')
+    )
+
 class Pessoa(models.Model):
     nome = models.CharField(max_length=100)
     cnpjcpf = models.CharField(max_length=14)
@@ -408,6 +415,9 @@ class FioFatorConversao(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str(self.fator)
+
 
 class Status_venda(models.Model):
     status_venda = CharField(max_length=25)
@@ -501,6 +511,8 @@ class Operador(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
    # usuario = models.ForeignKey(User, on_delete=PROTECT)
+    def __str__(self):
+        return str(self.operador)
 
 class Resina(models.Model):
     resina = models.CharField(max_length=100)
@@ -512,20 +524,20 @@ class Resina(models.Model):
         return str(self.resina)
 class Resinamento(models.Model):
     linha = models.ForeignKey(Linha_Resinamento, on_delete=PROTECT)
-    ano = models.IntegerField()
+    ano = models.IntegerField(default=timezone.now().year)
     mes = models.IntegerField(choices=MES_CHOICES)
     operador = models.ForeignKey(Operador, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return str(self.ano)
+        return str(self.mes)
 class Resinamento_item(models.Model):
     resinamento_id = ForeignKey(Resinamento, on_delete=PROTECT)
     bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     quantidade = models.FloatField()
-    observacao = models.CharField(max_length=200)
+    observacao = models.CharField(max_length=200, blank=True)
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
 
 

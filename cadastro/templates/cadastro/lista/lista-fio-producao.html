@@ -29,10 +29,10 @@
             <td>{{ view_producao_fio.liga }}</td>
             <td>{{ view_producao_fio.valor_metro_fio }}</td>
             <td>{{ view_producao_fio.espessura_fio }}</td>
-            <td>{{ view_producao_fio.m3_bruto }}</td>
-            <td>{{ view_producao_fio.m3_liquido }}</td>
-            <td>{{ view_producao_fio.m2 }}</td>            
-            <td>{{ view_producao_fio.prd_fio_m2 }}</td>
+            <td>{{ view_producao_fio.m3_bruto|floatformat:"2g"  }}</td>
+            <td>{{ view_producao_fio.m3_liquido|floatformat:"2g"  }}</td>
+            <td>{{ view_producao_fio.m2|floatformat:"2g"  }}</td>            
+            <td>{{ view_producao_fio.prd_fio_m2|floatformat:"2g"  }}</td>
         </tr>
 
         {% empty %}

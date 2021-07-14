@@ -124,10 +124,12 @@ admin.site.register(Status_venda)
 admin.site.register(Frete)
 admin.site.register(FioFatorConversao)
 admin.site.register(Resinamento, ResinamentoAdmin)
-##admin.site.register(Mes)
+admin.site.register(Operador)
 admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)
 admin.site.register(Faturamento,FaturamentoAdmin)
 admin.site.register(Resina)
 admin.site.register(Custos_Pedreira, CustoPedreiraAdmin)
+admin.site.register(Linha_Resinamento)
+
 

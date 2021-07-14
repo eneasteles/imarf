@@ -54,7 +54,7 @@
             <td>{{ view_serrada.comprimento }}</td>
             <td>{{ view_serrada.altura }}</td>
             <td>{{ view_serrada.largura }}</td>
-            <td>{{ view_serrada.m3_bruto }}</td>
+            <td>{{ view_serrada.m3_bruto|floatformat:"2g"  }}</td>
             <td>{{ view_serrada.m3_liquido }}</td>
             <td>{{ view_serrada.m3_perda }}</td>            
             <td>{{ view_serrada.data_inicial| date:"d/m/Y" }}</td>
@@ -70,7 +70,7 @@
             <td>{{ view_serrada.espessura_fio_final }}</td>            
             <td>{{ view_serrada.periferica }}</td>
             <td>{{ view_serrada.cala }}</td>            
-            <td>{{ view_serrada.consumo_kwh }}</td>
+            <td>{{ view_serrada.consumo_kwh|floatformat:"2g"  }}</td>
 
         </tr>
 
