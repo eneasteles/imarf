@@ -18,11 +18,15 @@
             <th>Material</th>
             <th>m2</th>
             <th>Qtde Ch</th>
+            <th>Espessura</th>
             <th>Com</th>
             <th>Alt</th>
             <th>lar</th>
             <th>m3 bru</th>
-            <th>m3 liq</th>
+            <th>m3 chp prod</th>
+            <th>m3 Perda Real</th>
+            <th>m3 Perda c/borda chp</th>
+            <th>m3 liq</th>            
             <th>m3 Perda</th>
             <th>Início</th>
             <th>Fim</th>            
@@ -51,10 +55,14 @@
             <td>{{ view_serrada.material }}</td>
             <td>{{ view_serrada.m2 }}</td>
             <td>{{ view_serrada.qtde_chapas }}</td>
+            <td>{{ view_serrada.espessura }}</td>
             <td>{{ view_serrada.comprimento }}</td>
             <td>{{ view_serrada.altura }}</td>
             <td>{{ view_serrada.largura }}</td>
             <td>{{ view_serrada.m3_bruto|floatformat:"2g"  }}</td>
+            <td>{{ view_serrada.m3_chapas_produzidas|floatformat:"2g"  }}</td>
+            <td>{{ view_serrada.m3_perda_real }}</td>
+            <td>{{ view_serrada.m3_perda_com_borda_chapa }}</td>  
             <td>{{ view_serrada.m3_liquido }}</td>
             <td>{{ view_serrada.m3_perda }}</td>            
             <td>{{ view_serrada.data_inicial| date:"d/m/Y" }}</td>
