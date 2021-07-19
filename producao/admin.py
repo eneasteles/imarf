@@ -26,7 +26,7 @@ class ProducaoPedreiraInline(admin.TabularInline):
     model = Producao_Pedreira
     extra = 1
 class CustoPedreiraAdmin(admin.ModelAdmin):
-    list_display = ('mes','ano','pedreira')
+    list_display = ('pedreira','ano','mes')
     inlines = [
         ProducaoPedreiraInline
     ]
