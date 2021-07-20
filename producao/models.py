@@ -32,6 +32,11 @@ LINHA_CHOICES = (
         ('3', 'AUTOMÁTICA C/30 BANDEIJAS')
     )
 
+class Centro_de_Custo(models.Model):
+    centro_de_custo = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.centro_de_custo)
 class Pessoa(models.Model):
     nome = models.CharField(max_length=100)
     cnpjcpf = models.CharField(max_length=14)
@@ -39,9 +44,19 @@ class Pessoa(models.Model):
     def __str__(self):
         return self.nome
 
+class Pedreira(models.Model):
+    pedreira = CharField(max_length=100)
+    cidade = CharField(max_length=100, blank=True, null=True)
+    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT, default=1)
+   # usuario = models.ForeignKey(User, on_delete=PROTECT)
+    
+    def __str__(self):
+        return str(self.pedreira)
+
 class Material(models.Model):
     material = models.CharField(max_length=100)
     dureza = models.IntegerField(default= True) 
+    pedreira = models.ForeignKey(Pedreira, on_delete=PROTECT, default=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -167,11 +182,7 @@ class Fio_diamantado(models.Model):
     def __str__(self):
         return str(self.jogo_fio)
 
-class Centro_de_Custo(models.Model):
-    centro_de_custo = models.CharField(max_length=100)
 
-    def __str__(self):
-        return str(self.centro_de_custo)
 class Serrada(models.Model):
     serrada = models.IntegerField()
     data_inicial = models.DateTimeField()
@@ -247,14 +258,7 @@ class Produto(models.Model):
 
 
 
-class Pedreira(models.Model):
-    pedreira = CharField(max_length=100)
-    cidade = CharField(max_length=100, blank=True, null=True)
-    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT, default=1)
-   # usuario = models.ForeignKey(User, on_delete=PROTECT)
-    
-    def __str__(self):
-        return str(self.pedreira)
+
 
 class Aplicacao(models.Model):
     aplicacao = models.CharField(max_length=100)
