@@ -19,6 +19,7 @@
             <th>m3 liq</th>
             <th>m2</th>
             <th>Prd Fio m2</th>
+            <th>Dureza</th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
             <td>{{ view_producao_fio.m3_liquido|floatformat:"2g"  }}</td>
             <td>{{ view_producao_fio.m2|floatformat:"2g"  }}</td>            
             <td>{{ view_producao_fio.prd_fio_m2|floatformat:"2g"  }}</td>
+            <td>{{ view_producao_fio.dureza }}</td>
         </tr>
 
         {% empty %}

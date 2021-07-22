@@ -681,6 +681,7 @@ class View_producao_fio(models.Model):
     m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)
     espessura_fio = models.DecimalField(max_digits=6, decimal_places=3, default=0)
     prd_fio_m2 = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    dureza = models.IntegerField(default=0)
     class Meta:
         managed=False
         db_table='view_producao_fio'
