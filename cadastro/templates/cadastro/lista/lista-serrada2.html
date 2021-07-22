@@ -28,6 +28,10 @@
             <th>m3 Perda c/borda chp</th>
             <th>m3 liq</th>            
             <th>m3 Perda</th>
+            <th>Valor m3</th>
+            <th>Valor do Bloco</th>
+            <th>Custo do m2 com Borda</th>
+            <th>Custo do m2 sem Borda</th>
             <th>Início</th>
             <th>Fim</th>            
             <th>Hor. Inic</th>
@@ -64,7 +68,11 @@
             <td>{{ view_serrada.m3_perda_real }}</td>
             <td>{{ view_serrada.m3_perda_com_borda_chapa }}</td>  
             <td>{{ view_serrada.m3_liquido }}</td>
-            <td>{{ view_serrada.m3_perda }}</td>            
+            <td>{{ view_serrada.m3_perda }}</td> 
+            <td>{{ view_serrada.valor_m3 }}</td>   
+            <td>{{ view_serrada.valor_do_bloco|floatformat:"2g" }}</td> 
+            <td>{{ view_serrada.custo_m2_com_borda|floatformat:"2g" }}</td>     
+            <td>{{ view_serrada.custo_m2_sem_borda|floatformat:"2g" }}</td>        
             <td>{{ view_serrada.data_inicial| date:"d/m/Y" }}</td>
             <td>{{ view_serrada.data_final| date:"d/m/Y" }}</td>
             <td>{{ view_serrada.horimetro_inicial }}</td>
@@ -73,7 +81,7 @@
             <td>{{ view_serrada.jogo_fio_id }}</td>
             <td>{{ view_serrada.qtde_fios_aplicado }}</td>
             <td>{{ view_serrada.prd_fio_m2 }}</td>
-            <td>{{ view_serrada.custo_fio_por_m2 }}</td>
+            <td>{{ view_serrada.custo_fio_por_m2|floatformat:"2g" }}</td>
             <td>{{ view_serrada.espessura_fio_inicial }}</td>
             <td>{{ view_serrada.espessura_fio_final }}</td>            
             <td>{{ view_serrada.periferica }}</td>

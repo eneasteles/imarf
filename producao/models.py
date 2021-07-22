@@ -541,6 +541,7 @@ class Resinamento_item(models.Model):
     bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     quantidade = models.FloatField()
+    quantidade_insumo = models.FloatField(default=0)
     observacao = models.CharField(max_length=200, blank=True)
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
 
@@ -640,6 +641,11 @@ class View_serrada(models.Model):
     m3_perda_real = models.DecimalField(max_digits=15, decimal_places=3, default=0)   
     m3_perda_com_borda_chapa = models.DecimalField(max_digits=15, decimal_places=3, default=0)   
     m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    valor_do_bloco = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    valor_m3 = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    custo_m2_sem_borda = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    custo_m2_com_borda = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+
     jogo_fio_id = models.IntegerField()
     quantidade_fio = models.IntegerField()
     qtde_chapas  = models.IntegerField(default=0)
@@ -658,8 +664,7 @@ class View_serrada(models.Model):
     periferica = models.DecimalField(max_digits=5, decimal_places=3)
     cala = models.IntegerField(default=10)
     consumo_kwh = models.DecimalField(max_digits=7, decimal_places=3, default=0)
-    custo_bloco = models.DecimalField(max_digits=15, decimal_places=3, default=0)
-    custo_m2 = models.FloatField(default=0)
+
     mes = models.IntegerField(default=0)
     ano = models.IntegerField(default=0)    
     class Meta:

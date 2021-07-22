@@ -17,6 +17,7 @@ class BlocoSerradaInline(admin.TabularInline):
     extra = 1
 
 class BlocoAdmin(admin.ModelAdmin):
+    ordering = ('bloco',)
     list_display = ('bloco','material','status')
     inlines = [
         BlocoIteminline
