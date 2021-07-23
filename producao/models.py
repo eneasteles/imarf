@@ -710,7 +710,10 @@ class Custos_Pedreira(models.Model):
     pedreira = models.ForeignKey(Pedreira, on_delete=models.PROTECT) 
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)    
+    updated = models.DateTimeField(auto_now=True) 
+
+    def __str__(self):
+        return str(self.pedreira)   
 
 
 class Producao_Pedreira(models.Model):
