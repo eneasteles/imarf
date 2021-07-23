@@ -686,6 +686,23 @@ class View_producao_fio(models.Model):
         managed=False
         db_table='view_producao_fio'
 
+class View_producao_fio_resumo(models.Model):
+    maquina = models.CharField(max_length= 100)
+    jogo_fio_id = models.IntegerField(primary_key=True)
+    liga = models.CharField(max_length= 25)
+    valor_metro_fio =  models.FloatField(default=0)
+    m3_bruto = models.DecimalField(max_digits=15, decimal_places=3, default=0)    
+    m3_liquido = models.DecimalField(max_digits=15, decimal_places=3, default=0) 
+    m2  = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    garantia_do_fio = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    saldo = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    espessura_fio = models.DecimalField(max_digits=6, decimal_places=3, default=0)
+    prd_fio_m2 = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    prd_fio_m2_dureza = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    class Meta:
+        managed=False
+        db_table='view_producao_fio_resumo'
+
 class Custos_Pedreira(models.Model):
     id = models.AutoField(primary_key=True)    
     ano = models.IntegerField(default=timezone.now().year)

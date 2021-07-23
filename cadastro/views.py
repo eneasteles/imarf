@@ -84,3 +84,8 @@ class ProducaoFio(LoginRequiredMixin ,ListView):
     login_url = reverse_lazy('login')
     model = View_producao_fio
     template_name = 'cadastro/lista/lista-fio-producao.html'
+
+class ProducaoFioResumo(LoginRequiredMixin ,ListView):
+    login_url = reverse_lazy('login')
+    model = View_producao_fio_resumo
+    template_name = 'cadastro/lista/lista-fio-producao-resumo.html'
