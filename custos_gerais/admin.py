@@ -1,17 +1,18 @@
 from django.contrib import admin
-from custos_gerais.models import Item_de_Producao,Custos_Gerais,Custos_Gerais_Itens
+from custos_gerais.models import Custo_Geral, Item_de_Producao, Custo_Geral_Item
 
-class Custos_Gerais_ItensInline(admin.TabularInline):
-    model = Custos_Gerais_Itens
+class Custo_Geral_ItemInline(admin.TabularInline):
+    model = Custo_Geral_Item
     extra = 1
 
-class Custos_GeraisAdmin(admin.ModelAdmin):
+class Custo_GeralAdmin(admin.ModelAdmin):
     list_display = ('ano', 'mes', 'producao_m2')
     inlines = [
-        Custos_Gerais_ItensInline
+        Custo_Geral_ItemInline
         ]
 # Register your models here.
 
 admin.site.register(Item_de_Producao)
-admin.site.register(Custos_Gerais, Custos_GeraisAdmin)
+admin.site.register(Custo_Geral_Item)
+admin.site.register(Custo_Geral, Custo_GeralAdmin)
 #admin.site.register(Custos_Gerais_Itens)

@@ -3,13 +3,13 @@ from producao.models import *
 
 # Create your models here.
 class Item_de_Producao(models.Model):
-    id = models.AutoField(primary_key=True)
-    item_de_producao = models.CharField(max_length=100)
+    #id = models.AutoField(primary_key=True)
+    item_de_producao = models.CharField(max_length=100, default='indefinido')
     def __str__(self):
         return self.item_de_producao
 
-class Custos_Gerais(models.Model):
-    id = models.AutoField(primary_key=True)    
+class Custo_Geral(models.Model):
+    #id = models.AutoField(primary_key=True)    
     ano = models.IntegerField(default=timezone.now().year)
     mes = models.IntegerField(choices=MES_CHOICES)
     producao_m2 = models.FloatField()    
@@ -19,9 +19,9 @@ class Custos_Gerais(models.Model):
     def __str__(self):
         return str(self.ano) + ' - ' + str(self.mes)
 
-class Custos_Gerais_Itens(models.Model):
-    custos_gerais = models.ForeignKey(Custos_Gerais, on_delete=PROTECT)
-    item_de_producao = models.ForeignKey(Material, on_delete=PROTECT)
+class Custo_Geral_Item(models.Model):
+    custo_geral_id = models.ForeignKey(Custo_Geral, on_delete=PROTECT)
+    item_de_producao_id = models.ForeignKey(Item_de_Producao, on_delete=PROTECT, default=1)
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
