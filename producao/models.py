@@ -648,6 +648,8 @@ class View_serrada(models.Model):
 
     jogo_fio_id = models.IntegerField()
     quantidade_fio = models.IntegerField()
+    custo_fio_por_m2 = models.DecimalField(max_digits=15, decimal_places=2, default=0)  
+    custo_fio_por_m2_aplicado = models.DecimalField(max_digits=15, decimal_places=2, default=0)  
     qtde_chapas  = models.IntegerField(default=0)
     espessura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     data_inicial = models.DateTimeField()

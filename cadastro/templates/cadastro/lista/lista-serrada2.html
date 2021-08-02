@@ -40,7 +40,8 @@
             <th>Jogo Fio</th>
             <th>Qt Fio</th>
             <th>Prd Fio m2</th>
-            <th>Custo m2</th>
+            <th>Custo Fio m2</th>
+            <th>Custo Fio m2 Aplicado</th>
             <th>Esp Fio Ini</th>
             <th>Esp Fio Fin</th>            
             <th>Periférica</th>
@@ -82,6 +83,7 @@
             <td>{{ view_serrada.qtde_fios_aplicado }}</td>
             <td>{{ view_serrada.prd_fio_m2 }}</td>
             <td>{{ view_serrada.custo_fio_por_m2|floatformat:"2g" }}</td>
+            <td>{{ view_serrada.custo_fio_por_m2_aplicado|floatformat:"2g" }}</td>
             <td>{{ view_serrada.espessura_fio_inicial }}</td>
             <td>{{ view_serrada.espessura_fio_final }}</td>            
             <td>{{ view_serrada.periferica }}</td>
