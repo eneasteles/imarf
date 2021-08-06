@@ -1,3 +1,5 @@
+from django.db.models import Sum, Max, Min, Avg
+from django.db.models.aggregates import Avg, Min
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from producao.models import *
@@ -79,6 +81,14 @@ class SerradaList2(LoginRequiredMixin ,ListView):
     login_url = reverse_lazy('login')
     model = View_serrada
     template_name = 'cadastro/lista/lista-serrada2.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SerradaList2, self).get_context_data(*args, **kwargs)
+        context['m3_liquido'] = View_serrada.objects.aggregate(Sum('m3_liquido'))
+        context['m2'] = View_serrada.objects.aggregate(Sum('m2'))
+        context['qtde_chapas'] = View_serrada.objects.aggregate(Sum('qtde_chapas'))
+        context['m3_perda_com_borda_chapa'] = View_serrada.objects.aggregate(Sum('m3_perda_com_borda_chapa'))
+        return context
 
 class ProducaoFio(LoginRequiredMixin ,ListView):
     login_url = reverse_lazy('login')

@@ -91,13 +91,30 @@
             <td>{{ view_serrada.consumo_kwh|floatformat:"2g"  }}</td>
 
         </tr>
-
+        
         {% empty %}
         <tr>
             <td colspan="4">Nenhum registro encontrado</td>
         </tr>
         {% endfor %}
+
+        
     </tbody>
+    </table>
+    <table  class="table table-striped" id="tabela-listar-serrada-total">
+        <tbody>
+            <tr>                
+                <td>Total m2:</td> 
+                <td>{{m2.m2__sum|floatformat:"2g" }}</td> 
+                <td>Chapas:</td> 
+                <td>{{qtde_chapas.qtde_chapas__sum}}</td>
+                <td colspan="4"></td>
+                <td>Total m3 líquido:</td>
+                <td >{{m3_liquido.m3_liquido__sum|floatformat:"2g" }}</td>
+                <td>Perda Total m3:</td>
+                <td>{{m3_perda_com_borda_chapa.m3_perda_com_borda_chapa__sum|floatformat:"2g" }}</td>       
+            </tr>
+        </tbody>
     </table>
 </div>
 
