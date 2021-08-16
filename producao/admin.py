@@ -111,7 +111,7 @@ admin.site.register(Observacao_chapa)
 admin.site.register(Insumo)
 admin.site.register(Unidade)
 admin.site.register(Maquina)     #       admin.site.register()
-#admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
+admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
 admin.site.register(Fio_diamantado)
 admin.site.register(Pessoa)
 admin.site.register(Grupo)
