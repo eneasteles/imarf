@@ -9,6 +9,7 @@ from django.utils.regex_helper import Group
 from django.utils import timezone
 from django.utils.tree import Node
 from django.contrib.auth.models import User
+from serraria.models import *
 #from django_pgviews import view as pg
 
 MES_CHOICES = (
@@ -183,6 +184,7 @@ class Fio_diamantado(models.Model):
         return str(self.jogo_fio)
 
 
+
 class Serrada(models.Model):
     serrada = models.IntegerField()
     data_inicial = models.DateTimeField()
@@ -197,13 +199,16 @@ class Serrada(models.Model):
     periferica = models.DecimalField(max_digits=5, decimal_places=3)
     cala = models.IntegerField(default=10)
     jogo_fio = models.ForeignKey(Fio_diamantado, on_delete=PROTECT)
-    consumo_kwh = models.DecimalField(max_digits=7, decimal_places=3, default=0)
+    consumo_kwh_fp = models.DecimalField(max_digits=7, decimal_places=3, default=0)
+    consumo_kwh_p = models.DecimalField(max_digits=7, decimal_places=3, default=0)
     centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT,default=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return str(self.serrada)
+
+
 
 class BlocoSerrada(models.Model):
     serrada = ForeignKey(Serrada, on_delete=PROTECT)
@@ -216,20 +221,17 @@ class BlocoSerrada(models.Model):
     def __str__(self):
         return str(self.bloco)
 
-class Chapas_produzidas(models.Model):
-    serrada = models.ForeignKey(Serrada, on_delete=models.PROTECT)
-    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
-    comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
-    altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
-    largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
-    qtde_fios = models.IntegerField(default=0)
-    quantidade = models.IntegerField()
-    espessura = models.ForeignKey(Espessura, on_delete=models.PROTECT) 
-    created = models.DateTimeField(auto_now_add=True)
-  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
-    def __str__(self):
-        return str(self.quantidade)
+
+class Parada(models.Model):
+    serrada = models.ForeignKey(Serrada, on_delete=PROTECT)
+    data_inicial = models.DateTimeField()
+    data_final = models.DateTimeField() 
+    motivo = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
 
 
 class Grupo(models.Model):
@@ -257,7 +259,20 @@ class Produto(models.Model):
         return str(self.produto)
 
 
+class Chapas_produzidas(models.Model):
+    serrada = models.ForeignKey(Serrada, on_delete=models.PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    qtde_fios = models.IntegerField(default=0)
+    quantidade = models.IntegerField()
+    espessura = models.ForeignKey(Espessura, on_delete=models.PROTECT) 
+    created = models.DateTimeField(auto_now_add=True)
+  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
+    def __str__(self):
+        return str(self.quantidade)
 
 
 class Aplicacao(models.Model):
@@ -387,13 +402,7 @@ class BlocoItem(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
-class Parada(models.Model):
-    serrada = models.ForeignKey(Serrada, on_delete=PROTECT)
-    data_inicial = models.DateTimeField()
-    data_final = models.DateTimeField() 
-    motivo = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+
 
 
 
@@ -528,24 +537,30 @@ class Resina(models.Model):
         return str(self.resina)
 class Resinamento(models.Model):
     linha = models.ForeignKey(Linha_Resinamento, on_delete=PROTECT)
-    ano = models.IntegerField(default=timezone.now().year)
-    mes = models.IntegerField(choices=MES_CHOICES)
+    data = models.DateField(default=timezone.now())
     operador = models.ForeignKey(Operador, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return str(self.mes)
+        return str(self.data)
 class Resinamento_item(models.Model):
     resinamento_id = ForeignKey(Resinamento, on_delete=PROTECT)
     bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     quantidade_de_chapas = models.FloatField()
     quantidade_insumo = models.FloatField(default=0)
+    frequencia = models.PositiveIntegerField(default=1) 
     observacao = models.CharField(max_length=200, blank=True)
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
 
-
+class Parada_Resinamento(models.Model):
+    resinamento_id = models.ForeignKey(Resinamento, on_delete=PROTECT)
+    data_inicial = models.DateTimeField(default=timezone.now)
+    data_final = models.DateTimeField() 
+    motivo = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 class Faturamento(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     ano = models.IntegerField()

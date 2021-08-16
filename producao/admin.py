@@ -16,9 +16,7 @@ class BlocoIteminline(admin.TabularInline):
     model = BlocoItem
     extra = 1
 
-class BlocoSerradaInline(admin.TabularInline):
-    model = BlocoSerrada
-    extra = 1
+
 
 class BlocoAdmin(admin.ModelAdmin):
     ordering = ('bloco',)
@@ -39,10 +37,13 @@ class CustoPedreiraAdmin(admin.ModelAdmin):
 class Resinamento_itemInline(admin.TabularInline):
     model = Resinamento_item
     extra = 1
-
+class ParadaResinamentoinline(admin.TabularInline):
+    model = Parada_Resinamento
+    extra = 1
 class ResinamentoAdmin(admin.ModelAdmin):
     inlines = [
-        Resinamento_itemInline
+        Resinamento_itemInline,
+        ParadaResinamentoinline,
     ]
 class Fio_diamantadoinline(admin.TabularInline):
     model = Fio_diamantado
@@ -60,9 +61,12 @@ class DespesaItemAdmin(admin.ModelAdmin):
         DespesaIteminline
     ]
 
+
 class Paradainline(admin.TabularInline):
     model = Parada
     extra = 1
+
+
 
 class Forma_pagamento_inline(admin.TabularInline):
     model = Forma_pagamento
@@ -107,7 +111,7 @@ admin.site.register(Observacao_chapa)
 admin.site.register(Insumo)
 admin.site.register(Unidade)
 admin.site.register(Maquina)     #       admin.site.register()
-admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
+#admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
 admin.site.register(Fio_diamantado)
 admin.site.register(Pessoa)
 admin.site.register(Grupo)

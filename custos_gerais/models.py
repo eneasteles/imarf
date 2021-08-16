@@ -22,6 +22,8 @@ class Custo_Geral(models.Model):
 class Custo_Geral_Item(models.Model):
     custo_geral_id = models.ForeignKey(Custo_Geral, on_delete=PROTECT)
     item_de_producao_id = models.ForeignKey(Item_de_Producao, on_delete=PROTECT, default=1)
+    quantidade = models.FloatField(default=0)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
