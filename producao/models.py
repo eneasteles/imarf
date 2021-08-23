@@ -32,7 +32,12 @@ LINHA_CHOICES = (
         ('2', 'AUTOMÁTICA'),
         ('3', 'AUTOMÁTICA C/30 BANDEIJAS')
     )
-
+class Unidade_de_Medida(models.Model):
+    unidade = models.CharField(max_length=30, primary_key=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return str(self.unidade)
 class Centro_de_Custo(models.Model):
     centro_de_custo = models.CharField(max_length=100)
 
@@ -539,19 +544,44 @@ class Resinamento(models.Model):
     linha = models.ForeignKey(Linha_Resinamento, on_delete=PROTECT)
     data = models.DateField(default=timezone.now())
     operador = models.ForeignKey(Operador, on_delete=PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=PROTECT, default=2)
+    quantidade_de_chapas = models.PositiveIntegerField(default=0)
+    observacao = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return str(self.data)
+"""     
+class Resinamento_Bloco(models.Model):
+    resinamento_id = models.ForeignKey(Resinamento, on_delete=PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
+    quantidade_de_chapas = models.PositiveIntegerField()
+    observacao = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+"""
+
+class Resinamento_Insumo(models.Model):
+    #resinamento_bloco_id = models.ForeignKey(Resinamento_Bloco, on_delete=PROTECT)
+    resina = models.ForeignKey(Resina, on_delete=PROTECT)
+    unidade = models.ForeignKey(Unidade_de_Medida, on_delete=PROTECT)
+    quantidade = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
+
+
 class Resinamento_item(models.Model):
     resinamento_id = ForeignKey(Resinamento, on_delete=PROTECT)
-    bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
+    #bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
-    quantidade_de_chapas = models.FloatField()
+    #quantidade_de_chapas = models.FloatField()
     quantidade_insumo = models.FloatField(default=0)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
     frequencia = models.PositiveIntegerField(default=1) 
-    observacao = models.CharField(max_length=200, blank=True)
+    #observacao = models.CharField(max_length=200, blank=True)
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
 
 class Parada_Resinamento(models.Model):

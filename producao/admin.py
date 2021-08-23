@@ -21,6 +21,8 @@ class BlocoIteminline(admin.TabularInline):
 class BlocoAdmin(admin.ModelAdmin):
     ordering = ('bloco',)
     list_display = ('bloco','material','status')
+    #list_filter = ('bloco')
+    search_fields = ['bloco']
     inlines = [
         BlocoIteminline
     ]
@@ -37,13 +39,27 @@ class CustoPedreiraAdmin(admin.ModelAdmin):
 class Resinamento_itemInline(admin.TabularInline):
     model = Resinamento_item
     extra = 1
+class Resinamento_Insumo_Inline(admin.TabularInline):
+    model = Resinamento_Insumo
+    extra = 1
+"""class Resinamento_Bloco_Inline(admin.TabularInline):
+    model = Resinamento_Bloco
+    extra = 1
+    inlines = [
+        Resinamento_Insumo_Inline,
+    ]
+"""
+
 class ParadaResinamentoinline(admin.TabularInline):
     model = Parada_Resinamento
     extra = 1
 class ResinamentoAdmin(admin.ModelAdmin):
+    list_display = ('data','bloco','operador','created')
     inlines = [
+        #Resinamento_Bloco_Inline,
         Resinamento_itemInline,
         ParadaResinamentoinline,
+        
     ]
 class Fio_diamantadoinline(admin.TabularInline):
     model = Fio_diamantado
