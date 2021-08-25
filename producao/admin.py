@@ -54,7 +54,7 @@ class ParadaResinamentoinline(admin.TabularInline):
     model = Parada_Resinamento
     extra = 1
 class ResinamentoAdmin(admin.ModelAdmin):
-    list_display = ('data','bloco','operador','created')
+    list_display = ('data','bloco','operador','id')
     inlines = [
         #Resinamento_Bloco_Inline,
         Resinamento_itemInline,
