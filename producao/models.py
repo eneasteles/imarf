@@ -534,6 +534,7 @@ class Operador(models.Model):
 
 class Resina(models.Model):
     resina = models.CharField(max_length=100)
+    dados_tecnicos = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
   #  usuario = models.ForeignKey(User, on_delete=PROTECT)
