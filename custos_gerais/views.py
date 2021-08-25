@@ -4,6 +4,7 @@ from django.shortcuts import render
 from producao.models import View_serrada, Serrada
 import pandas as pd
 import numpy as np
+import re
 #import matplotlib.pyplot as plt
 
 def example(request):
@@ -28,22 +29,15 @@ def main_view(request):
 def pd_serrada(request):
     qs = View_serrada.objects.all().values()
     data = pd.DataFrame(qs)
-    producao_por_material = data[["mes","ano","material","m2"]].groupby(["mes","ano","material"]).sum()
+    #data = data_.replace('[^\d.]', '', regex=True).astype(float)
+    producao_por_material = data[["mes","ano","material","espessura","qtde_chapas","m2","m3_liquido","m3_perda_com_borda_chapa"]].groupby(["mes","ano","material","espessura"]).sum(numeric_only=False)
     
-    #data = data.drop(columns=['espessura','maquina','qtde_fios_aplicado','prd_fio_m2','consumo_kwh','quantidade_fio','custo_fio_por_m2','custo_fio_por_m2_aplicado','valor_do_bloco','valor_m3','custo_m2_sem_borda','custo_m2_com_borda','bloco','comprimento','altura','largura','serrada','data_inicial','data_final','observacoes','periferica','cala','jogo_fio_id','horimetro_inicial','horimetro_final','amperagem_max','espessura_fio_inicial','espessura_fio_final'])
-    
-    #datagb = data.groupby(['ano','mes','material'],dropna=False).sum()
-    
-    #datagb.loc['Total'] = data.sum()
-
 
     context = {
-        #'df': datagb.to_html(),
-        #'df': datagb.to_html(classes=['table', 'table-striped', 'table-hover']),
+
         'df': producao_por_material.to_html(classes=['table', 'table-striped', 'table-hover']),
-        
-        #'df': data.to_html(),        
-        'describe': data.describe().to_html(classes=['table', 'table-striped', 'table-hover']),
+    
+        'describe': producao_por_material.describe().to_html(classes=['table', 'table-striped', 'table-hover']),
         
     }
     return render(request, 'custos_gerais/serrada.html', context)
@@ -54,6 +48,7 @@ def pd_serrada_soma(request):
 
     qs = View_serrada.objects.all().values()
     data_soma = pd.DataFrame(qs)  
+    #data_soma = data_soma.replace('[^\d.]', '', regex=True).astype(float)
     
     data_soma = data_soma.drop(columns=['material','espessura','maquina','qtde_fios_aplicado','prd_fio_m2','consumo_kwh','quantidade_fio','custo_fio_por_m2','custo_fio_por_m2_aplicado','valor_do_bloco','valor_m3','custo_m2_sem_borda','custo_m2_com_borda','bloco','comprimento','altura','largura','serrada','data_inicial','data_final','observacoes','periferica','cala','jogo_fio_id','horimetro_inicial','horimetro_final','amperagem_max','espessura_fio_inicial','espessura_fio_final'])
     
@@ -65,5 +60,22 @@ def pd_serrada_soma(request):
         'describe': data_soma.describe().to_html(),        
     }
     return render(request, 'custos_gerais/serrada_soma.html', context)
+
+
+def pd_serrada_total(request):
+    qs = View_serrada.objects.all().values()
+    pd.options.display.float_format = '{:,.2f}'.format
+    pd.options.display.colheader_justify = 'center'
+
+    data = pd.DataFrame(qs)
+    producao_total = data[["mes","ano","qtde_chapas","m2","m3_liquido","m3_perda_com_borda_chapa"]].groupby(["mes","ano"]).sum(numeric_only=False)
+
+    
+    context = {       
+        'df': producao_total.to_html(classes=['table', 'table-striped', 'table-hover']),
+        #'describe': data.describe().to_html(classes=['table', 'table-striped', 'table-hover']),                 
+    }
+    return render(request, 'custos_gerais/serrada_total.html', context)
+
 
    

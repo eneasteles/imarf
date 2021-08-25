@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cadastro',
     'custos_gerais',
     'serraria',
+    'polimento',
     'usuarios.apps.UsuariosConfig',
     'crispy_forms',
 
