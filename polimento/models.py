@@ -24,7 +24,7 @@ class Abrasivo(models.Model):
     tipo = models.CharField(max_length=50)    
     data_cadastro = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
-    usuario_cadastrou = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario_cadastrou = models.ForeignKey(User, on_delete=PROTECT)
 
     class Meta:
         verbose_name_plural = "Abrasivos"

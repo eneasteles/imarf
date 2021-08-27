@@ -36,7 +36,7 @@ class CustoPedreiraAdmin(admin.ModelAdmin):
         ProducaoPedreiraInline
     ]
 
-class Resinamento_itemInline(admin.TabularInline):
+class Resinamento_itemInline(admin.TabularInline):    
     model = Resinamento_item
     extra = 1
 class Resinamento_Insumo_Inline(admin.TabularInline):
@@ -54,7 +54,7 @@ class ParadaResinamentoinline(admin.TabularInline):
     model = Parada_Resinamento
     extra = 1
 class ResinamentoAdmin(admin.ModelAdmin):
-    list_display = ('data','bloco','operador','id')
+    list_display = ('data','bloco','quantidade_de_chapas','id')
     inlines = [
         #Resinamento_Bloco_Inline,
         Resinamento_itemInline,

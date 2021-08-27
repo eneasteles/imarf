@@ -575,7 +575,7 @@ class Resinamento_Insumo(models.Model):
 
 
 class Resinamento_item(models.Model):
-    resinamento_id = ForeignKey(Resinamento, on_delete=PROTECT)
+    resinamento_id = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Insumo")
     #bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     #quantidade_de_chapas = models.FloatField()
