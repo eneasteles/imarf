@@ -48,7 +48,7 @@ class Pessoa(models.Model):
     cnpjcpf = models.CharField(max_length=14)
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
 class Pedreira(models.Model):
     pedreira = CharField(max_length=100)

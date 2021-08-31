@@ -77,5 +77,23 @@ def pd_serrada_total(request):
     }
     return render(request, 'custos_gerais/serrada_total.html', context)
 
+def pd_serrada_media(request):
+    qs = View_serrada.objects.all().values()
+    pd.options.display.float_format = '{:,.2f}'.format
+    pd.options.display.colheader_justify = 'center'
+    data = pd.DataFrame(qs)
+    media_por_material = data[["mes","ano","material","m2"]].groupby(["mes","ano","material"]).median(numeric_only=False)
+    producao_total = data[["mes","ano","qtde_chapas","m2","m3_liquido","m3_perda_com_borda_chapa"]].groupby(["mes","ano"]).sum(numeric_only=False)
+    producao_total_anual = data[["ano","qtde_chapas","m2","m3_liquido","m3_perda_com_borda_chapa"]].groupby(["ano"]).sum(numeric_only=False)
+
+    context = {
+
+        'df':     media_por_material.to_html(classes=['table', 'table-striped', 'table-hover']),
+        'describe': media_por_material.describe().to_html(classes=['table', 'table-striped', 'table-hover']), 
+        'total': producao_total.to_html(classes=['table', 'table-striped', 'table-hover']),
+        'anual': producao_total_anual.to_html(classes=['table', 'table-striped', 'table-hover']),
+        
+    }
+    return render(request, 'custos_gerais/serrada_media.html', context)
 
    

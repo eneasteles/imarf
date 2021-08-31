@@ -18,7 +18,7 @@ class Tipo_Polimento(models.Model):
         return self.tipo_polimento
 
 class Abrasivo(models.Model):
-    fornecedor = models.ForeignKey(Pessoa, on_delete=models.PROTECT)
+    fornecedor = models.ForeignKey(Pessoa, on_delete=models.PROTECT, default=2)
     grao = models.IntegerField(default=0)
     descricao = models.CharField(max_length=100)
     tipo = models.CharField(max_length=50)    
@@ -26,25 +26,9 @@ class Abrasivo(models.Model):
     data_alteracao = models.DateTimeField(auto_now=True)
     usuario_cadastrou = models.ForeignKey(User, on_delete=PROTECT)
 
-    class Meta:
-        verbose_name_plural = "Abrasivos"
     def __str__(self):
-        return self.fornecedor
+        return self.descricao
 
-class Jogo_de_abrasivos(models.Model):
-    abr = models.ForeignKey(Abrasivo, on_delete=models.PROTECT)
-    fornecedor = models.ForeignKey(Pessoa, on_delete=models.PROTECT)
-    grao = models.IntegerField(default=0)
-    descricao = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=50, choices=TIPO_DE_ABRASIVOS, default='COMUM')
-    data_cadastro = models.DateTimeField(auto_now_add=True)
-    data_alteracao = models.DateTimeField(auto_now=True)
-    #usuario_cadastrou = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = "Jogos de Abrasivos"
-    def __str__(self):
-        return self.fornecedor
 
 class Qualidade_Polimento(models.Model):
     qualidade = models.CharField(max_length=100)
@@ -82,6 +66,15 @@ class Chapas_Polidas(models.Model):
     velocidade = models.PositiveIntegerField(default=0)
     qualidade = models.ForeignKey(Qualidade_Polimento, on_delete=models.PROTECT)
     frequencia = models.PositiveIntegerField(default=1)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+class Jogo_de_Abrasivos(models.Model):
+    polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
+    abrasivo_id = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
+    quantidade = models.PositiveIntegerField(default=0)
+    cabeca = models.PositiveIntegerField(default=0)
+    data = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
