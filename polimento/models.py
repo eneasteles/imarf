@@ -41,8 +41,8 @@ class Polimento(models.Model):
     turno = models.PositiveIntegerField(default=1)
     Operador = models.ForeignKey(Operador, on_delete=models.CASCADE)
     maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
-    horimetro_inicial = models.PositiveBigIntegerField(default=0)
-    horimetro_final = models.PositiveBigIntegerField(default=0)
+    horimetro_inicial = models.FloatField(default=0)
+    horimetro_final = models.FloatField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -72,9 +72,9 @@ class Chapas_Polidas(models.Model):
 class Jogo_de_Abrasivos(models.Model):
     polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
     abrasivo_id = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
-    quantidade = models.PositiveIntegerField(default=0)
+    quantidade = models.PositiveIntegerField(default=6)
     cabeca = models.PositiveIntegerField(default=0)
-    data = models.DateField(default=timezone.now)
+    #data = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
