@@ -602,7 +602,7 @@ class Faturamento(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.ano} {self.mes} {self.valor_interno} {self.valor_externo}'
+        return f'{self.ano} {self.mes} {self.empresa} {self.valor_interno} {self.valor_externo}'
     """
     usuario = models.ForeignKey(User, on_delete=PROTECT)
     

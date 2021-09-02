@@ -113,7 +113,7 @@ class SerradaAdmin(admin.ModelAdmin):
     ]
 
 class FaturamentoAdmin(admin.ModelAdmin):
-    list_display = ('ano','mes', 'valor_interno','valor_externo')
+    list_display = ('ano','mes', 'empresa', 'valor_interno','valor_externo')
    
 
 admin.site.register(Material)
