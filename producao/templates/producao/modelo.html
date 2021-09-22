@@ -25,7 +25,7 @@
           </button>
   
           <div class="collapse navbar-collapse fw-bolder text-white" id="navbarsExample09">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="https://imarf.herokuapp.com/">Home</a>
               </li>
@@ -38,7 +38,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
                 <ul class="dropdown-menu" aria-labelledby="dropdown09">
-                  <li><a class="dropdown-item" href="#">Faturamento</a></li>
+                  <li><a class="dropdown-item" href="{% url 'pd_faturamento' %}">Faturamento</a></li>
                   <li><a class="dropdown-item" href="{% url 'lista-serrada2' %}">Serrada</a></li>
                   <li><a class="dropdown-item" href="{% url 'pd_serrada' %}">Serrada Produção Mensal por Material</a></li>
                   <li><a class="dropdown-item" href="{% url 'pd_serrada_total' %}">Serrada Produção Mensal</a></li>

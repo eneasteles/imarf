@@ -82,8 +82,15 @@ class Paradainline(admin.TabularInline):
     model = Parada
     extra = 1
 
-
-
+class LigaFatorConversaoinline(admin.TabularInline):
+    model = LigaFatorConversao
+    extra = 1
+class LigaAdmin(admin.ModelAdmin):
+    inlines = [
+        LigaFatorConversaoinline
+    ]
+    
+        
 class Forma_pagamento_inline(admin.TabularInline):
     model = Forma_pagamento
     extra = 1
@@ -114,6 +121,7 @@ class SerradaAdmin(admin.ModelAdmin):
 
 class FaturamentoAdmin(admin.ModelAdmin):
     list_display = ('ano','mes', 'empresa', 'valor_interno','valor_externo')
+    ordering =('ano','mes', 'empresa',)
    
 
 admin.site.register(Material)
@@ -126,6 +134,7 @@ admin.site.register(Acabamento)
 admin.site.register(Observacao_chapa)
 admin.site.register(Insumo)
 admin.site.register(Unidade)
+admin.site.register(Un)
 admin.site.register(Maquina)     #       admin.site.register()
 admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
 admin.site.register(Fio_diamantado)
@@ -141,7 +150,7 @@ admin.site.register(Detalhe)
 admin.site.register(Qualidade)
 admin.site.register(Entrada_chapa)
 admin.site.register(Entrada_ladrilho)
-admin.site.register(Liga)
+admin.site.register(Liga, LigaAdmin)
 admin.site.register(Forma_pagamento)
 admin.site.register(Pedido_venda, Pedido_venda_Admin)
 admin.site.register(Empresa)

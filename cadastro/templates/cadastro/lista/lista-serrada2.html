@@ -46,7 +46,8 @@
             <th>Esp Fio Fin</th>            
             <th>Periférica</th>
             <th>Cala</th>            
-            <th>Cons Kwh</th>
+            <th>Cons Kwh fp</th>
+            <th>Cons Kwh p</th>
         </tr>
     </thead>
     <tbody>
@@ -88,7 +89,8 @@
             <td>{{ view_serrada.espessura_fio_final }}</td>            
             <td>{{ view_serrada.periferica }}</td>
             <td>{{ view_serrada.cala }}</td>            
-            <td>{{ view_serrada.consumo_kwh|floatformat:"2g"  }}</td>
+            <td>{{ view_serrada.consumo_kwh_fp|floatformat:"2g"  }}</td>
+            <td>{{ view_serrada.consumo_kwh_p|floatformat:"2g"  }}</td>
 
         </tr>
         

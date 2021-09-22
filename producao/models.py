@@ -149,6 +149,14 @@ class Unidade(models.Model):
     def __str__(self):
         return str(self.unidade)
 
+class Un(models.Model):
+    unidade = models.CharField(max_length=20, primary_key=True)
+    fator = models.DecimalField(max_digits=10, decimal_places=3, default=1)
+    descricao_unidade = models.CharField(max_length=100, default='')
+
+    def __str__(self):
+        return str(self.unidade)
+
 class Maquina(models.Model):
     maquina = models.CharField(max_length=100)
     lacada = models.FloatField(default=0)
@@ -436,6 +444,14 @@ class FioFatorConversao(models.Model):
     def __str__(self):
         return str(self.fator)
 
+class LigaFatorConversao(models.Model):
+    liga = models.ForeignKey(Liga, on_delete=PROTECT)
+    dureza = models.IntegerField()
+    fator = models.FloatField(default=1)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
 
 class Status_venda(models.Model):
     status_venda = CharField(max_length=25)
@@ -467,6 +483,7 @@ class Pedido_venda(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     pessoa = models.ForeignKey(Pessoa, on_delete=PROTECT, verbose_name="Cliente")
     data = models.DateField(default=timezone.now) 
+    total = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     entrada = models.FloatField(default=100, verbose_name='Entrada %')
     forma_pagamento = models.ForeignKey(Forma_pagamento, on_delete=PROTECT)
     prazo_entrega = models.IntegerField(default=0)
@@ -479,29 +496,53 @@ class Pedido_venda(models.Model):
    # usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
-        return str(self.pessoa)
+        return str(f'{self.pessoa} {self.total} {self.data}')
+
+    #def save(self, *args, **kwargs):
+    #    pdtotal = Pedido_venda_item.objects.all().values()
+    #    self.total = pdtotal['quantidade'] * pdtotal['preco'] * pdtotal['comprimento'] * pdtotal['largura']
+    #    if pdtotal['percentual_ipi'] > 0:
+    #        pdtotal['valor'] += pdtotal['valor']*(pdtotal['percentual_ipi']/100)
+    #    self.save()
+    #    super(Pedido_venda, self).save(*args, **kwargs)
 
 class Pedido_venda_item(models.Model):
     pedido_venda = models.ForeignKey(Pedido_venda, on_delete=PROTECT)
     grupo = models.ForeignKey(Grupo, on_delete=PROTECT)
     material = models.ForeignKey(Material, on_delete=PROTECT)
-    unidade = models.ForeignKey(Unidade,on_delete=PROTECT)
-    quantidade = models.FloatField()
-    altura_espessura = models.FloatField(verbose_name="Alt/Esp")
-    comprimento = models.FloatField()
-    largura = models.FloatField()
+    un = models.ForeignKey(Un,on_delete=PROTECT, default='M2')
+    quantidade = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    preco = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    altura_espessura = models.DecimalField(max_digits=10, decimal_places=3, default=0, verbose_name="Alt/Esp")
+    comprimento =  models.DecimalField(max_digits=10, decimal_places=3, default=0)
+    largura =  models.DecimalField(max_digits=10, decimal_places=3, default=0)    
     acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
     bloco = models.ForeignKey(Bloco, on_delete=PROTECT, blank=True, null=True)
-    identificacao = models.CharField(max_length=20)
-    percentual_ipi = models.FloatField(default=5)
+    #identificacao = models.CharField(max_length=20, null=True)
+    percentual_ipi = models.DecimalField(max_digits=6, decimal_places=3, default=5) 
+    valor = models.DecimalField(max_digits=15, decimal_places=3, default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
    # usuario = models.ForeignKey(User, on_delete=PROTECT)
-    
-
 
     def __str__(self):
-        return str(self.material)
+        return "ID:"+str(self.id)
+    class Meta:
+        verbose_name = 'Item'
+        verbose_name_plural = 'Itens do Pedido'
+    def save(self, *args, **kwargs): 
+           
+        if str(self.un) == 'M2':
+            self.valor = self.quantidade * self.preco * self.comprimento * self.largura
+        elif str(self.un) == 'M3':            
+            self.valor = self.quantidade * self.preco * self.altura_espessura * self.comprimento * self.largura
+        else:
+            self.valor = self.quantidade * self.preco        
+        if self.percentual_ipi>0:
+            self.valor += self.valor*(self.percentual_ipi/100)        
+        self.pedido_venda.total += self.valor
+        self.pedido_venda.save()
+        super(Pedido_venda_item, self).save(*args, **kwargs)
 
 """
 class Mes(models.Model):
@@ -612,7 +653,19 @@ class Faturamento(models.Model):
         return url
 
 """
-        
+class Faturamento_view(models.Model):
+    id = models.IntegerField(primary_key=True)
+    empresa = models.CharField(max_length=100)
+    ano = models.IntegerField()
+    mes = models.IntegerField()
+    mes_desc = models.CharField(max_length=100)
+    valor_interno = models.FloatField(default=0)
+    valor_externo = models.FloatField(default=0)
+    total = models.FloatField(default=0)
+
+    class Meta:
+        managed=False
+        db_table='faturamento_view'        
 """
 VIEW_SQL = 
     SELECT * FROM public.vw_serrada
@@ -711,8 +764,9 @@ class View_serrada(models.Model):
     observacoes = models.TextField()
     periferica = models.DecimalField(max_digits=5, decimal_places=3)
     cala = models.IntegerField(default=10)
-    consumo_kwh = models.DecimalField(max_digits=7, decimal_places=3, default=0)
-
+    consumo_kwh_p = models.DecimalField(max_digits=7, decimal_places=3, default=0)
+    consumo_kwh_fp = models.DecimalField(max_digits=7, decimal_places=3, default=0)
+    
     mes = models.IntegerField(default=0)
     ano = models.IntegerField(default=0)    
     class Meta:

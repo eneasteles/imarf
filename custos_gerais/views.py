@@ -1,7 +1,7 @@
 from django.db.models import Sum, Max, Min, Avg
 from django.db.models.aggregates import Avg, Min
 from django.shortcuts import render
-from producao.models import View_serrada, Serrada
+from producao.models import Faturamento_view, View_serrada, Faturamento
 import pandas as pd
 import numpy as np
 import re
@@ -96,4 +96,25 @@ def pd_serrada_media(request):
     }
     return render(request, 'custos_gerais/serrada_media.html', context)
 
-   
+def pd_faturamento(request):
+    qs = Faturamento_view.objects.all().values()
+    pd.options.display.float_format = '{:,.2f}'.format
+    pd.options.display.colheader_justify = 'left'
+    
+    
+    data = pd.DataFrame(qs)
+    #media_por_material = data[["mes","ano","material","m2"]].groupby(["mes","ano","material"]).median(numeric_only=False)
+    faturamento_mensal = data[["mes","mes_desc","ano","valor_interno","valor_externo","total"]].groupby(["ano","mes","mes_desc"]).sum(numeric_only=False)
+    faturamento_total_anual = data[["ano","valor_interno","valor_externo","total"]].groupby(["ano"]).sum(numeric_only=False)
+    faturamento_empresa_anual = data[["empresa","ano","valor_interno","valor_externo","total"]].groupby(["empresa","ano"]).sum(numeric_only=False)
+
+    context = {
+
+        #'df':     media_por_material.to_html(classes=['table', 'table-striped', 'table-hover']),
+        #'faturamento_empresa_anual': media_por_material.describe().to_html(classes=['table', 'table-striped', 'table-hover']), 
+        'faturamento_mensal': faturamento_mensal.to_html(classes=['table', 'table-striped', 'table-hover']),
+        'anual': faturamento_total_anual.to_html(classes=['table', 'table-striped', 'table-hover']),
+        'faturamento_empresa_anual': faturamento_empresa_anual.to_html(classes=['table', 'table-striped', 'table-hover']),
+        
+    }
+    return render(request, 'custos_gerais/faturamento.html', context)

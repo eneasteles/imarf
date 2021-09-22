@@ -9,5 +9,5 @@ urlpatterns = [
     path('custos_gerais/serrada/total/', pd_serrada_total, name='pd_serrada_total'),
     path('custos_gerais/serrada/soma/', pd_serrada_soma, name='pd_serrada_soma'),
     path('custos_gerais/serrada/media/', pd_serrada_media, name='pd_serrada_media'),
-    
+    path('custos_gerais/pd_faturamento', pd_faturamento, name='pd_faturamento'),
 ]
