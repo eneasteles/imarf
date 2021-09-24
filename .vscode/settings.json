@@ -10,6 +10,16 @@
             "database": "da2v9o704tkfm6",
             "password": "402ee4ec2ee3ce6653d9debe7d962d4c933a45b60a6311aef379fe543eaf5c90",
             "group": "pg"
+        },
+        {
+            "previewLimit": 50,
+            "server": "ec2-3-213-146-52.compute-1.amazonaws.com",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "imarf_pg",
+            "database": "da2v9o704tkfm6",
+            "username": "xjtjhdujhcyklb",
+            "password": "402ee4ec2ee3ce6653d9debe7d962d4c933a45b60a6311aef379fe543eaf5c90"
         }
     ]
 }

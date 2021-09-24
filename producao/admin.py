@@ -17,12 +17,13 @@ class BlocoIteminline(admin.TabularInline):
     extra = 1
 
 
-
+@admin.register(Bloco)
 class BlocoAdmin(admin.ModelAdmin):
     ordering = ('bloco',)
-    list_display = ('bloco','material','status')
-    #list_filter = ('bloco')
-    search_fields = ['bloco']
+    list_fielter = ('material',)
+    list_display = ('bloco','material','tipo','comprimento','altura','largura','status')
+    #list_editable = ('comprimento','altura','largura','status')
+    search_fields = ('bloco',)
     inlines = [
         BlocoIteminline
     ]
@@ -30,6 +31,7 @@ class BlocoAdmin(admin.ModelAdmin):
 class ProducaoPedreiraInline(admin.TabularInline):
     model = Producao_Pedreira
     extra = 1
+@admin.register(Custos_Pedreira)
 class CustoPedreiraAdmin(admin.ModelAdmin):
     list_display = ('pedreira','ano','mes', 'valor')
     inlines = [
@@ -85,6 +87,7 @@ class Paradainline(admin.TabularInline):
 class LigaFatorConversaoinline(admin.TabularInline):
     model = LigaFatorConversao
     extra = 1
+@admin.register(Liga)    
 class LigaAdmin(admin.ModelAdmin):
     inlines = [
         LigaFatorConversaoinline
@@ -99,7 +102,7 @@ class Pedido_venda_item_inline(admin.TabularInline):
     model = Pedido_venda_item
     extra = 1
 
-    
+@admin.register(Pedido_venda)    
 class Pedido_venda_Admin(admin.ModelAdmin):    
     list_display = ('id','pessoa','data')
     list_display_links = ('id','pessoa','data')
@@ -110,6 +113,7 @@ class Pedido_venda_Admin(admin.ModelAdmin):
         Pedido_venda_item_inline,
        # Forma_pagamento_inline,
     ]
+@admin.register(Serrada)
 class SerradaAdmin(admin.ModelAdmin):
     list_display = ('serrada','data_final', 'created')
     inlines = [
@@ -118,14 +122,14 @@ class SerradaAdmin(admin.ModelAdmin):
         Paradainline,
         
     ]
-
+@admin.register(Faturamento)
 class FaturamentoAdmin(admin.ModelAdmin):
     list_display = ('ano','mes', 'empresa', 'valor_interno','valor_externo')
     ordering =('ano','mes', 'empresa',)
    
 
 admin.site.register(Material)
-admin.site.register(Bloco, BlocoAdmin)
+#admin.site.register(Bloco, BlocoAdmin)
 admin.site.register(Status_bloco)
 admin.site.register(Chapa)
 admin.site.register(Status_chapa)
@@ -136,7 +140,7 @@ admin.site.register(Insumo)
 admin.site.register(Unidade)
 admin.site.register(Un)
 admin.site.register(Maquina)     #       admin.site.register()
-admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
+#admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
 admin.site.register(Fio_diamantado)
 admin.site.register(Pessoa)
 admin.site.register(Grupo)
@@ -150,9 +154,9 @@ admin.site.register(Detalhe)
 admin.site.register(Qualidade)
 admin.site.register(Entrada_chapa)
 admin.site.register(Entrada_ladrilho)
-admin.site.register(Liga, LigaAdmin)
+#admin.site.register(Liga, LigaAdmin)
 admin.site.register(Forma_pagamento)
-admin.site.register(Pedido_venda, Pedido_venda_Admin)
+#admin.site.register(Pedido_venda, Pedido_venda_Admin)
 admin.site.register(Empresa)
 admin.site.register(Status_venda)
 admin.site.register(Frete)
@@ -161,9 +165,9 @@ admin.site.register(Resinamento, ResinamentoAdmin)
 admin.site.register(Operador)
 admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)
-admin.site.register(Faturamento,FaturamentoAdmin)
+#admin.site.register(Faturamento,FaturamentoAdmin)
 admin.site.register(Resina)
-admin.site.register(Custos_Pedreira, CustoPedreiraAdmin)
+#admin.site.register(Custos_Pedreira, CustoPedreiraAdmin)
 admin.site.register(Linha_Resinamento)
 
 

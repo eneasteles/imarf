@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
 </head>
 <body>
+  <div class="container">
     {% block menu %}   
     
       <nav class="navbar navbar-expand-lg navbar-light bg-success rounded text-white" aria-label="Sistema de Controle de Produção">
@@ -69,12 +70,13 @@
           </div>
         </div>
       </nav>
+    
     {% endblock %}
     
     {% block destaque %}
     
     {% endblock %}
-
+    
     {% block conteudo %}
     
     {% endblock %}
@@ -89,5 +91,6 @@
     {% block scripts %}
 
     {% endblock %}
+  </div>
 </body>
 </html>
