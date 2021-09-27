@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'polimento',
     'usuarios.apps.UsuariosConfig',
     'crispy_forms',
+    'setor_pessoal',
 
 ]
 
