@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'usuarios.apps.UsuariosConfig',
     'crispy_forms',
     'setor_pessoal',
+    'estoque',
 
 ]
 
