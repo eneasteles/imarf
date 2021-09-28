@@ -3,6 +3,7 @@ from producao.models import Centro_de_Custo
 
 # Create your models here.
 
+
 class Cadastro_Funcionario(models.Model):
     nome = models.CharField(max_length=100)    
     cpf = models.CharField(max_length=15, blank=True, null=True)
