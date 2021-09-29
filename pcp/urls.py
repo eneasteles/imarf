@@ -24,5 +24,5 @@ urlpatterns = [
     path('', include('usuarios.urls')),
     path('', include('custos_gerais.urls')),
     path('', include('serraria.urls')),
-    #path('sp/', include('setor_pessoal.urls')),
+    path('', include('setor_pessoal.urls')),
 ]

@@ -285,7 +285,7 @@ class Chapas_produzidas(models.Model):
   #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
-        return str(self.quantidade)
+        return str(self.bloco)
 
 
 class Aplicacao(models.Model):

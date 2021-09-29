@@ -10,10 +10,10 @@ class ChapasPolidasInline(admin.TabularInline):
 class ParadaPolitrizInline(admin.TabularInline):
     model = Parada_Politriz
     extra = 1
-
 class Jogo_de_AbrasivoInline(admin.TabularInline):
     model = Jogo_de_Abrasivos
     extra = 1
+@admin.register(Polimento)
 class PolimentoAdmin(admin.ModelAdmin):
     ordering = ('data',)
     list_display = ('data','maquina','turno')
@@ -23,7 +23,7 @@ class PolimentoAdmin(admin.ModelAdmin):
         Jogo_de_AbrasivoInline,
     ]
 
-admin.site.register(Polimento, PolimentoAdmin)
+
 admin.site.register(Abrasivo)
 admin.site.register(Qualidade_Polimento)
 admin.site.register(Tipo_Polimento)

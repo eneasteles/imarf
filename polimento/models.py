@@ -56,6 +56,9 @@ class Parada_Politriz(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str(self.id)
+
 class Chapas_Polidas(models.Model):
     polimento_id = models.ForeignKey(Polimento, on_delete=models.CASCADE,default=1)
     bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
@@ -69,6 +72,8 @@ class Chapas_Polidas(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str(self.id)
 class Jogo_de_Abrasivos(models.Model):
     polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
     abrasivo_id = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
@@ -77,5 +82,8 @@ class Jogo_de_Abrasivos(models.Model):
     #data = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.id)
 
  
