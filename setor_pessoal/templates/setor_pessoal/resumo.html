@@ -3,17 +3,19 @@
 {% load static %}
 
 {% block conteudo %}
-<h1>Centro de Custo Resumo</h1>
+
 <hr>
 <div class="table-responsive">
+    <h3>Centro de Custo Resumo</h3>
     <table class="table table-striped" id="tabela-listar-serrada">
     <thead>
         <tr>
             <th>Centro de Custo</th>
             <th>Qtde Funcionários</th>
-            <th>Folha</th>
-            <th>Produtividade</th>
-            <th>Valor</th>           
+            <th align="right">Folha</th>
+            <th align="right">Outros</th>
+            <th align="right">Produtividade</th>
+            <th align="right">Valor</th>           
         </tr>
     </thead>
     <tbody>
@@ -21,10 +23,10 @@
         <tr>
             <td>{{ Resumo_Funcionarios_View.centro_de_custo }}</td>
             <td>{{ Resumo_Funcionarios_View.qtde_funcionarios }}</td>  
-            <td>{{ Resumo_Funcionarios_View.folha }}</td>
-            <td>{{ Resumo_Funcionarios_View.outros }}</td>
-            <td>{{ Resumo_Funcionarios_View.produtividade }}</td>
-            <td>{{ Resumo_Funcionarios_View.valor }}</td>
+            <td align="right" >{{ Resumo_Funcionarios_View.folha|floatformat:"2g" }}</td>
+            <td align="right">{{ Resumo_Funcionarios_View.outros|floatformat:"2g" }}</td>
+            <td align="right">{{ Resumo_Funcionarios_View.produtividade|floatformat:"2g" }}</td>
+            <td align="right">{{ Resumo_Funcionarios_View.valor|floatformat:"2g" }}</td>
             
         </tr>
         
