@@ -29,17 +29,17 @@
         {% for view_producao_fio_resumo in object_list %}
         <tr>
             <td>{{ view_producao_fio_resumo.maquina }}</td>
-            <td>{{ view_producao_fio_resumo.jogo_fio_id }}</td>
+            <td align="center">{{ view_producao_fio_resumo.jogo_fio_id }}</td>
             <td>{{ view_producao_fio_resumo.liga }}</td>
-            <td>{{ view_producao_fio_resumo.valor_metro_fio }}</td>
-            <td>{{ view_producao_fio_resumo.espessura_fio }}</td>
-            <td>{{ view_producao_fio_resumo.garantia_do_fio|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio_resumo.saldo|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio_resumo.m3_bruto|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio_resumo.m3_liquido|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio_resumo.m2|floatformat:"2g"  }}</td>            
-            <td>{{ view_producao_fio_resumo.prd_fio_m2|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio_resumo.prd_fio_m2_dureza|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio_resumo.valor_metro_fio }}</td>
+            <td align="right">{{ view_producao_fio_resumo.espessura_fio }}</td>
+            <td align="right">{{ view_producao_fio_resumo.garantia_do_fio|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio_resumo.saldo|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio_resumo.m3_bruto|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio_resumo.m3_liquido|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio_resumo.m2|floatformat:"2g"  }}</td>            
+            <td align="right">{{ view_producao_fio_resumo.prd_fio_m2|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio_resumo.prd_fio_m2_dureza|floatformat:"2g"  }}</td>
 
         </tr>
 

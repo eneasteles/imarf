@@ -3,10 +3,11 @@
 {% load static %}
 
 {% block conteudo %}
-<h1>Produção Fio Diamantado</h1>
-<a href="{% url 'lista-fio-producao' %}" class="btn btn-primary btn-sm">Novo</a>
+
 <hr>
+<div class="dt-body-center"><h1>Produção Fio Diamantado</h1></div>
 <div class="table-responsive">
+    
     <table class="table table-striped" id="tabela-listar-serrada">
     <thead>
         <tr>            
@@ -26,15 +27,15 @@
         {% for view_producao_fio in object_list %}
         <tr>
             <td>{{ view_producao_fio.maquina }}</td>
-            <td>{{ view_producao_fio.jogo_fio_id }}</td>
-            <td>{{ view_producao_fio.liga }}</td>
-            <td>{{ view_producao_fio.valor_metro_fio }}</td>
-            <td>{{ view_producao_fio.espessura_fio }}</td>
-            <td>{{ view_producao_fio.m3_bruto|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio.m3_liquido|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio.m2|floatformat:"2g"  }}</td>            
-            <td>{{ view_producao_fio.prd_fio_m2|floatformat:"2g"  }}</td>
-            <td>{{ view_producao_fio.dureza }}</td>
+            <td align="center">{{ view_producao_fio.jogo_fio_id }}</td>
+            <td align="center">{{ view_producao_fio.liga }}</td>
+            <td align="right">{{ view_producao_fio.valor_metro_fio|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio.espessura_fio|floatformat:"3g"  }}</td>
+            <td align="right">{{ view_producao_fio.m3_bruto|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio.m3_liquido|floatformat:"2g"  }}</td>
+            <td align="right">{{ view_producao_fio.m2|floatformat:"2g"  }}</td>            
+            <td align="right">{{ view_producao_fio.prd_fio_m2|floatformat:"2g"  }}</td>
+            <td align="center">{{ view_producao_fio.dureza }}</td>
         </tr>
 
         {% empty %}

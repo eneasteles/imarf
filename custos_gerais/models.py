@@ -27,3 +27,16 @@ class Custo_Geral_Item(models.Model):
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+
+class Energia(models.Model):
+    ano = models.IntegerField(default=timezone.now().year)
+    mes = models.IntegerField(choices=MES_CHOICES)
+    consumo_hp = models.DecimalField(max_digits=12, decimal_places=2, default=0)  
+    consumo_hfp = models.DecimalField(max_digits=12, decimal_places=2, default=0) 
+    valor = models.DecimalField(max_digits=12, decimal_places=2, default=0)  
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True) 
+
+    def __str__(self):
+        return str(self.ano) + ' - ' + str(self.mes)
