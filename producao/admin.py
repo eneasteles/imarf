@@ -20,7 +20,7 @@ class BlocoIteminline(admin.TabularInline):
 @admin.register(Bloco)
 class BlocoAdmin(admin.ModelAdmin):
     ordering = ('bloco',)
-    list_fielter = ('material',)
+    list_filter = ('status','tipo','material',)
     list_display = ('bloco','material','tipo','comprimento','altura','largura','status')
     #list_editable = ('comprimento','altura','largura','status')
     search_fields = ('bloco',)
@@ -38,6 +38,16 @@ class CustoPedreiraAdmin(admin.ModelAdmin):
         ProducaoPedreiraInline
     ]
 
+class Resina_ValorInline(admin.TabularInline):
+    model = Resina_Valor
+    extra = 1
+
+@admin.register(Resina)
+class ResinaAdmin(admin.ModelAdmin):
+    list_display = ('resina','dados_tecnicos')
+    inlines = [
+        Resina_ValorInline
+    ]
 class Resinamento_itemInline(admin.TabularInline):    
     model = Resinamento_item
     extra = 1
@@ -166,7 +176,7 @@ admin.site.register(Operador)
 admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)
 #admin.site.register(Faturamento,FaturamentoAdmin)
-admin.site.register(Resina)
+
 #admin.site.register(Custos_Pedreira, CustoPedreiraAdmin)
 admin.site.register(Linha_Resinamento)
 

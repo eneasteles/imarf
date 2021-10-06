@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from django.conf.urls import url
 from django.contrib.admin.sites import DefaultAdminSite
 from django.db import models
@@ -576,6 +576,18 @@ class Operador(models.Model):
 class Resina(models.Model):
     resina = models.CharField(max_length=100)
     dados_tecnicos = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
+
+    def __str__(self):
+        return str(self.resina)
+class Resina_Valor(models.Model):
+    resina = models.ForeignKey(Resina, on_delete=PROTECT)
+    valor = models.DecimalField(max_digits=12, decimal_places=2)
+    un = models.ForeignKey(Un, on_delete=PROTECT)
+    ativo = models.BooleanField(default=True)
+    data_compra = models.DateField(default=timezone.now())
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
   #  usuario = models.ForeignKey(User, on_delete=PROTECT)
