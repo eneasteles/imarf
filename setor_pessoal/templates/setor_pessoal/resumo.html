@@ -11,7 +11,7 @@
     <thead>
         <tr>
             <th>Centro de Custo</th>
-            <th>Qtde Funcionários</th>
+            <th align="right">Qtde Funcionários</th>
             <th align="right">Folha</th>
             <th align="right">Outros</th>
             <th align="right">Produtividade</th>
@@ -22,7 +22,7 @@
         {% for Resumo_Funcionarios_View in object_list %}
         <tr>
             <td>{{ Resumo_Funcionarios_View.centro_de_custo }}</td>
-            <td>{{ Resumo_Funcionarios_View.qtde_funcionarios }}</td>  
+            <td align="center">{{ Resumo_Funcionarios_View.qtde_funcionarios }}</td>  
             <td align="right" >{{ Resumo_Funcionarios_View.folha|floatformat:"2g" }}</td>
             <td align="right">{{ Resumo_Funcionarios_View.outros|floatformat:"2g" }}</td>
             <td align="right">{{ Resumo_Funcionarios_View.produtividade|floatformat:"2g" }}</td>

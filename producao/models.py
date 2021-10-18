@@ -54,7 +54,8 @@ class Pedreira(models.Model):
     pedreira = CharField(max_length=100)
     cidade = CharField(max_length=100, blank=True, null=True)
     centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT, default=1)
-   # usuario = models.ForeignKey(User, on_delete=PROTECT)
+    usuario = models.ForeignKey(User, default=1 ,on_delete=PROTECT)
+
     
     def __str__(self):
         return str(self.pedreira)
@@ -89,7 +90,7 @@ class Bloco(models.Model):
     status = models.ForeignKey(Status_bloco, on_delete=models.PROTECT) 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-   # usuario = models.ForeignKey(User, on_delete=PROTECT)
+    usuario = models.ForeignKey(User, default=3, on_delete=PROTECT)
 
 
 
@@ -569,7 +570,7 @@ class Operador(models.Model):
     setor = models.ForeignKey(Setor, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-   # usuario = models.ForeignKey(User, on_delete=PROTECT)
+    #usuario = models.ForeignKey(User, on_delete=PROTECT)
     def __str__(self):
         return str(self.operador)
 
@@ -825,6 +826,7 @@ class Custos_Pedreira(models.Model):
     valor = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True) 
+    usuario = models.ForeignKey(User, default=8, on_delete=PROTECT)
 
     def __str__(self):
         return str(self.pedreira)   
@@ -836,6 +838,7 @@ class Producao_Pedreira(models.Model):
     m3 = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True) 
+    usuario = models.ForeignKey(User, default=8, on_delete=PROTECT)
 
 
 

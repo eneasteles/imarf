@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.contrib.admin.filters import ListFilter
 
 from . models import *
@@ -19,10 +20,17 @@ class BlocoIteminline(admin.TabularInline):
 
 @admin.register(Bloco)
 class BlocoAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(usuario_id=request.user)
+    
     ordering = ('bloco',)
     list_filter = ('status','tipo','material',)
     list_display = ('bloco','material','tipo','comprimento','altura','largura','status')
     #list_editable = ('comprimento','altura','largura','status')
+    
     search_fields = ('bloco',)
     inlines = [
         BlocoIteminline
@@ -33,6 +41,12 @@ class ProducaoPedreiraInline(admin.TabularInline):
     extra = 1
 @admin.register(Custos_Pedreira)
 class CustoPedreiraAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(usuario_id=request.user)
+    
     list_display = ('pedreira','ano','mes', 'valor')
     inlines = [
         ProducaoPedreiraInline
