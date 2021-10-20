@@ -492,7 +492,6 @@ class Pedido_venda(models.Model):
     status_venda = models.ForeignKey(Status_venda, on_delete=PROTECT, verbose_name="Status")
     observacao = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    #created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
    # usuario = models.ForeignKey(User, on_delete=PROTECT)
 

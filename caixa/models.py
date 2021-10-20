@@ -41,7 +41,7 @@ class Caixa(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     filial = models.ForeignKey(Filial, on_delete=PROTECT)    
     natureza = models.CharField(max_length=1, default='S', choices=NATUREZA_CHOICES)
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     descricao = models.CharField(max_length=100, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -53,8 +53,22 @@ class Caixa(models.Model):
 class Caixa_Item(models.Model):
     caixa = models.ForeignKey(Caixa, on_delete=CASCADE)
     item = models.ForeignKey(Item, on_delete=CASCADE)
-    quantidade = models.DecimalField(max_digits=10, decimal_places=2)
-    unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
     aplicacao = models.ForeignKey(Aplicacao, default=1, on_delete=PROTECT)
+    quantidade = models.DecimalField(max_digits=10, decimal_places=2)
+    preco = models.DecimalField(max_digits=10, default = 0,decimal_places=2)
+    unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    
+
+    class Meta:
+        verbose_name = 'Item'
+        verbose_name_plural = 'Itens do Caixa'
+    def save(self, *args, **kwargs): 
+           
+        self.valor = self.quantidade * self.preco       
+       
+        self.caixa.valor += self.valor
+        self.caixa.save()
+        super(Caixa_Item, self).save(*args, **kwargs)
+
     

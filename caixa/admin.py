@@ -5,6 +5,10 @@ from .models import *
 class Caixa_Item_inline(admin.TabularInline):
     model = Caixa_Item
     extra = 1
+    exclude=("valor",)
+    readonly_fields=('valor', )
+    
+
 @admin.register(Caixa)
 class CaixaAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
@@ -12,9 +16,10 @@ class CaixaAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(usuario_id=request.user)
-
+    exclude=("valor",)
+    readonly_fields=('valor', )
     list_display = ('id', 'data', 'filial', 'natureza', 'valor')
-    list_filter = ('natureza', 'filial',)
+    list_filter = ('natureza','filial')
     search_fields = ('id', 'data', 'valor')
 
     inlines = [Caixa_Item_inline,]
