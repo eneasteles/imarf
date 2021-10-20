@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'setor_pessoal',
     'estoque',
-
+    'caixa',
 ]
 
 DECIMAL_SEPARATOR = ','
