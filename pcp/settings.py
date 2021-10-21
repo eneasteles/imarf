@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'setor_pessoal',
     'estoque',
     'caixa',
+    'controle',
 ]
 
 DECIMAL_SEPARATOR = ','
