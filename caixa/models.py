@@ -10,6 +10,7 @@ from django.utils.regex_helper import Group
 from django.utils import timezone
 from django.utils.tree import Node
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.conf import settings
 from producao.models import *
 from estoque.models import *
@@ -18,6 +19,9 @@ class Aplicacao(models.Model):
     aplicacao = models.CharField(max_length=50)
     def __str__(self):
         return self.aplicacao
+    class Meta:
+        verbose_name = 'Aplicaçao'
+        verbose_name_plural = 'Aplicaçao'
 
 class Filial(models.Model):
     filial = models.CharField(max_length=100)
@@ -27,10 +31,13 @@ class Filial(models.Model):
     email = models.EmailField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
     def __str__(self):
         return self.filial
+    class Meta:
+        verbose_name = 'Filial'
+        verbose_name_plural = 'Filiais'
     
 NATUREZA_CHOICES = (
         ('E', 'ENTRADA'),
@@ -45,10 +52,13 @@ class Caixa(models.Model):
     descricao = models.CharField(max_length=100, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    usuario = models.ForeignKey(User,  on_delete=PROTECT)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
     def __str__(self):
         return str(self.data)
+    class Meta:
+        verbose_name = 'Caixa'
+        verbose_name_plural = 'Caixa'
 
 class Caixa_Item(models.Model):
     caixa = models.ForeignKey(Caixa, on_delete=CASCADE)
