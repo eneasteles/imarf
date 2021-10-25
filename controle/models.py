@@ -13,7 +13,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from producao.models import *
-from caixa.models import *
+from bens.models import *
+#from caixa.models import Filial
 
 class Aplicacao(models.Model):
     aplicacao = models.CharField(max_length=50)
@@ -23,28 +24,10 @@ class Aplicacao(models.Model):
         verbose_name = 'Aplicaçao'
         verbose_name_plural = 'Aplicaçao'
 
-class Veiculo(models.Model):
-    veiculo = models.CharField(max_length=100)
-    placa = models.CharField(max_length=7)  
-    ano = models.IntegerField(default=timezone.now().year)
-    marca = models.CharField(max_length=50)
-    modelo = models.CharField(max_length=50)
-    cor = models.CharField(max_length=50)
-    tipo = models.CharField(max_length=50,default='.')
-    filial = models.ForeignKey(Filial, on_delete=PROTECT)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
-
-    def __str__(self):
-        return self.veiculo + ' - ' + self.placa
-    class Meta:
-        verbose_name = 'Veículo'
-        verbose_name_plural = 'Veículos'
-    
+  
 
 class Movimentacao(models.Model):    
-    data = models.DateField(default=timezone.now)
+    data = models.DateField()
     veiculo = models.ForeignKey(Veiculo, on_delete=PROTECT)
     origem = models.CharField(max_length=100, null=True, blank=True)
     destino = models.CharField(max_length=100, null=True, blank=True)

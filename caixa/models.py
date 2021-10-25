@@ -14,6 +14,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from producao.models import *
 from estoque.models import *
+from manutencao.models import *
 
 class Aplicacao(models.Model):
     aplicacao = models.CharField(max_length=50)
@@ -46,7 +47,8 @@ NATUREZA_CHOICES = (
 class Caixa(models.Model):    
     data = models.DateField(default=timezone.now)
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
-    filial = models.ForeignKey(Filial, on_delete=PROTECT)    
+    filial = models.ForeignKey(Filial, on_delete=PROTECT)
+    #os = models.ForeignKey(OS, on_delete=PROTECT, null=True, blank=True)    
     natureza = models.CharField(max_length=1, default='S', choices=NATUREZA_CHOICES)
     valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     descricao = models.CharField(max_length=100, blank=True, null=True) 
