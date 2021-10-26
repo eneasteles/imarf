@@ -1,19 +1,20 @@
 from django.conf import settings
 from django.contrib import admin, messages
-from django.contrib.admin.options import StackedInline
+from django.contrib.admin.options import StackedInline, TabularInline
 from django.contrib.auth.admin import UserAdmin
 
 from .models import *
 # Register your models here.
 class DiagnosticoInline(StackedInline):
     model = Diagnostico
-    extra = 1
+    extra = 0
 class EquipamentoInline(StackedInline):
     model = Equipamento
+    extra = 0
+class OS_ItemInline(TabularInline):
+    model = OS_Item
     extra = 1
-class VeiculoBemInline(StackedInline):
-    model = VeiculoBem
-    extra = 1
+
 
 @admin.register(OS)
 class OSAdmin(admin.ModelAdmin):
@@ -26,7 +27,11 @@ class OSAdmin(admin.ModelAdmin):
             obj.save()
         super(OSAdmin, self).save_model(request, obj, form, change)
     
-    inlines = [EquipamentoInline, VeiculoBemInline,DiagnosticoInline, ]
+    inlines = [EquipamentoInline, 
+    #VeiculoBemInline,
+    DiagnosticoInline,
+    OS_ItemInline,
+    ]
 
 
 

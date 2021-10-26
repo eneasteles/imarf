@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'caixa',
     'controle',
     'ordem_de_servico',
-    'manutencao',
     'bens',
 
 ]

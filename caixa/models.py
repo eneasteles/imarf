@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from producao.models import *
 from estoque.models import *
-from manutencao.models import *
+
 
 class Aplicacao(models.Model):
     aplicacao = models.CharField(max_length=50)

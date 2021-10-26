@@ -587,7 +587,7 @@ class Resina_Valor(models.Model):
     valor = models.DecimalField(max_digits=12, decimal_places=2)
     un = models.ForeignKey(Un, on_delete=PROTECT)
     ativo = models.BooleanField(default=True)
-    data_compra = models.DateField(default=timezone.now())
+    data_compra = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
   #  usuario = models.ForeignKey(User, on_delete=PROTECT)
@@ -596,7 +596,7 @@ class Resina_Valor(models.Model):
         return str(self.resina)
 class Resinamento(models.Model):
     linha = models.ForeignKey(Linha_Resinamento, on_delete=PROTECT)
-    data = models.DateField(default=timezone.now())
+    data = models.DateField(default=timezone.now)
     operador = models.ForeignKey(Operador, on_delete=PROTECT)
     bloco = models.ForeignKey(Bloco, on_delete=PROTECT, default=2)
     quantidade_de_chapas = models.PositiveIntegerField(default=0)
