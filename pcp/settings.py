@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'controle',
     'ordem_de_servico',
     'bens',
+    'comercial',
 
 ]
 

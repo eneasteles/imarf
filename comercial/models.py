@@ -9,7 +9,7 @@ from datetime import date, datetime
 from django.utils import timezone
 from estoque.models import *
 
-class OS(models.Model):
+class OSComercial(models.Model):
     STATUS_CHOICES = (
         ('P', 'PENDENTE'),
         ('A', 'EM ANDAMENTO'),
@@ -17,49 +17,41 @@ class OS(models.Model):
     )
     os = models.AutoField(primary_key=True)
     data = models.DateField(default=timezone.now)
-    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    metragem = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     data_prazo = models.DateField(auto_now_add=True)
     data_conclusao = models.DateField(auto_now_add=True, null=True, blank=True)    
     descricao = models.TextField()    
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='P')
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     def __str__(self):
         return str(self.os)
     class Meta:
         verbose_name = 'OS'
         verbose_name_plural = 'OS' 
 
-class Diagnostico(models.Model):
-    os = models.ForeignKey(OS, on_delete=models.PROTECT)
-    funcionario = models.ForeignKey(Cadastro_Funcionario, on_delete=models.PROTECT)
-    descricao = models.TextField()
-    solucao = models.TextField(null=True, blank=True)
-
-
-class OSVeiculo(models.Model):
-    os = models.ForeignKey(OS, on_delete=models.PROTECT)
-    veiculo = models.ForeignKey(Veiculo, on_delete=models.PROTECT)
-
-class Equipamento(models.Model):
-    os = models.ForeignKey(OS, on_delete=models.PROTECT)
-    equipamento = models.ForeignKey(Bem, on_delete=models.PROTECT)
-
-class OS_Item(models.Model):
-    os = models.ForeignKey(OS, on_delete=models.PROTECT)
-    item = models.ForeignKey(Item, on_delete=models.PROTECT)
+class OS_Comercial_Item(models.Model):
+    os = models.ForeignKey(OSComercial, on_delete=models.PROTECT)
+    material = models.ForeignKey(Material, on_delete=models.PROTECT)
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
     quantidade = models.IntegerField()
-    valor_unitario = models.DecimalField(max_digits=10, decimal_places=2)
-    valor_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
+    largura = models.DecimalField(max_digits=6, decimal_places=3, default=0)
+    metragem = models.DecimalField(max_digits=10, decimal_places=3, default=0)
+    
+
 
     class Meta:
         verbose_name = 'Item'
         verbose_name_plural = 'Itens'
     def save(self, *args, **kwargs): 
            
-        self.valor_total = self.quantidade * self.valor_unitario       
+        self.metragem = self.quantidade * self.comprimento * self.altura * self.largura       
        
-        self.os.valor += self.valor_total
+        self.os.metragem += self.metragem
         self.os.save()
-        super(OS_Item, self).save(*args, **kwargs)
+        super(OS_Comercial_Item, self).save(*args, **kwargs)
+
 
 
 
