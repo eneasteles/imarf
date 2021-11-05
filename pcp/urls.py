@@ -23,6 +23,5 @@ urlpatterns = [
     path('', include('cadastro.urls')),
     path('', include('usuarios.urls')),
     path('', include('custos_gerais.urls')),
-    path('', include('serraria.urls')),
     path('', include('setor_pessoal.urls')),
 ]

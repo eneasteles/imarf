@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'producao',
     'cadastro',
     'custos_gerais',
-    'serraria',
     'polimento',
     'usuarios.apps.UsuariosConfig',
     'crispy_forms',

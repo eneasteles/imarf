@@ -9,7 +9,6 @@ from django.utils.regex_helper import Group
 from django.utils import timezone
 from django.utils.tree import Node
 from django.contrib.auth.models import User
-from serraria.models import *
 #from django_pgviews import view as pg
 
 MES_CHOICES = (
