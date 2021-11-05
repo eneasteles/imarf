@@ -33,6 +33,7 @@ class Movimentacao(models.Model):
     destino = models.CharField(max_length=100, null=True, blank=True)
     leitura_inicial = models.DecimalField(max_digits=10, decimal_places=2)
     leitura_final = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)
     missao = models.CharField(max_length=200, null=True, blank=True)    
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -43,6 +44,11 @@ class Movimentacao(models.Model):
     class Meta:
         verbose_name = 'Movimentacao de Veículos'
         verbose_name_plural = 'Movimentacao de Veículos'
+
+    def save(self, *args, **kwargs): 
+           
+        self.total = self.leitura_final - self.leitura_inicial       
+        super(Movimentacao, self).save(*args, **kwargs)
 
     
 
