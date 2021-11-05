@@ -21,6 +21,7 @@ class VeiculoAdmin(admin.ModelAdmin):
 
 @admin.register(Movimentacao)
 class MovimentacaoAdmin(admin.ModelAdmin):
+    list_display = ('data', 'veiculo',  'origem','destino','missao','leitura_inicial','leitura_final')
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
