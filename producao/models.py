@@ -522,7 +522,7 @@ class Pedido_venda_item(models.Model):
     valor = models.DecimalField(max_digits=15, decimal_places=3, default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
-   # usuario = models.ForeignKey(User, on_delete=PROTECT)
+    user = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
         return "ID:"+str(self.id)
@@ -583,8 +583,10 @@ class Resina(models.Model):
         return str(self.resina)
 class Resina_Valor(models.Model):
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
-    valor = models.DecimalField(max_digits=12, decimal_places=2)
+    preco = models.DecimalField(max_digits=12, decimal_places=2)
+    ipi = models.DecimalField(max_digits=6, decimal_places=3, default=5)
     un = models.ForeignKey(Un, on_delete=PROTECT)
+    valor = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     ativo = models.BooleanField(default=True)
     data_compra = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -593,6 +595,17 @@ class Resina_Valor(models.Model):
 
     def __str__(self):
         return str(self.resina)
+
+    class Meta:
+        verbose_name = 'Item'
+        verbose_name_plural = 'Itens de Resinamento'
+    def save(self, *args, **kwargs): 
+           
+        self.valor = self.preco * (self.ipi/100 + 1)     
+       
+        super(Resina_Valor, self).save(*args, **kwargs)
+
+
 class Resinamento(models.Model):
     linha = models.ForeignKey(Linha_Resinamento, on_delete=PROTECT)
     data = models.DateField(default=timezone.now)

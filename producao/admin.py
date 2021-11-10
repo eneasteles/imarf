@@ -20,11 +20,11 @@ class BlocoIteminline(admin.TabularInline):
 
 @admin.register(Bloco)
 class BlocoAdmin(admin.ModelAdmin):
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(usuario_id=request.user)
+    #def get_queryset(self, request):
+    ##    qs = super().get_queryset(request)
+    #    if request.user.is_superuser:
+    #        return qs
+    #    return qs.filter(usuario_id=request.user)
     
     ordering = ('bloco',)
     list_filter = ('status','tipo','material',)
@@ -78,7 +78,7 @@ class Resinamento_Insumo_Inline(admin.TabularInline):
 
 class ParadaResinamentoinline(admin.TabularInline):
     model = Parada_Resinamento
-    extra = 1
+    extra = 0
 class ResinamentoAdmin(admin.ModelAdmin):
     list_display = ('data','bloco','quantidade_de_chapas','id')
     inlines = [
@@ -125,18 +125,31 @@ class Forma_pagamento_inline(admin.TabularInline):
 class Pedido_venda_item_inline(admin.TabularInline):
     model = Pedido_venda_item
     extra = 1
+    readonly_fields=('valor', )
 
 @admin.register(Pedido_venda)    
-class Pedido_venda_Admin(admin.ModelAdmin):    
+class Pedido_venda_Admin(admin.ModelAdmin): 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user_id=request.user)   
     list_display = ('id','pessoa','data')
     list_display_links = ('id','pessoa','data')
-    list_filter = ('id','pessoa')
+ #   list_filter = ('id','pessoa')
     list_per_page = 10
     search_fields = ['id']
     inlines = [
         Pedido_venda_item_inline,
        # Forma_pagamento_inline,
     ]
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.user = request.user
+            obj.save()
+        super(Pedido_venda_Admin, self).save_model(request, obj, form, change)
+
 @admin.register(Serrada)
 class SerradaAdmin(admin.ModelAdmin):
     list_display = ('serrada','data_final', 'created')

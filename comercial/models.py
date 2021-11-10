@@ -8,6 +8,7 @@ from controle.models import *
 from datetime import date, datetime
 from django.utils import timezone
 from estoque.models import *
+from producao.models import *
 
 class OSComercial(models.Model):
     STATUS_CHOICES = (
@@ -54,5 +55,90 @@ class OS_Comercial_Item(models.Model):
 
 
 
+# Pedido de Venda
+class Status_da_venda(models.Model):
+    status_da_venda = CharField(max_length=25)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.status_da_venda)
+
+class Forma_de_pagamento(models.Model):
+    forma_pagamento = models.CharField(max_length=100)    
+    parcelas = models.IntegerField(default=1)
+    prazo = models.IntegerField(default=0)
+    created = models.DateTimeField(default=timezone.now)
+    updated = models.DateTimeField(auto_now=True)
+  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
+
+    def __str__(self):
+        return str(self.forma_pagamento)
 
 
+
+class Pedido_de_venda(models.Model):
+    empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
+    pessoa = models.ForeignKey(Pessoa, on_delete=PROTECT, verbose_name="Cliente")
+    data = models.DateField(default=timezone.now) 
+    total = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    entrada = models.FloatField(default=100, verbose_name='Entrada %')
+    forma_pagamento = models.ForeignKey(Forma_pagamento, on_delete=PROTECT)
+    prazo_entrega = models.IntegerField(default=0)
+    frete = models.ForeignKey(Frete, on_delete=PROTECT)
+    status_venda = models.ForeignKey(Status_venda, on_delete=PROTECT, verbose_name="Status")
+    observacao = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=PROTECT)
+
+    def __str__(self):
+        return str(f'{self.pessoa} {self.total} {self.data}')
+
+    #def save(self, *args, **kwargs):
+    #    pdtotal = Pedido_venda_item.objects.all().values()
+    #    self.total = pdtotal['quantidade'] * pdtotal['preco'] * pdtotal['comprimento'] * pdtotal['largura']
+    #    if pdtotal['percentual_ipi'] > 0:
+    #        pdtotal['valor'] += pdtotal['valor']*(pdtotal['percentual_ipi']/100)
+    #    self.save()
+    #    super(Pedido_venda, self).save(*args, **kwargs)
+
+class Pedido_de_venda_item(models.Model):
+    pedido_de_venda = models.ForeignKey(Pedido_de_venda, on_delete=PROTECT)
+    grupo = models.ForeignKey(Grupo, on_delete=PROTECT)
+    material = models.ForeignKey(Material, on_delete=PROTECT)
+    un = models.ForeignKey(Un,on_delete=PROTECT, default='M2')
+    quantidade = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    preco = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    altura_espessura = models.DecimalField(max_digits=10, decimal_places=3, default=0, verbose_name="Alt/Esp")
+    comprimento =  models.DecimalField(max_digits=10, decimal_places=3, default=0)
+    largura =  models.DecimalField(max_digits=10, decimal_places=3, default=0)    
+    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=PROTECT, blank=True, null=True)
+    #identificacao = models.CharField(max_length=20, null=True)
+    percentual_ipi = models.DecimalField(max_digits=6, decimal_places=3, default=5) 
+    valor = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=PROTECT)
+
+    def __str__(self):
+        return "ID:"+str(self.id)
+    class Meta:
+        verbose_name = 'Item'
+        verbose_name_plural = 'Itens do Pedido'
+    def save(self, *args, **kwargs): 
+           
+        if str(self.un) == 'M2':
+            self.valor = self.quantidade * self.preco * self.comprimento * self.largura
+        elif str(self.un) == 'M3':            
+            self.valor = self.quantidade * self.preco * self.altura_espessura * self.comprimento * self.largura
+        else:
+            self.valor = self.quantidade * self.preco        
+        if self.percentual_ipi>0:
+            self.valor += self.valor*(self.percentual_ipi/100)        
+        self.pedido_de_venda.total += self.valor
+        self.pedido_de_venda.save()
+        super(Pedido_de_venda_item, self).save(*args, **kwargs)
+"""
+"""
