@@ -4,7 +4,6 @@ from django.contrib.admin.sites import DefaultAdminSite
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.db.models.fields import CharField, DecimalField
-from django.db.models.fields.related import ForeignKey
 from django.http import request
 from django.utils.regex_helper import Group
 from django.utils import timezone
@@ -14,8 +13,10 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from producao.models import *
 from estoque.models import *
+from bens.models import *
 
 
+"""
 class Aplicacao(models.Model):
     aplicacao = models.CharField(max_length=50)
     def __str__(self):
@@ -38,7 +39,11 @@ class Filial(models.Model):
         return self.filial
     class Meta:
         verbose_name = 'Filial'
-        verbose_name_plural = 'Filiais'
+        verbose_name_plural = 'Filiais'        
+"""
+
+
+
     
 NATUREZA_CHOICES = (
         ('E', 'ENTRADA'),
@@ -47,7 +52,7 @@ NATUREZA_CHOICES = (
 class Caixa(models.Model):    
     data = models.DateField(default=timezone.now)
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
-    filial = models.ForeignKey(Filial, on_delete=PROTECT)
+    #filial = models.ForeignKey(Filial, on_delete=PROTECT)
     #os = models.ForeignKey(OS, on_delete=PROTECT, null=True, blank=True)    
     natureza = models.CharField(max_length=1, default='S', choices=NATUREZA_CHOICES)
     valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -65,7 +70,8 @@ class Caixa(models.Model):
 class Caixa_Item(models.Model):
     caixa = models.ForeignKey(Caixa, on_delete=CASCADE)
     item = models.ForeignKey(Item, on_delete=CASCADE)
-    aplicacao = models.ForeignKey(Aplicacao, default=1, on_delete=PROTECT)
+    #aplicacao = models.ForeignKey(Aplicacao, default=1, on_delete=PROTECT)
+    bem = models.ForeignKey(Bem, on_delete=PROTECT, null=True, blank=True)
     quantidade = models.DecimalField(max_digits=10, decimal_places=2)
     preco = models.DecimalField(max_digits=10, default = 0,decimal_places=2)
     unidade = models.ForeignKey(Unidade, on_delete=CASCADE)

@@ -21,8 +21,8 @@ class CaixaAdmin(admin.ModelAdmin):
         return qs.filter(user_id=request.user)
     exclude=("valor",)
     readonly_fields=('valor', )
-    list_display = ('id', 'data', 'filial', 'natureza', 'valor')
-    list_filter = ('natureza','filial')
+    list_display = ('id', 'data',  'natureza', 'valor')
+    list_filter = ('natureza',)
     search_fields = ('id', 'data', 'valor')
     def save_model(self, request, obj, form, change):
         if not change:
@@ -34,14 +34,16 @@ class CaixaAdmin(admin.ModelAdmin):
     
     inlines = [Caixa_Item_inline,]
 
-@admin.register(Filial)
-class FilialAdmin(admin.ModelAdmin):
-    
+#@admin.register(Filial)
+"""
+class FilialAdmin(admin.ModelAdmin):    
     def save_model(self, request, obj, form, change):
         if not change:
             obj.user = request.user
             obj.save()
         super(FilialAdmin, self).save_model(request, obj, form, change)
+"""
+
 #admin.site.register(Filial)
-admin.site.register(Aplicacao)
+#admin.site.register(Aplicacao)
 

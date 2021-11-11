@@ -1,16 +1,18 @@
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import date, datetime, timezone
+from producao.models import *
 
 # Create your models here.
 from django.db import models
-from caixa.models import Filial
+#from caixa.models import Filial
 
 # Create your models here.
 class Bem(models.Model):
     bem = models.CharField(max_length=100)
     descricao = models.TextField()
-    Filial = models.ForeignKey(Filial, on_delete=models.CASCADE, blank=True, null=True)
+    #Filial = models.ForeignKey(Filial, on_delete=models.CASCADE, blank=True, null=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, blank=True, null=True)
     garantia = models.DateField(auto_now=True)
     data_cadastro = models.DateTimeField(auto_now_add=True)
     data_atualizacao = models.DateTimeField(auto_now=True)
