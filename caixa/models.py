@@ -71,6 +71,7 @@ class Caixa_Item(models.Model):
     caixa = models.ForeignKey(Caixa, on_delete=CASCADE)
     item = models.ForeignKey(Item, on_delete=CASCADE)
     #aplicacao = models.ForeignKey(Aplicacao, default=1, on_delete=PROTECT)
+    veiculo = models.ForeignKey(Veiculo, on_delete=PROTECT, null=True, blank=True)
     bem = models.ForeignKey(Bem, on_delete=PROTECT, null=True, blank=True)
     quantidade = models.DecimalField(max_digits=10, decimal_places=2)
     preco = models.DecimalField(max_digits=10, default = 0,decimal_places=2)
