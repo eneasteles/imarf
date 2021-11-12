@@ -74,7 +74,7 @@ class Caixa_Item(models.Model):
     veiculo = models.ForeignKey(Veiculo, on_delete=PROTECT, null=True, blank=True)
     bem = models.ForeignKey(Bem, on_delete=PROTECT, null=True, blank=True)
     quantidade = models.DecimalField(max_digits=10, decimal_places=2)
-    preco = models.DecimalField(max_digits=10, default = 0,decimal_places=2)
+    preco = models.DecimalField(max_digits=10, default = 0,decimal_places=4)
     unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
     valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     leitura = models.DecimalField(max_digits=10, decimal_places=2, default=0)
