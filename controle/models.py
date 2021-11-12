@@ -31,6 +31,8 @@ class Movimentacao(models.Model):
     veiculo = models.ForeignKey(Veiculo, on_delete=PROTECT)
     origem = models.CharField(max_length=100, null=True, blank=True)
     destino = models.CharField(max_length=100, null=True, blank=True)
+    hora_saida = models.TimeField(null=True, blank=True)
+    hora_chegada = models.TimeField(null=True, blank=True)
     leitura_inicial = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     leitura_final = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)

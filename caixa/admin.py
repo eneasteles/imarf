@@ -21,8 +21,8 @@ class CaixaAdmin(admin.ModelAdmin):
         return qs.filter(user_id=request.user)
     exclude=("valor",)
     readonly_fields=('valor', )
-    list_display = ('id', 'data',  'natureza', 'valor','descricao')
-    list_filter = ('natureza',)
+    list_display = ('id', 'data', 'natureza', 'valor','descricao','user',)
+    list_filter = ('natureza','user')
     search_fields = ('id', 'data', 'valor')
     def save_model(self, request, obj, form, change):
         if not change:
