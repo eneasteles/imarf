@@ -55,7 +55,7 @@ class Caixa(models.Model):
     #filial = models.ForeignKey(Filial, on_delete=PROTECT)
     #os = models.ForeignKey(OS, on_delete=PROTECT, null=True, blank=True)    
     natureza = models.CharField(max_length=1, default='S', choices=NATUREZA_CHOICES)
-    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0, editable=False)
     descricao = models.CharField(max_length=100, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
