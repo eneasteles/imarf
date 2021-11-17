@@ -8,6 +8,7 @@ class Produto_de_Venda(models.Model):
     tipo = models.ForeignKey(Tipo_Produto, on_delete=PROTECT)
     acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
     identificacao = models.CharField(max_length=50, null=True, blank=True)
+    localizacao = models.CharField(max_length=50, null=True, blank=True)
     quantidade = models.FloatField(default=1)
     unidade = models.ForeignKey(Un, on_delete=PROTECT)
     comprimento = DecimalField(max_digits=6, decimal_places=3)

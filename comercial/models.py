@@ -90,7 +90,7 @@ class Pedido_de_venda(models.Model):
     observacao = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=PROTECT)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
     def __str__(self):
         return str(f'{self.pessoa} {self.total} {self.data}')
@@ -114,13 +114,14 @@ class Pedido_de_venda_item(models.Model):
     comprimento =  models.DecimalField(max_digits=10, decimal_places=3, default=0)
     largura =  models.DecimalField(max_digits=10, decimal_places=3, default=0)    
     acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    metragem = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     bloco = models.ForeignKey(Bloco, on_delete=PROTECT, blank=True, null=True)
     #identificacao = models.CharField(max_length=20, null=True)
     percentual_ipi = models.DecimalField(max_digits=6, decimal_places=3, default=5) 
-    valor = models.DecimalField(max_digits=15, decimal_places=3, default=0)
+    valor = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=PROTECT)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
     def __str__(self):
         return "ID:"+str(self.id)
@@ -131,10 +132,13 @@ class Pedido_de_venda_item(models.Model):
            
         if str(self.un) == 'M2':
             self.valor = self.quantidade * self.preco * self.comprimento * self.largura
+            self.metragem = self.quantidade * self.comprimento * self.largura
         elif str(self.un) == 'M3':            
             self.valor = self.quantidade * self.preco * self.altura_espessura * self.comprimento * self.largura
+            self.metragem = self.quantidade * self.altura_espessura * self.comprimento * self.largura
         else:
-            self.valor = self.quantidade * self.preco        
+            self.valor = self.quantidade * self.preco
+            self.metragem = self.quantidade        
         if self.percentual_ipi>0:
             self.valor += self.valor*(self.percentual_ipi/100)        
         self.pedido_de_venda.total += self.valor

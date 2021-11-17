@@ -33,7 +33,7 @@ class Forma_de_pagamento_inline(admin.TabularInline):
 class Pedido_de_venda_item_inline(admin.TabularInline):
     model = Pedido_de_venda_item
     extra = 1
-    readonly_fields=('valor', )
+    readonly_fields=('valor', 'metragem', )
 
 @admin.register(Pedido_de_venda)    
 class Pedido_de_venda_Admin(admin.ModelAdmin): 
@@ -44,6 +44,7 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
         return qs.filter(user_id=request.user)   
     list_display = ('id','pessoa','data')
     list_display_links = ('id','pessoa','data')
+    readonly_fields=('total',)
  #   list_filter = ('id','pessoa')
     list_per_page = 10
     search_fields = ['id']
