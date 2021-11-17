@@ -5,7 +5,7 @@ from .models import *
 class Produto_de_VendaAdmin(admin.ModelAdmin):
 
 
-    list_display = ('id', 'material', 'tipo', 'acabamento','identificacao','quantidade','comprimento','altura_espessura','largura','preco',)
+    list_display = ('id', 'material', 'tipo', 'acabamento','identificacao','localizacao','quantidade','comprimento','altura_espessura','largura','preco',)
     list_filter = ('tipo','material')
 
     def save_model(self, request, obj, form, change):
