@@ -21,7 +21,7 @@ class CaixaAdmin(admin.ModelAdmin):
         return qs.filter(user_id=request.user)
     exclude=("valor",)
     readonly_fields=('valor', )
-    list_display = ('id', 'data', 'natureza', 'descricao','user',)
+    list_display = ('id', 'data', 'natureza', 'valor', 'descricao','user',)
     list_filter = ('natureza','user')
     search_fields = ('id', 'data',)
     exclude=("valor",)
