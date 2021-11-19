@@ -9,6 +9,7 @@ from datetime import date, datetime
 from django.utils import timezone
 from estoque.models import *
 from producao.models import *
+from outlet.models import *
 
 class OSComercial(models.Model):
     STATUS_CHOICES = (
@@ -122,6 +123,7 @@ class Pedido_de_venda_item(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
+    outlet = models.IntegerField(blank=True, null=True, editable = False, default=0)
 
     def __str__(self):
         return "ID:"+str(self.id)
@@ -144,5 +146,14 @@ class Pedido_de_venda_item(models.Model):
         self.pedido_de_venda.total += self.valor
         self.pedido_de_venda.save()
         super(Pedido_de_venda_item, self).save(*args, **kwargs)
-"""
-"""
+
+class Pedido_de_venda_outlet(models.Model):
+    pedido_de_venda = models.ForeignKey(Pedido_de_venda, on_delete=PROTECT)
+    #produto_de_venda = models.ForeignKey(Produto_de_Venda, on_delete=PROTECT)
+    lote = models.IntegerField()    
+    quantidade = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.lote)

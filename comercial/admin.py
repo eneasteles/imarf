@@ -32,8 +32,14 @@ class Forma_de_pagamento_inline(admin.TabularInline):
 
 class Pedido_de_venda_item_inline(admin.TabularInline):
     model = Pedido_de_venda_item
-    extra = 1
+    extra = 0
     readonly_fields=('valor', 'metragem', )
+
+class Pedido_de_venda_outlet_inline(admin.TabularInline):
+    model = Pedido_de_venda_outlet
+    extra = 1
+    list_display = ('lote',)
+    
 
 @admin.register(Pedido_de_venda)    
 class Pedido_de_venda_Admin(admin.ModelAdmin): 
@@ -50,7 +56,9 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
     search_fields = ['id']
     inlines = [
         Pedido_de_venda_item_inline,
+        Pedido_de_venda_outlet_inline,
        # Forma_pagamento_inline,
+       
     ]
 
     def save_model(self, request, obj, form, change):
