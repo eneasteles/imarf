@@ -10,6 +10,7 @@ class Produto_de_Venda(models.Model):
     identificacao = models.CharField(max_length=50, null=True, blank=True)
     localizacao = models.CharField(max_length=50, null=True, blank=True)
     quantidade = models.FloatField(default=1)
+    vendido = models.FloatField(default=0)
     unidade = models.ForeignKey(Un, on_delete=PROTECT)
     comprimento = DecimalField(max_digits=6, decimal_places=3)
     altura_espessura = DecimalField(max_digits=6, decimal_places=3)

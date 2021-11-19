@@ -124,6 +124,7 @@ class Pedido_de_venda_item(models.Model):
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
     outlet = models.IntegerField(blank=True, null=True, editable = False, default=0)
+    
 
     def __str__(self):
         return "ID:"+str(self.id)

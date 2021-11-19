@@ -7,6 +7,7 @@ class Produto_de_VendaAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'material', 'tipo', 'acabamento','identificacao','localizacao','quantidade','comprimento','altura_espessura','largura','preco',)
     list_filter = ('tipo','material')
+    readonly_fields=('vendido', )
 
     def save_model(self, request, obj, form, change):
         if not change:
