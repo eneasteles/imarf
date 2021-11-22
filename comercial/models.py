@@ -39,17 +39,12 @@ class OS_Comercial_Item(models.Model):
     comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     largura = models.DecimalField(max_digits=6, decimal_places=3, default=0)
-    metragem = models.DecimalField(max_digits=10, decimal_places=3, default=0)
-    
-
-
+    metragem = models.DecimalField(max_digits=10, decimal_places=3, default=0) 
     class Meta:
         verbose_name = 'Item'
         verbose_name_plural = 'Itens'
-    def save(self, *args, **kwargs): 
-           
-        self.metragem = self.quantidade * self.comprimento * self.altura * self.largura       
-       
+    def save(self, *args, **kwargs):            
+        self.metragem = self.quantidade * self.comprimento * self.altura * self.largura 
         self.os.metragem += self.metragem
         self.os.save()
         super(OS_Comercial_Item, self).save(*args, **kwargs)
@@ -65,16 +60,7 @@ class Status_da_venda(models.Model):
     def __str__(self):
         return str(self.status_da_venda)
 
-class Forma_de_pagamento(models.Model):
-    forma_pagamento = models.CharField(max_length=100)    
-    parcelas = models.IntegerField(default=1)
-    prazo = models.IntegerField(default=0)
-    created = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField(auto_now=True)
-  #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
-    def __str__(self):
-        return str(self.forma_pagamento)
 
 
 
@@ -158,3 +144,10 @@ class Pedido_de_venda_outlet(models.Model):
 
     def __str__(self):
         return str(self.lote)
+class Forma_de_pagamento(models.Model):
+    pedido = models.ForeignKey(Pedido_de_venda, on_delete=models.PROTECT)
+    #parcelas = models.IntegerField(default=1)
+    prazo = models.IntegerField(default=0)
+    percentual = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True)

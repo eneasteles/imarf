@@ -57,7 +57,7 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
     inlines = [
         Pedido_de_venda_item_inline,
         Pedido_de_venda_outlet_inline,
-       # Forma_pagamento_inline,
+        Forma_de_pagamento_inline,
        
     ]
 
