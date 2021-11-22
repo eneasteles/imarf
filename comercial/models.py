@@ -122,7 +122,7 @@ class Pedido_de_venda_item(models.Model):
     valor = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
+    #user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
     outlet = models.IntegerField(blank=True, null=True, editable = False, default=0)
     
 
