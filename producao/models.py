@@ -45,6 +45,8 @@ class Centro_de_Custo(models.Model):
 class Pessoa(models.Model):
     nome = models.CharField(max_length=100)
     cnpjcpf = models.CharField(max_length=14)
+    endereco = models.CharField(max_length=100, blank=True, null=True)
+    observacao = models.TextField(blank=True)
 
     def __str__(self):
         return str(self.nome)
