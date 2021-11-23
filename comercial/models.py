@@ -149,5 +149,6 @@ class Forma_de_pagamento(models.Model):
     #parcelas = models.IntegerField(default=1)
     prazo = models.IntegerField(default=0)
     percentual = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    valor = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)

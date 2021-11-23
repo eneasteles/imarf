@@ -29,6 +29,7 @@ class OSComercialAdmin(admin.ModelAdmin):
 class Forma_de_pagamento_inline(admin.TabularInline):
     model = Forma_de_pagamento
     extra = 1
+    readonly_fields = ('valor',)
 
 class Pedido_de_venda_item_inline(admin.TabularInline):
     model = Pedido_de_venda_item
