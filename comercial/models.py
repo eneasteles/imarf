@@ -70,7 +70,7 @@ class Pedido_de_venda(models.Model):
     pessoa = models.ForeignKey(Pessoa, on_delete=PROTECT, verbose_name="Cliente")
     data = models.DateField(default=timezone.now) 
     total = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    entrada = models.FloatField(default=100, verbose_name='Entrada %')
+    entrada = models.FloatField(default=0, verbose_name='Entrada %')
     forma_pagamento = models.ForeignKey(Forma_pagamento, on_delete=PROTECT)
     prazo_entrega = models.IntegerField(default=0)
     frete = models.ForeignKey(Frete, on_delete=PROTECT)
