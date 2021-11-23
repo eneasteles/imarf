@@ -61,6 +61,11 @@ class Caixa(models.Model):
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
+    def full_url(self):
+        url = 'https://www.ebttecnologia.com/scriptcase/app/imarf/grid_public_caixa_view/'
+        from django.utils.html import format_html
+        return format_html("<a href='%s'>%s</a>" % (url, url))
+
     def __str__(self):
         return str(self.data)
     class Meta:

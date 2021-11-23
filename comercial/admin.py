@@ -49,7 +49,7 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user_id=request.user)   
-    list_display = ('id','pessoa','data','total')
+    list_display = ('id','pessoa','data','total', 'full_url')
     list_display_links = ('id','pessoa','data')
     readonly_fields=('total',)
  #   list_filter = ('id','pessoa')

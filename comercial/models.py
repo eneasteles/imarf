@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date, datetime
+from django.utils.html import format_html
 from django.urls import reverse
 from setor_pessoal.models import Cadastro_Funcionario
 from bens.models import *
@@ -78,6 +79,11 @@ class Pedido_de_venda(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
+
+    def full_url(self):
+        url = 'https://www.ebttecnologia.com/scriptcase/app/imarf/grid_public_outlet_view/?nmgp_outra_jan=true&nmgp_start=SC&5216'
+        from django.utils.html import format_html
+        return format_html("<a href='%s'>%s</a>" % (url, url))
 
     def __str__(self):
         return str(f'{self.pessoa} {self.total} {self.data}')
