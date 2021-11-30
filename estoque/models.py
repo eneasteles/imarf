@@ -38,6 +38,7 @@ class Grupo_do_Item(models.Model):
 
 class Item(models.Model):
     item = models.CharField(max_length=100)
+    #classe_do_item = models.ManyToManyField(Classe_do_Item)
     classe_do_item = models.ForeignKey(Classe_do_Item, on_delete=PROTECT)
     grupo_do_item = models.ForeignKey(Grupo_do_Item, on_delete=PROTECT)
     def __str__(self):

@@ -53,7 +53,7 @@ class OS_Comercial_Item(models.Model):
 
 
 # Pedido de Venda
-class Status_da_venda(models.Model):
+class Status_pv(models.Model):
     status_da_venda = CharField(max_length=25)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

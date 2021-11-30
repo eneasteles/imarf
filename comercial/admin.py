@@ -14,6 +14,7 @@ class OS_Comercial_ItemInline(TabularInline):
 @admin.register(OSComercial)
 class OSComercialAdmin(admin.ModelAdmin):
     list_display = ('os','data', 'status')
+    list_select_related = ('status',)
     list_filter = ('status',)
     def save_model(self, request, obj, form, change):
         if not change:
@@ -40,6 +41,7 @@ class Pedido_de_venda_outlet_inline(admin.TabularInline):
     model = Pedido_de_venda_outlet
     extra = 1
     list_display = ('lote',)
+
     
 
 @admin.register(Pedido_de_venda)    
@@ -50,6 +52,7 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
             return qs
         return qs.filter(user_id=request.user)   
     list_display = ('id','pessoa','data','total', 'full_url')
+    list_select_related = ('pessoa',)
     list_display_links = ('id','pessoa','data')
     readonly_fields=('total',)
  #   list_filter = ('id','pessoa')
@@ -59,6 +62,7 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
         Pedido_de_venda_item_inline,
         Pedido_de_venda_outlet_inline,
         Forma_de_pagamento_inline,
+        
        
     ]
 
@@ -68,7 +72,6 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
             obj.save()
         super(Pedido_de_venda_Admin, self).save_model(request, obj, form, change)
 
-
-
+admin.site.register(Status_pv)
 """
 """

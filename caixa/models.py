@@ -52,7 +52,7 @@ NATUREZA_CHOICES = (
 class Caixa(models.Model):    
     data = models.DateField(default=timezone.now)
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
-    #filial = models.ForeignKey(Filial, on_delete=PROTECT)
+    centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT, null=True, blank=True)
     #os = models.ForeignKey(OS, on_delete=PROTECT, null=True, blank=True)    
     natureza = models.CharField(max_length=1, default='S', choices=NATUREZA_CHOICES)
     valor = models.DecimalField(max_digits=10, decimal_places=2, default=0, editable=False)

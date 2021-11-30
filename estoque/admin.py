@@ -8,6 +8,7 @@ from .models import *
 class EstoqueAdmin(admin.ModelAdmin):
     list_display = ('material', 'tipo', 'qualidade','unidade', 'quantidade', 'comprimento', 'altura_espessura','largura','preco')
     list_filter = ( 'material', 'tipo')
+    
 
 class Item_valor_inline(admin.TabularInline):
     model = Item_valor
@@ -15,8 +16,9 @@ class Item_valor_inline(admin.TabularInline):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('item', 'classe_do_item',  'grupo_do_item')
+    list_display = ('item',  'grupo_do_item','classe_do_item')
     inlines = [Item_valor_inline,]
+    #autocomplete_fields = ['classe_do_item']
 
 admin.site.register(Tipo_Produto)
 
