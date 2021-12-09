@@ -20,8 +20,24 @@ class ItemAdmin(admin.ModelAdmin):
     inlines = [Item_valor_inline,]
     #autocomplete_fields = ['classe_do_item']
 
+@admin.register(Pro)
+class ProAdmin(admin.ModelAdmin):
+    ordering = ('nome',)
+    list_display = ('nome', 'apelido','saldo','classe','grupo')
+    list_filter = ('classe','grupo')
+    search_fields = ('nome', 'apelido')
+
+@admin.register(Req)    
+class ReqAdmin(admin.ModelAdmin):    
+    list_display = ('item', 'aplicacao','quantidade','unidade','data')
+    list_filter = ('status',)
+
+
 admin.site.register(Tipo_Produto)
 
 admin.site.register(Classe_do_Item)
 admin.site.register(Grupo_do_Item)
+admin.site.register(Apl)
+#admin.site.register(Req)
+#admin.site.register(Git)
 

@@ -10,6 +10,7 @@ class Caixa_Item_inline(admin.TabularInline):
     extra = 1
     exclude=("valor",)
     readonly_fields=('valor', )
+    #raw_id_fields = ("item",)
     
 
 @admin.register(Caixa)
@@ -21,10 +22,12 @@ class CaixaAdmin(admin.ModelAdmin):
         return qs.filter(user_id=request.user)
     exclude=("valor",)
     readonly_fields=('valor', )
-    list_display = ('id', 'data', 'natureza', 'valor', 'descricao','full_url','user',)
+    list_display = ('id', 'data', 'natureza', 'valor', 'descricao','full_url','user')
     list_filter = ('natureza','user')
     search_fields = ('id', 'data',)
     exclude=("valor",)
+    #raw_id_fields = ("empresa",)
+
     #readonly_fields = ('valor',)
     def save_model(self, request, obj, form, change):
         if not change:
@@ -35,6 +38,9 @@ class CaixaAdmin(admin.ModelAdmin):
     
     
     inlines = [Caixa_Item_inline,]
+
+
+    
 
 #@admin.register(Filial)
 """
