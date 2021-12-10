@@ -130,6 +130,7 @@ class Req(models.Model):
     created = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
     status = models.CharField(max_length=1, default='P', choices=STATUS_CHOICES, editable = False)    
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
     def __str__(self):
         return str(self.item)
