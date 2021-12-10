@@ -165,7 +165,24 @@ class FaturamentoAdmin(admin.ModelAdmin):
     ordering =('ano','mes', 'empresa',)
    
 
-admin.site.register(Material)
+@admin.register(Material)
+class MaterialAdmin(admin.ModelAdmin):
+    ordering = ('material',)
+    list_display = ('material','dureza','pedreira')
+    search_fields = ('material',)
+
+@admin.register(Pedreira)
+class PedreiraAdmin(admin.ModelAdmin):
+    ordering = ('pedreira',)
+    list_display = ('pedreira',)
+    search_fields = ('pedreira',)
+
+@admin.register(Empresa)
+class EmpresaAdmin(admin.ModelAdmin):
+    ordering = ('empresa',)
+    list_display = ('empresa',)
+    search_fields = ('empresa',)
+
 #admin.site.register(Bloco, BlocoAdmin)
 admin.site.register(Status_bloco)
 admin.site.register(Chapa)
@@ -185,7 +202,7 @@ admin.site.register(Produto)
 admin.site.register(Classe)
 admin.site.register(Centro_de_Custo)
 admin.site.register(Despesa, DespesaItemAdmin)
-admin.site.register(Pedreira)
+
 admin.site.register(Aplicacao)
 admin.site.register(Detalhe)
 admin.site.register(Qualidade)
@@ -194,7 +211,7 @@ admin.site.register(Entrada_ladrilho)
 #admin.site.register(Liga, LigaAdmin)
 admin.site.register(Forma_pagamento)
 #admin.site.register(Pedido_venda, Pedido_venda_Admin)
-admin.site.register(Empresa)
+
 admin.site.register(Status_venda)
 admin.site.register(Frete)
 admin.site.register(FioFatorConversao)
