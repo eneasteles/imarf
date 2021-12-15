@@ -56,8 +56,9 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
     list_display_links = ('id','pessoa','data')
     readonly_fields=('total',)
  #   list_filter = ('id','pessoa')
+    
     list_per_page = 10
-    search_fields = ['id']
+    autocomplete_fields = ['pessoa']
     inlines = [
         Pedido_de_venda_item_inline,
         Pedido_de_venda_outlet_inline,

@@ -163,6 +163,10 @@ class SerradaAdmin(admin.ModelAdmin):
 class FaturamentoAdmin(admin.ModelAdmin):
     list_display = ('ano','mes', 'empresa', 'valor_interno','valor_externo')
     ordering =('ano','mes', 'empresa',)
+
+@admin.register(Pessoa)
+class PessoaAdmin(admin.ModelAdmin):
+    search_fields = ('nome',)
    
 
 @admin.register(Material)
@@ -196,7 +200,7 @@ admin.site.register(Un)
 admin.site.register(Maquina)     #       admin.site.register()
 #admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
 admin.site.register(Fio_diamantado)
-admin.site.register(Pessoa)
+
 admin.site.register(Grupo)
 admin.site.register(Produto)
 admin.site.register(Classe)

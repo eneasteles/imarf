@@ -27,7 +27,7 @@ class ProAdmin(admin.ModelAdmin):
     ordering = ('nome',)
     list_display = ('nome', 'apelido','saldo','classe','grupo')
     list_filter = ('classe','grupo')
-    search_fields = ('nome', 'apelido')
+    search_fields = ('nome',)
 
 @admin.register(Req)    
 class ReqAdmin(admin.ModelAdmin): 
@@ -39,6 +39,11 @@ class ReqAdmin(admin.ModelAdmin):
     #list_display = ('item', 'aplicacao','quantidade','unidade','data')
     list_display = ('item', 'quantidade','unidade','data')
     list_filter = ('status',)
+    autocomplete_fields = ('item',)
+
+@admin.register(Entrada_Item)
+class Entrada_ItemAdmin(admin.ModelAdmin):
+    autocomplete_fields = ('item',)
 
 
 admin.site.register(Tipo_Produto)
@@ -48,5 +53,5 @@ admin.site.register(Grupo_do_Item)
 admin.site.register(Apl)
 admin.site.register(Git)
 admin.site.register(Cla)
-admin.site.register(Entrada_Item)
+
 
