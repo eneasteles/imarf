@@ -1,6 +1,7 @@
 from django.db import models
 from estoque.models import *
 from producao.models import *
+from bens.models import *
 from django.utils import timezone
 
 
@@ -122,7 +123,7 @@ class Req(models.Model):
         ('C', 'CANCELADO'),
     )
     item = models.ForeignKey(Pro, on_delete=PROTECT)
-    aplicacao = models.ForeignKey(Apl, on_delete=PROTECT)
+    aplicacao = models.ForeignKey(Bem, on_delete=PROTECT)
     quantidade = models.FloatField(default=0)
     unidade = models.ForeignKey(Uni, on_delete=PROTECT)    
     data = models.DateField(default=timezone.now)
@@ -130,6 +131,18 @@ class Req(models.Model):
     created = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
     status = models.CharField(max_length=1, default='P', choices=STATUS_CHOICES, editable = False)    
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
+
+    def __str__(self):
+        return str(self.item)
+
+class Entrada_Item(models.Model): 
+    item = models.ForeignKey(Pro, on_delete=PROTECT)
+    quantidade = models.FloatField(default=0)
+    unidade = models.ForeignKey(Uni, on_delete=PROTECT)    
+    data = models.DateField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True) 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
     def __str__(self):

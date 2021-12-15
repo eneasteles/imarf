@@ -36,7 +36,8 @@ class ReqAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user_id=request.user)   
-    list_display = ('item', 'aplicacao','quantidade','unidade','data')
+    #list_display = ('item', 'aplicacao','quantidade','unidade','data')
+    list_display = ('item', 'quantidade','unidade','data')
     list_filter = ('status',)
 
 
@@ -47,4 +48,5 @@ admin.site.register(Grupo_do_Item)
 admin.site.register(Apl)
 admin.site.register(Git)
 admin.site.register(Cla)
+admin.site.register(Entrada_Item)
 
