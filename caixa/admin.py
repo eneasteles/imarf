@@ -10,7 +10,8 @@ class Caixa_Item_inline(admin.TabularInline):
     extra = 1
     exclude=("valor",)
     readonly_fields=('valor', )
-    #raw_id_fields = ("item",)
+    autocomplete_fields = ('item','bem',)
+
     
 
 @admin.register(Caixa)

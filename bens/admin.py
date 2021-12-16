@@ -4,4 +4,7 @@ from django.contrib import admin
 from .models import Bem
 
 # Register your models here.
-admin.site.register(Bem)
+@admin.register(Bem)
+class BemAdmin(admin.ModelAdmin):
+    search_fields = ('bem',)
+

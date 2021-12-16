@@ -97,7 +97,7 @@ class Pro(models.Model):
     classe = models.ForeignKey(Cla, on_delete=PROTECT, blank=True, null=True)
     unidade = models.CharField(max_length=50, null=True, blank=True)
     unidadeentrada = models.CharField(max_length=50, null=True, blank=True)
-    fatorconversao = models.FloatField(default=0)
+    #fatorconversao = models.FloatField(default=0)
     inativo = models.IntegerField(default=0)
     valor = models.FloatField(default=0)
     saldo = models.FloatField(default=0)

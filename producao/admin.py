@@ -10,6 +10,7 @@ admin.site.index_title = 'PCP IMARF'
 
 #Acabamento, Bloco, Chapa, Fio_diamantado, Insumo, Maquina, Material, Observacao_chapa, Pessoas, Serrada, Status_bloco, Status_chapa, Chapas_produzidas, Espessura, Unidade
 class Chapas_produzidasinline(admin.TabularInline):
+    autocomplete_fields = ['bloco']
     model = Chapas_produzidas
     extra = 1
 
@@ -152,7 +153,7 @@ class Pedido_venda_Admin(admin.ModelAdmin):
 
 @admin.register(Serrada)
 class SerradaAdmin(admin.ModelAdmin):
-    list_display = ('serrada','data_final', 'created')
+    list_display = ('serrada','data_final', 'created')    
     inlines = [
         #BlocoSerradaInline,
         Chapas_produzidasinline,

@@ -20,6 +20,7 @@ class ItemAdmin(admin.ModelAdmin):
     ordering = ('item',)
     list_display = ('item',  'grupo_do_item','classe_do_item')
     inlines = [Item_valor_inline,]
+    search_fields = ('item',)
     #autocomplete_fields = ['classe_do_item']
 
 @admin.register(Pro)
