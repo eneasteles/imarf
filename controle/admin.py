@@ -11,6 +11,7 @@ class VeiculoAdmin(admin.ModelAdmin):
     list_display = ('veiculo','placa', 'modelo',  'ano', 'marca',)
     #list_filter = ('filial',)
     search_fields = ('veiculo', 'placa', 'ano')
+    
     def save_model(self, request, obj, form, change):
         if not change:
             obj.user = request.user

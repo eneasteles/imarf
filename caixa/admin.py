@@ -10,7 +10,7 @@ class Caixa_Item_inline(admin.TabularInline):
     extra = 1
     exclude=("valor",)
     readonly_fields=('valor', )
-    autocomplete_fields = ('item','bem',)
+    autocomplete_fields = ('item','bem','veiculo',)
 
     
 
