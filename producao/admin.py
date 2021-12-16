@@ -60,12 +60,14 @@ class Resina_ValorInline(admin.TabularInline):
 @admin.register(Resina)
 class ResinaAdmin(admin.ModelAdmin):
     list_display = ('resina','dados_tecnicos')
+    search_fields = ('resina',)
     inlines = [
         Resina_ValorInline
     ]
 class Resinamento_itemInline(admin.TabularInline):    
     model = Resinamento_item
     extra = 1
+    
 class Resinamento_Insumo_Inline(admin.TabularInline):
     model = Resinamento_Insumo
     extra = 1
@@ -82,6 +84,7 @@ class ParadaResinamentoinline(admin.TabularInline):
     extra = 0
 class ResinamentoAdmin(admin.ModelAdmin):
     list_display = ('data','bloco','quantidade_de_chapas','id')
+    autocomplete_fields = ('bloco',)
     inlines = [
         #Resinamento_Bloco_Inline,
         Resinamento_itemInline,
