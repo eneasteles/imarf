@@ -35,6 +35,7 @@ class Veiculo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.veiculo + ' - ' + self.placa
