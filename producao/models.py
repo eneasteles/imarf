@@ -89,6 +89,7 @@ class Bloco(models.Model):
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     largura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     status = models.ForeignKey(Status_bloco, on_delete=models.PROTECT) 
+    data = models.DateField(default=date.today)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     usuario = models.ForeignKey(User, default=3, on_delete=PROTECT)
@@ -96,7 +97,7 @@ class Bloco(models.Model):
 
 
     def __str__(self):
-        return self.bloco
+        return self.bloco + ' - ' + str(self.id)
 
 class Espessura(models.Model):
     espessura = models.DecimalField(max_digits=6, decimal_places=3, default=0.02, primary_key=True)

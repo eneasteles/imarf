@@ -29,7 +29,7 @@ class BlocoAdmin(admin.ModelAdmin):
     
     ordering = ('bloco',)
     list_filter = ('status','tipo','material',)
-    list_display = ('bloco','material','tipo','comprimento','altura','largura','status')
+    list_display = ('id','bloco','material','tipo','comprimento','altura','largura','status','data')
     #list_editable = ('comprimento','altura','largura','status')
     
     search_fields = ('bloco',)

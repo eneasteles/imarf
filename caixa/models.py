@@ -88,12 +88,26 @@ class Caixa_Item(models.Model):
     class Meta:
         verbose_name = 'Item'
         verbose_name_plural = 'Itens do Caixa'
-    def save(self, *args, **kwargs): 
-           
-        self.valor = self.quantidade * self.preco       
-       
+    def save(self, *args, **kwargs):           
+        self.valor = self.quantidade * self.preco 
         self.caixa.valor += self.valor
         self.caixa.save()
         super(Caixa_Item, self).save(*args, **kwargs)
 
+
+
+"""
+class Uso_Detalhado_Item(models.Model):
+    caixa = models.ForeignKey(Caixa, on_delete=CASCADE)
+    item = models.ForeignKey(Item, on_delete=CASCADE)
+    veiculo = models.ForeignKey(Veiculo, on_delete=PROTECT, null=True, blank=True)
+    bem = models.ForeignKey(Bem, on_delete=PROTECT, null=True, blank=True)
+    quantidade = models.DecimalField(max_digits=10, decimal_places=3)
+    unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
+    leitura = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
+
+    class Meta:
+        verbose_name = 'Uso detalhado do Item'
+        verbose_name_plural = 'Uso detalhado do Item do Caixa'
+"""
