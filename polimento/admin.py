@@ -5,6 +5,7 @@ from django.contrib.admin.sites import site
 
 # Register your models here.
 class ChapasPolidasInline(admin.TabularInline):    
+    autocomplete_fields = ['bloco']
     model = Chapas_Polidas
     extra = 1
 class ParadaPolitrizInline(admin.TabularInline):
