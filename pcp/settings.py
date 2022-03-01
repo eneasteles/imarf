@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'bens',
     'comercial',
     'outlet',
-
+    'corte',
 ]
 
 DECIMAL_SEPARATOR = ','

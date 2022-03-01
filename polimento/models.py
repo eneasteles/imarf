@@ -21,7 +21,8 @@ class Abrasivo(models.Model):
     fornecedor = models.ForeignKey(Pessoa, on_delete=models.PROTECT, default=2)
     grao = models.IntegerField(default=0)
     descricao = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=50)    
+    tipo = models.CharField(max_length=50)  
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
     data_cadastro = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
     usuario_cadastrou = models.ForeignKey(User, on_delete=PROTECT)
@@ -75,11 +76,12 @@ class Chapas_Polidas(models.Model):
     def __str__(self):
         return str(self.id)
 class Jogo_de_Abrasivos(models.Model):
-    polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
-    abrasivo_id = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
+    #polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
+    abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
     quantidade = models.PositiveIntegerField(default=6)
     cabeca = models.PositiveIntegerField(default=0)
     pausado = models.BooleanField(default=False)
+    valor_abrasivo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     #data = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -87,4 +89,14 @@ class Jogo_de_Abrasivos(models.Model):
     def __str__(self):
         return str(self.id)
 
- 
+class Chp_Pol_por_Jogo_de_Abr(models.Model):
+    jogo_de_abrasivos = models.ForeignKey(Jogo_de_Abrasivos, on_delete=models.PROTECT, default=1)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    quantidade = models.PositiveIntegerField(default=0)
+    tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1)
+    velocidade = models.PositiveIntegerField(default=0)
+    qualidade = models.ForeignKey(Qualidade_Polimento, on_delete=models.PROTECT)
+    frequencia = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id)

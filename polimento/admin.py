@@ -1,5 +1,5 @@
 from producao.models import Qualidade
-from polimento.models import Abrasivo, Chapas_Polidas, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade_Polimento, Tipo_Polimento
+from polimento.models import Abrasivo, Chapas_Polidas, Chp_Pol_por_Jogo_de_Abr, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade_Polimento, Tipo_Polimento
 from django.contrib import admin
 from django.contrib.admin.sites import site
 
@@ -11,21 +11,29 @@ class ChapasPolidasInline(admin.TabularInline):
 class ParadaPolitrizInline(admin.TabularInline):
     model = Parada_Politriz
     extra = 1
-class Jogo_de_AbrasivoInline(admin.TabularInline):
-    model = Jogo_de_Abrasivos
+
+
+class Chp_Pol_por_Jogo_de_AbrInline(admin.TabularInline):
+    model = Chp_Pol_por_Jogo_de_Abr
     extra = 1
 @admin.register(Polimento)
 class PolimentoAdmin(admin.ModelAdmin):
     ordering = ('data',)
     list_display = ('data','maquina','turno')
     inlines = [
-        ChapasPolidasInline,
+        #ChapasPolidasInline,
         ParadaPolitrizInline,
-        Jogo_de_AbrasivoInline,
+        #Jogo_de_AbrasivoInline,
     ]
 
 
 admin.site.register(Abrasivo)
 admin.site.register(Qualidade_Polimento)
 admin.site.register(Tipo_Polimento)
+
+@admin.register(Jogo_de_Abrasivos)
+class Jogo_de_AbrasivosAdmin(admin.ModelAdmin):
+    inlines = [Chp_Pol_por_Jogo_de_AbrInline,]
+
+
 
