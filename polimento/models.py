@@ -90,6 +90,7 @@ class Jogo_de_Abrasivos(models.Model):
         return str(self.id)
 
 class Chp_Pol_por_Jogo_de_Abr(models.Model):
+    data = models.DateField(default=timezone.now)
     jogo_de_abrasivos = models.ForeignKey(Jogo_de_Abrasivos, on_delete=models.PROTECT, default=1)
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     quantidade = models.PositiveIntegerField(default=0)
