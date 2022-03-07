@@ -86,7 +86,7 @@ class Pedido_de_venda(models.Model):
         return format_html("<a href='%s'>%s</a>" % (url, url))
 
     def __str__(self):
-        return str(f'{self.pessoa} {self.total} {self.data}')
+        return str(f'{self.id} {self.pessoa} {self.total} {self.data}')
 
     #def save(self, *args, **kwargs):
     #    pdtotal = Pedido_venda_item.objects.all().values()

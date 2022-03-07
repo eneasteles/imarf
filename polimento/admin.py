@@ -14,6 +14,7 @@ class ParadaPolitrizInline(admin.TabularInline):
 
 
 class Chp_Pol_por_Jogo_de_AbrInline(admin.TabularInline):
+    autocomplete_fields = ('bloco',)
     model = Chp_Pol_por_Jogo_de_Abr
     extra = 1
 @admin.register(Polimento)
@@ -32,7 +33,7 @@ admin.site.register(Qualidade_Polimento)
 admin.site.register(Tipo_Polimento)
 
 @admin.register(Jogo_de_Abrasivos)
-class Jogo_de_AbrasivosAdmin(admin.ModelAdmin):
+class Jogo_de_AbrasivosAdmin(admin.ModelAdmin):    
     inlines = [Chp_Pol_por_Jogo_de_AbrInline,]
 
 
