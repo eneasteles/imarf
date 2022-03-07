@@ -80,7 +80,7 @@ class Jogo_de_Abrasivos(models.Model):
     abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
     quantidade = models.PositiveIntegerField(default=6)
     #cabeca = models.PositiveIntegerField(default=0)
-    pausado = models.BooleanField(default=False)
+    #pausado = models.BooleanField(default=False)
     valor_abrasivo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     #data = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
