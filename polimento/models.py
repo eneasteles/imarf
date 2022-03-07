@@ -91,6 +91,7 @@ class Jogo_de_Abrasivos(models.Model):
 
 class Chp_Pol_por_Jogo_de_Abr(models.Model):
     data = models.DateField(default=timezone.now)
+    maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
     jogo_de_abrasivos = models.ForeignKey(Jogo_de_Abrasivos, on_delete=models.PROTECT, default=1)
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     cabeca = models.PositiveIntegerField(default=0)
