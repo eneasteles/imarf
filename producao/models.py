@@ -62,7 +62,7 @@ class Pedreira(models.Model):
         return str(self.pedreira)
 
 class Material(models.Model):
-    material = models.CharField(max_length=100)
+    material = models.CharField(max_length=100, unique=True)
     dureza = models.IntegerField(default= True) 
     pedreira = models.ForeignKey(Pedreira, on_delete=PROTECT, default=1)
     created = models.DateTimeField(auto_now_add=True)
@@ -620,7 +620,7 @@ class Resinamento(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return str(self.data)
+        return str(self.id) +" -- " +str(self.data)
 """     
 class Resinamento_Bloco(models.Model):
     resinamento_id = models.ForeignKey(Resinamento, on_delete=PROTECT)

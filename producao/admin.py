@@ -83,6 +83,7 @@ class ParadaResinamentoinline(admin.TabularInline):
     model = Parada_Resinamento
     extra = 0
 class ResinamentoAdmin(admin.ModelAdmin):
+    search_fields = ('id',)
     list_display = ('data','linha','bloco','quantidade_de_chapas','id')
     autocomplete_fields = ('bloco',)
     inlines = [
