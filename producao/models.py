@@ -434,7 +434,7 @@ class Empresa(models.Model):
 
 
     def __str__(self):
-        return str(self.empresa)
+        return str(self.empresa) + ' - ' + str(self.id)
 
 class FioFatorConversao(models.Model):
     maquina = models.ForeignKey(Maquina, on_delete=PROTECT)

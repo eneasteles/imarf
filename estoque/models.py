@@ -16,7 +16,7 @@ class Estoque(models.Model):
     material = models.ForeignKey(Material, on_delete=PROTECT)
     tipo = models.ForeignKey(Tipo_Produto, on_delete=PROTECT)
     #acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
-    qualidade = models.ForeignKey(Qualidade, on_delete=PROTECT)
+    #qualidade = models.ForeignKey(Qualidade, on_delete=PROTECT)
     #detalhe = models.ForeignKey(Detalhe, on_delete=PROTECT)
     quantidade = models.FloatField()
     unidade = models.ForeignKey(Un, on_delete=PROTECT)

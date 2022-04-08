@@ -131,7 +131,7 @@ class Pedido_venda_item_inline(admin.TabularInline):
     model = Pedido_venda_item
     extra = 1
     readonly_fields=('valor', )
-
+"""
 @admin.register(Pedido_venda)    
 class Pedido_venda_Admin(admin.ModelAdmin): 
     def get_queryset(self, request):
@@ -154,6 +154,8 @@ class Pedido_venda_Admin(admin.ModelAdmin):
             obj.user = request.user
             obj.save()
         super(Pedido_venda_Admin, self).save_model(request, obj, form, change)
+"""
+
 
 @admin.register(Serrada)
 class SerradaAdmin(admin.ModelAdmin):

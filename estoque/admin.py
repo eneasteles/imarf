@@ -7,7 +7,7 @@ from .models import *
 @admin.register(Estoque)
 class EstoqueAdmin(admin.ModelAdmin):
     ordering = ('material',)
-    list_display = ('material', 'tipo', 'qualidade','unidade', 'quantidade', 'comprimento', 'altura_espessura','largura','preco')
+    list_display = ('material', 'tipo', 'unidade', 'quantidade', 'comprimento', 'altura_espessura','largura','preco')
     list_filter = ( 'material', 'tipo')
     
 
