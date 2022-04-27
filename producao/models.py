@@ -498,7 +498,7 @@ class Pedido_venda(models.Model):
    # usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
-        return str(f'{self.pessoa} {self.total} {self.data}')
+        return self.pessoa
 
     #def save(self, *args, **kwargs):
     #    pdtotal = Pedido_venda_item.objects.all().values()

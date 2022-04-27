@@ -51,12 +51,12 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user_id=request.user)   
-    search_fields = ('id',)
-    list_display = ('id','pessoa','data','total', 'full_url')
+    search_fields = ('id','pessoa__nome')
+    list_display = ('id','pessoa','data','total', 'full_url','user',)
     list_select_related = ('pessoa',)
     list_display_links = ('id','pessoa','data')
     readonly_fields=('total',)
- #   list_filter = ('id','pessoa')
+    list_filter = ('user',)
     
     list_per_page = 10
     autocomplete_fields = ['pessoa']
