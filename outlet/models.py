@@ -7,6 +7,8 @@ class Produto_de_Venda(models.Model):
     material = models.ForeignKey(Material, on_delete=PROTECT)
     tipo = models.ForeignKey(Tipo_Produto, on_delete=PROTECT)
     acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    qualidade = models.CharField(max_length=10, null=True, blank=True)
+    observacao = models.CharField(max_length=100, null=True, blank=True)
     identificacao = models.CharField(max_length=50, null=True, blank=True)
     localizacao = models.CharField(max_length=50, null=True, blank=True)
     quantidade = models.FloatField(default=1)
