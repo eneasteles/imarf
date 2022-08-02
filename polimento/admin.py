@@ -33,7 +33,8 @@ admin.site.register(Qualidade_Polimento)
 admin.site.register(Tipo_Polimento)
 
 @admin.register(Jogo_de_Abrasivos)
-class Jogo_de_AbrasivosAdmin(admin.ModelAdmin):    
+class Jogo_de_AbrasivosAdmin(admin.ModelAdmin):
+    list_filter = ('finalizado',)    
     inlines = [Chp_Pol_por_Jogo_de_AbrInline,]
 
 
