@@ -14,13 +14,13 @@ class OS_Comercial_ItemInline(TabularInline):
 @admin.register(OSComercial)
 class OSComercialAdmin(admin.ModelAdmin):
     list_display = ('os','data', 'status')
-    list_select_related = ('status',)
+    #list_select_related = ('status',)
     list_filter = ('status',)
     def save_model(self, request, obj, form, change):
         if not change:
             obj.user = request.user
             obj.save()
-        super(OSComercialAdmin, self).save_model(request, obj, form, change)
+        super(OSComercialAdmin, self).save_model(self, request, obj, form, change)
     
     inlines = [
     OS_Comercial_ItemInline,
