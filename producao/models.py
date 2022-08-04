@@ -615,6 +615,7 @@ class Resinamento(models.Model):
     operador = models.ForeignKey(Operador, on_delete=PROTECT)
     bloco = models.ForeignKey(Bloco, on_delete=PROTECT, default=2)
     quantidade_de_chapas = models.PositiveIntegerField(default=0)
+    acabamento = models.ForeignKey(Acabamento, default=2 ,on_delete=PROTECT)
     observacao = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
