@@ -97,7 +97,7 @@ class Chp_Pol_por_Jogo_de_Abr(models.Model):
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     cabeca = models.PositiveIntegerField(default=0)
     quantidade = models.PositiveIntegerField(default=0)
-    acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
+    acabamento = models.ForeignKey(Acabamento, default=2 ,on_delete=PROTECT)
     tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1)
     velocidade = models.PositiveIntegerField(default=0)
     qualidade = models.ForeignKey(Qualidade_Polimento, on_delete=models.PROTECT)
