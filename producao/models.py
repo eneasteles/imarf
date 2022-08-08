@@ -413,7 +413,7 @@ class BlocoItem(models.Model):
     produto = models.ForeignKey(Produto, on_delete=PROTECT)
     unidade = models.ForeignKey(Unidade, on_delete=PROTECT)
     quantidade = models.FloatField()
-    valor = models.FloatField()
+    #valor = models.FloatField()
     descricao = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
