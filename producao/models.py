@@ -265,6 +265,7 @@ class Classe(models.Model):
 class Produto(models.Model):
     produto = models.CharField(max_length=100)
     unidade = models.ForeignKey(Unidade, on_delete=PROTECT)
+    preco = models.FloatField(default=0)
     grupo = models.ForeignKey(Grupo, on_delete=PROTECT)
     classe = models.ForeignKey(Classe, on_delete=PROTECT)
     created = models.DateTimeField(auto_now_add=True)
