@@ -646,7 +646,8 @@ class Resinamento_Insumo(models.Model):
 
 class Resinamento_chapa(models.Model):
     resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número")
-    chapa_numero = models.IntegerField()
+    chapa_inicial= models.IntegerField()
+    chapa_final = models.IntegerField()
 
 
 class Resinamento_item(models.Model):
