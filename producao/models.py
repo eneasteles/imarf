@@ -644,7 +644,9 @@ class Resinamento_Insumo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-
+class Resinamento_chapa(models.Model):
+    resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número")
+    chapa_numero = models.IntegerField()
 
 
 class Resinamento_item(models.Model):

@@ -64,6 +64,9 @@ class ResinaAdmin(admin.ModelAdmin):
     inlines = [
         Resina_ValorInline
     ]
+class Resinamento_chapaInline(admin.TabularInline):    
+    model = Resinamento_chapa
+    extra = 1
 class Resinamento_itemInline(admin.TabularInline):    
     model = Resinamento_item
     extra = 1
@@ -87,8 +90,8 @@ class ResinamentoAdmin(admin.ModelAdmin):
     list_display = ('data','linha','bloco','quantidade_de_chapas','id')
     autocomplete_fields = ('bloco',)
     inlines = [
-        #Resinamento_Bloco_Inline,
         Resinamento_itemInline,
+        Resinamento_chapaInline,        
         ParadaResinamentoinline,
         
     ]
