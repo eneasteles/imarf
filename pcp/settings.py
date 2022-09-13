@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'outlet',
     'corte',
     'pedreira',
+    'envelopamento',
+    'telamento',
 ]
 
 DECIMAL_SEPARATOR = ','

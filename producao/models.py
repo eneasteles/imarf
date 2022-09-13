@@ -660,6 +660,8 @@ class Resinamento_item(models.Model):
     frequencia = models.PositiveIntegerField(default=1) 
     #observacao = models.CharField(max_length=200, blank=True)
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
+    def __str__(self):
+        return f'{self.resina}'
 
 class Parada_Resinamento(models.Model):
     resinamento_id = models.ForeignKey(Resinamento, on_delete=PROTECT)
