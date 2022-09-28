@@ -7,6 +7,9 @@ from . models import *
 class Telamento_iteminline(admin.TabularInline):
     model = Telamento_item
     extra = 0
+class Telamento_chapainline(admin.TabularInline):
+    model = Telamento_chapa
+    extra = 0
 
 @admin.register(Telamento)
 class EnvolopamentoAdmin(admin.ModelAdmin):
@@ -15,5 +18,5 @@ class EnvolopamentoAdmin(admin.ModelAdmin):
     autocomplete_fields = ('bloco',)
     inlines = [
         Telamento_iteminline,
-        
+        Telamento_chapainline,
     ]
