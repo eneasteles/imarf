@@ -80,7 +80,8 @@ class Status_bloco(models.Model):
 class Bloco(models.Model):
     TIPO_CHOICES = (
         ('A','PRIMEIRA'),
-        ('B','SEGUNDA LINHA')
+        ('B','SEGUNDA LINHA'),
+        ('C','TERCEIRA LINHA'),
     )
     bloco = models.CharField(max_length=15)
     material = models.ForeignKey(Material, on_delete=models.PROTECT) 

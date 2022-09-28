@@ -30,3 +30,8 @@ class Telamento_item(models.Model):
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
     def __str__(self):
         return f'{self.resina}'
+
+class Telamento_chapa(models.Model):
+    telamento = models.ForeignKey(Telamento, on_delete=PROTECT, verbose_name="Chapa número")
+    chapa_inicial= models.IntegerField()
+    chapa_final = models.IntegerField()

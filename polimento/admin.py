@@ -22,7 +22,7 @@ class PolimentoAdmin(admin.ModelAdmin):
     ordering = ('data',)
     list_display = ('data','maquina','turno')
     inlines = [
-        #ChapasPolidasInline,
+        ChapasPolidasInline,
         ParadaPolitrizInline,
         #Jogo_de_AbrasivoInline,
     ]
