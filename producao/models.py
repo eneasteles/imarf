@@ -129,18 +129,36 @@ class Observacao_chapa(models.Model):
 
     def __str__(self):
         return self.observacao_chapa
+class Status_Cavalete(models.Model):
+    status_cavalete = models.CharField(max_length=20, primary_key=True)
+
+    def __str__(self):
+        return self.status_cavalete
+
+class Cavalete(models.Model):
+    cavalete = models.CharField(max_length=50)
+    status_cavalete = models.ForeignKey(Status_Cavalete, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.cavalete
 
 class Chapa(models.Model):
-    chapa = models.IntegerField()
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    chapa = models.IntegerField()
+    cavalete = models.ForeignKey(Cavalete, default='0', on_delete=models.PROTECT)    
     acabamento = models.ForeignKey(Acabamento, on_delete=PROTECT)
     espessura = models.ForeignKey(Espessura, on_delete=models.PROTECT)
     observacao_chapa = models.ForeignKey(Observacao_chapa, on_delete=models.PROTECT)
+    status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ('bloco', 'chapa')
+
+
     def __str__(self):
-        return str(self.chapa)
+        return 'Chp n° '+str(self.chapa)+' Bloco: '+str(self.bloco)+' '+str(self.status_chapa)
 
 class Insumo(models.Model):
     insumo = models.CharField(max_length=100)

@@ -1,6 +1,3 @@
-# imarfnet
-Novo PCP
-
 ATIVAR O ANBIENTE VIRTUAL DO PYTHON
 no Windows: env\scripts\activate
 no Linux: Source env/bin/activate
@@ -8,3 +5,4 @@ no Linux: Source env/bin/activate
 EXECUTAR O Sistema
 
 No Windows: py manage.py runserver
+
