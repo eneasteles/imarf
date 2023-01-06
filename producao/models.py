@@ -681,7 +681,7 @@ class Resinamento_item(models.Model):
     def __str__(self):
         return f'{self.resina}'
 
-class Telamento_chapa(models.Model):
+class Tela_chapa(models.Model):
     resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número")
     chapa_inicial= models.IntegerField()
     chapa_final = models.IntegerField()
