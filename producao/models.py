@@ -668,7 +668,6 @@ class Resinamento_chapa(models.Model):
     chapa_inicial= models.IntegerField()
     chapa_final = models.IntegerField()
 
-
 class Resinamento_item(models.Model):
     resinamento_id = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Insumo")
     #bloco = models.ForeignKey(Bloco, on_delete=PROTECT)
@@ -681,6 +680,14 @@ class Resinamento_item(models.Model):
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
     def __str__(self):
         return f'{self.resina}'
+
+class Telamento_chapa(models.Model):
+    resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número")
+    chapa_inicial= models.IntegerField()
+    chapa_final = models.IntegerField()
+    resina = models.ForeignKey(Resina, on_delete=PROTECT, default=59, verbose_name="Tela")
+    quantidade_insumo = models.FloatField(default=0)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
 
 class Parada_Resinamento(models.Model):
     resinamento_id = models.ForeignKey(Resinamento, on_delete=PROTECT)
