@@ -606,7 +606,7 @@ class Resina(models.Model):
   #  usuario = models.ForeignKey(User, on_delete=PROTECT)
 
     def __str__(self):
-        return str(self.resina)
+        return str(self.id)+' : '+ str(self.resina)
 class Resina_Valor(models.Model):
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     preco = models.DecimalField(max_digits=12, decimal_places=2)
@@ -663,6 +663,9 @@ class Resinamento_Insumo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str(self.id)
+
 class Resinamento_chapa(models.Model):
     resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número")
     chapa_inicial= models.IntegerField()
@@ -685,9 +688,12 @@ class Tela_chapa(models.Model):
     resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número")
     chapa_inicial= models.IntegerField()
     chapa_final = models.IntegerField()
-    resina = models.ForeignKey(Resina, on_delete=PROTECT, default=59, verbose_name="Tela")
+    resina = models.ForeignKey(Resina, on_delete=PROTECT, default=3, verbose_name="Tela")
     quantidade_insumo = models.FloatField(default=0)
     unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
+
+    def __str__(self):
+        return f'{self.id}'
 
 class Parada_Resinamento(models.Model):
     resinamento_id = models.ForeignKey(Resinamento, on_delete=PROTECT)

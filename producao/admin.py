@@ -70,6 +70,11 @@ class Resinamento_chapaInline(admin.TabularInline):
 class Resinamento_itemInline(admin.TabularInline):    
     model = Resinamento_item
     extra = 1
+
+class Tela_chapa_Inline(admin.TabularInline):    
+    model = Tela_chapa
+    extra = 1
+
     
 class Resinamento_Insumo_Inline(admin.TabularInline):
     model = Resinamento_Insumo
@@ -91,7 +96,8 @@ class ResinamentoAdmin(admin.ModelAdmin):
     autocomplete_fields = ('bloco',)
     inlines = [
         Resinamento_itemInline,
-        Resinamento_chapaInline,        
+        Resinamento_chapaInline,  
+        Tela_chapa_Inline,     
         ParadaResinamentoinline,
         
     ]
