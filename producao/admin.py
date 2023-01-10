@@ -97,7 +97,7 @@ class ResinamentoAdmin(admin.ModelAdmin):
     inlines = [
         Resinamento_itemInline,
         Resinamento_chapaInline,  
-        Tela_chapa_Inline,     
+ #       Tela_chapa_Inline,     
         ParadaResinamentoinline,
         
     ]

@@ -175,7 +175,7 @@ class Unidade(models.Model):
         return str(self.unidade)
 
 class Un(models.Model):
-    unidade = models.CharField(max_length=20, primary_key=True)
+    unidade = models.CharField(max_length=20, primary_key=True, default='M')
     fator = models.DecimalField(max_digits=10, decimal_places=3, default=1)
     descricao_unidade = models.CharField(max_length=100, default='')
 
@@ -690,7 +690,7 @@ class Tela_chapa(models.Model):
     chapa_final = models.IntegerField()
     resina = models.ForeignKey(Resina, on_delete=PROTECT, default=3, verbose_name="Tela")
     quantidade_insumo = models.FloatField(default=0)
-    unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default='M')
 
     def __str__(self):
         return f'{self.id}'
