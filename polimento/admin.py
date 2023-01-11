@@ -1,5 +1,5 @@
 from producao.models import Qualidade
-from polimento.models import Abrasivo, Chapas_Polidas, Chp_Pol_por_Jogo_de_Abr, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade_Polimento, Tipo_Polimento
+from polimento.models import Abrasivo, Chapas_Polidas, Chp_Pol_por_Jogo_de_Abr, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade_Polimento, Tipo_Polimento, Chapas_Ini_Fin
 from django.contrib import admin
 from django.contrib.admin.sites import site
 
@@ -8,6 +8,10 @@ class ChapasPolidasInline(admin.TabularInline):
     autocomplete_fields = ['bloco']
     model = Chapas_Polidas
     extra = 1
+class Chapas_Ini_FinInline(admin.TabularInline):    
+    model = Chapas_Ini_Fin
+    extra = 1
+
 class ParadaPolitrizInline(admin.TabularInline):
     model = Parada_Politriz
     extra = 1
@@ -23,8 +27,10 @@ class PolimentoAdmin(admin.ModelAdmin):
     list_display = ('data','maquina','turno')
     inlines = [
         ChapasPolidasInline,
+        Chapas_Ini_FinInline,
         ParadaPolitrizInline,
         #Jogo_de_AbrasivoInline,
+        
     ]
 
 

@@ -64,8 +64,8 @@ class Chapas_Polidas(models.Model):
     polimento_id = models.ForeignKey(Polimento, on_delete=models.CASCADE,default=1)
     bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField(default=0)
-    chapa_inicial = models.PositiveIntegerField(default=0)
-    chapa_final = models.PositiveIntegerField(default=0)
+   # chapa_inicial = models.PositiveIntegerField(default=0)
+   # chapa_final = models.PositiveIntegerField(default=0)
     tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1, verbose_name="Acabamento")
     chapas_quebradas = models.PositiveIntegerField(default=0)
     chapas_trincadas = models.PositiveIntegerField(default=0)
@@ -78,6 +78,15 @@ class Chapas_Polidas(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+################################
+class Chapas_Ini_Fin(models.Model):
+    polimento = models.ForeignKey(Polimento, on_delete=models.CASCADE)
+    chapa_inicial = models.PositiveIntegerField(default=0)
+    chapa_final = models.PositiveIntegerField(default=0)
+##########################
+
 class Jogo_de_Abrasivos(models.Model):
     #polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
     abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
