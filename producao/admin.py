@@ -205,7 +205,7 @@ class EmpresaAdmin(admin.ModelAdmin):
 
 #admin.site.register(Bloco, BlocoAdmin)
 admin.site.register(Status_bloco)
-admin.site.register(Chapa)
+
 admin.site.register(Status_chapa)
 admin.site.register(Espessura)
 admin.site.register(Acabamento)
