@@ -12,7 +12,7 @@ class Chapa(models.Model):
     espessura = models.DecimalField(max_digits=6, decimal_places=2)
     comprimento_liquido = models.DecimalField(max_digits=6, decimal_places=2)
     altura_liquida = models.DecimalField(max_digits=6, decimal_places=2)
-    polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT, default=12)
+    polimento_id = models.BigIntegerField(default=0)
     acabamento = models.ForeignKey(Acabamento, on_delete=models.PROTECT)
     qualidade = models.CharField(max_length=50, null=True, blank=True)
     cavalete = models.CharField(max_length=50, null=True, blank=True)
