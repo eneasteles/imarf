@@ -29,4 +29,4 @@ class Chapa(models.Model):
         unique_together = ['bloco', 'chapa_numero',]
 
     def __str__(self):
-        return self.bloco.descricao
+        return  str(self.chapa_numero) + ' Bloco ' + str(self.bloco.bloco)
