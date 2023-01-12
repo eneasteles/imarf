@@ -6,7 +6,7 @@ from bens.models import Bem
 from estoque.models import Item
 
 
-from producao.models import Centro_de_Custo, Empresa, Unidade
+from producao.models import Centro_de_Custo, Empresa, Unidade, Pedreira, Material
 
 class Lancamento(models.Model):    
     data = models.DateField(default=datetime.now)
@@ -43,5 +43,22 @@ class Lancamento_Item(models.Model):
         self.lancamento.valor += self.valor
         self.lancamento.save()
         super(Lancamento_Item, self).save(*args, **kwargs)
+
+class Producao_pedreira_m3(models.Model):
+    ano = models.IntegerField(default=datetime.now().year)
+    mes = models.IntegerField(default=datetime.now().month)
+    empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
+    pedreira = models.ForeignKey(Pedreira, on_delete=PROTECT, null=True, blank=True)
+    material = models.ForeignKey(Material, on_delete=models.PROTECT) 
+    m3 = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
+
+    def __str__(self):
+        return str(self.ano)+'/'+str(self.mes)+' - '+str(self.material)+' - '+str(self.m3)+' m3'
+    class Meta:
+        verbose_name = 'Lancamento de Produção'
+        verbose_name_plural = 'Produção M3'
 
 

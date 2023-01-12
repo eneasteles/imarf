@@ -661,6 +661,7 @@ class Resinamento_item(models.Model):
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     #quantidade_de_chapas = models.FloatField()
     quantidade_insumo = models.FloatField(default=0)
+    preco = models.FloatField(default=0)
     unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
     frequencia = models.PositiveIntegerField(default=1) 
     #observacao = models.CharField(max_length=200, blank=True)

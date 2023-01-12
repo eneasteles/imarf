@@ -25,6 +25,7 @@ class Telamento_item(models.Model):
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     #quantidade_de_chapas = models.FloatField()
     quantidade_insumo = models.FloatField(default=0)
+    preco = models.FloatField(default=0)
     unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
     #observacao = models.CharField(max_length=200, blank=True)
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
@@ -38,4 +39,5 @@ class Telamento_chapa(models.Model):
     chapa_final = models.IntegerField()
     resina = models.ForeignKey(Resina, on_delete=PROTECT, default=59, verbose_name="Tela")
     quantidade_insumo = models.FloatField(default=0)
+    preco = models.FloatField(default=0)
     unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)

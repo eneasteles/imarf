@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from pedreira.models import Lancamento, Lancamento_Item
+from pedreira.models import Lancamento, Lancamento_Item, Producao_pedreira_m3
 
 # Register your models here.
 class Lancamento_Item_inline(admin.TabularInline):
@@ -35,3 +35,4 @@ class CaixaAdmin(admin.ModelAdmin):
     
     
     inlines = [Lancamento_Item_inline,]
+admin.site.register(Producao_pedreira_m3)
