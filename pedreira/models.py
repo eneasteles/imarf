@@ -32,7 +32,8 @@ class Lancamento_Item(models.Model):
     preco = models.DecimalField(max_digits=10, default = 0,decimal_places=2)
     unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
     valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    #leitura = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    leitura = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    caixa = models.BooleanField(default=False)
     
 
     class Meta:
