@@ -40,7 +40,8 @@ class Qualidade_Polimento(models.Model):
 class Polimento(models.Model):
     data = models.DateField(default=timezone.now)
     turno = models.PositiveIntegerField(default=1)
-    Operador = models.ForeignKey(Operador, on_delete=models.CASCADE)
+    #Operador = models.ForeignKey(Operador, on_delete=models.CASCADE)
+    operador = models.ForeignKey(Operador, on_delete=models.CASCADE, default=3)
     maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
     horimetro_inicial = models.FloatField(default=0)
     horimetro_final = models.FloatField(default=0)

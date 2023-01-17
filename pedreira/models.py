@@ -12,6 +12,8 @@ class Lancamento(models.Model):
     data = models.DateField(default=datetime.now)
     empresa = models.ForeignKey(Empresa, on_delete=PROTECT)
     centro_de_custo = models.ForeignKey(Centro_de_Custo, on_delete=PROTECT, null=True, blank=True)
+    pedreira = models.ForeignKey(Pedreira, on_delete=PROTECT, default=19)
+    material = models.ForeignKey(Material, on_delete=models.PROTECT, default=18) 
     valor = models.DecimalField(max_digits=10, decimal_places=2, default=0, editable=False)
     descricao = models.CharField(max_length=100, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
