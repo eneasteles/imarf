@@ -168,8 +168,9 @@ class Pedido_venda_Admin(admin.ModelAdmin):
 
 @admin.register(Serrada)
 class SerradaAdmin(admin.ModelAdmin):
-    search_field = ['bloco']
-    list_display = ('serrada','data_final', 'created')    
+    search_fields = ('serrada',)
+    list_filter = ['maquina', ]
+    list_display = ('serrada','maquina', 'created')    
     inlines = [
         #BlocoSerradaInline,
         Chapas_produzidasinline,
