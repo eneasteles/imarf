@@ -228,7 +228,7 @@ class Serrada(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return str(self.serrada)
+        return str(self.serrada)+ ' update '+ str(self.updated)
 
 
 
