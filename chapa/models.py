@@ -63,9 +63,9 @@ class Lancamento_manual_chapa(models.Model):
 
 class Lancamento_chapa_quebrada(models.Model):
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
-    chapa_inicial = models.IntegerField(default=1)
-    chapa_final = models.IntegerField(default=1)
-    status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default=1)
+    chapa_inicial = models.IntegerField(default=0)
+    chapa_final = models.IntegerField(default=0)
+    status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default='QUEBRADA')
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
     
