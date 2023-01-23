@@ -60,3 +60,17 @@ class Lancamento_manual_chapa(models.Model):
 
     def __str__(self):
         return  str(self.chapa_inicial) + ' a ' + str(self.chapa_final) + ' Bloco: ' + str(self.bloco.bloco)
+
+class Lancamento_chapa_quebrada(models.Model):
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    chapa_inicial = models.IntegerField(default=1)
+    chapa_final = models.IntegerField(default=1)
+    status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default=1)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    
+    class Meta:
+        unique_together = ['bloco', 'chapa_inicial', 'chapa_final',]
+
+    def __str__(self):
+        return  str(self.chapa_inicial) + ' a ' + str(self.chapa_final) + ' Bloco: ' + str(self.bloco.bloco)
