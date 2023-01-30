@@ -30,10 +30,8 @@ class Veiculo(models.Model):
         verbose_name_plural = 'Veículos'
 
 class Bem(models.Model):
-    bem = models.CharField(max_length=100)    
-    marca = models.CharField(max_length=50, blank=True, null=True)
-    modelo = models.CharField(max_length=50, blank=True, null=True)
-    ano = models.IntegerField(blank=True, null=True)
+    bem = models.CharField(max_length=100) 
+    veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE, blank=True, null=True)
     serial = models.CharField(max_length=100, blank=True, null=True)
     descricao = models.TextField()
     #Filial = models.ForeignKey(Filial, on_delete=models.CASCADE, blank=True, null=True)
