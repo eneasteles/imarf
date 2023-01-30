@@ -6,6 +6,10 @@ class Envelopamento_iteminline(admin.TabularInline):
     model = Envelopamento_item
     extra = 0
 
+class Envelopamento_blocoinline(admin.TabularInline):
+    model = Envelopamento_bloco
+    extra = 0
+
 @admin.register(Envelopamento)
 class EnvolopamentoAdmin(admin.ModelAdmin):
     search_fields = ('id',)
@@ -13,5 +17,5 @@ class EnvolopamentoAdmin(admin.ModelAdmin):
     autocomplete_fields = ('bloco',)
     inlines = [
         Envelopamento_iteminline,
-        
+        Envelopamento_blocoinline,
     ]

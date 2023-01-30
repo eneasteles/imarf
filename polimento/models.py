@@ -31,10 +31,16 @@ class Abrasivo(models.Model):
         return self.descricao
 
 
+class Qualidade(models.Model):
+    qualidade = models.CharField(max_length=100, primary_key=True)
+    def __str__(self):
+        return self.qualidade
+"""
 class Qualidade_Polimento(models.Model):
     qualidade = models.CharField(max_length=100)
     def __str__(self):
         return self.qualidade
+"""
 
 
 class Polimento(models.Model):
@@ -45,8 +51,21 @@ class Polimento(models.Model):
     maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
     horimetro_inicial = models.FloatField(default=0)
     horimetro_final = models.FloatField(default=0)
+    #############################################
+    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
+    # morreu --quantidade = models.PositiveIntegerField(default=0)
+    acabamento = models.ForeignKey(Acabamento, on_delete=models.PROTECT, default=2)
+    # substituído --tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1, verbose_name="Acabamento")
+    chapas_quebradas = models.PositiveIntegerField(default=0)
+    chapas_trincadas = models.PositiveIntegerField(default=0)
+    velocidade = models.PositiveIntegerField(default=0)
+    qualidade = models.ForeignKey(Qualidade, on_delete=models.PROTECT)    
+    frequencia = models.PositiveIntegerField(default=1)
+    finalizado = models.BooleanField(default=False)
+    #################################################
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return self.data.strftime('%d/%m/%Y')
@@ -60,13 +79,12 @@ class Parada_Politriz(models.Model):
 
     def __str__(self):
         return str(self.id)
-
+"""
 class Chapas_Polidas(models.Model):
     polimento_id = models.ForeignKey(Polimento, on_delete=models.CASCADE,default=1)
     bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField(default=0)
-   # chapa_inicial = models.PositiveIntegerField(default=0)
-   # chapa_final = models.PositiveIntegerField(default=0)
+    acabamento = models.ForeignKey(Acabamento, on_delete=models.PROTECT, default=1)
     tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1, verbose_name="Acabamento")
     chapas_quebradas = models.PositiveIntegerField(default=0)
     chapas_trincadas = models.PositiveIntegerField(default=0)
@@ -79,6 +97,8 @@ class Chapas_Polidas(models.Model):
 
     def __str__(self):
         return str(self.id)
+"""
+
 
 
 ################################
@@ -113,7 +133,7 @@ class Chp_Pol_por_Jogo_de_Abr(models.Model):
     #acabamento = models.ForeignKey(Acabamento, default=2 ,on_delete=PROTECT)
     tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1)
     velocidade = models.PositiveIntegerField(default=0)
-    qualidade = models.ForeignKey(Qualidade_Polimento, on_delete=models.PROTECT)
+    #qualidade = models.ForeignKey(Qualidade_Polimento, on_delete=models.PROTECT)
     frequencia = models.PositiveIntegerField(default=1)
 
     def __str__(self):

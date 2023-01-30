@@ -11,6 +11,7 @@ from django.utils import timezone
 from estoque.models import *
 from producao.models import *
 from outlet.models import *
+from chapa.models import *
 
 class OSComercial(models.Model):
     STATUS_CHOICES = (
@@ -139,6 +140,30 @@ class Pedido_de_venda_item(models.Model):
         self.pedido_de_venda.total += self.valor
         self.pedido_de_venda.save()
         super(Pedido_de_venda_item, self).save(*args, **kwargs)
+
+class Venda_chapa_produzida(models.Model):
+    pedido = models.ForeignKey(Pedido_de_venda, on_delete=models.PROTECT)
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    chapa_inicial = models.IntegerField(default=0)
+    chapa_final = models.IntegerField(default=0)
+    status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default='RESERVADA')
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    
+    class Meta:
+        unique_together = ['bloco', 'chapa_inicial', 'chapa_final',]
+
+    def __str__(self):
+        return  str(self.chapa_inicial) + ' a ' + str(self.chapa_final) + ' Bloco: ' + str(self.bloco.bloco)
+
+class Venda_chapa_mult_select(models.Model):
+    pedido = models.ForeignKey(Pedido_de_venda, on_delete=models.PROTECT)
+    chapa = models.ManyToManyField(Chapa)  
+    status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default='RESERVADA')
+
+    
+
+
 
 class Pedido_de_venda_outlet(models.Model):
     pedido_de_venda = models.ForeignKey(Pedido_de_venda, on_delete=PROTECT)

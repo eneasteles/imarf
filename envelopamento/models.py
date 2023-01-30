@@ -20,7 +20,14 @@ class Envelopamento_item(models.Model):
     envelopamento = models.ForeignKey(Envelopamento, on_delete=PROTECT, verbose_name="Insumo")
     resina = models.ForeignKey(Resina, on_delete=PROTECT)
     quantidade_insumo = models.FloatField(default=0)
+    preco = models.FloatField(default=0)
     unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)
  #   usuario = models.ForeignKey(User, on_delete=PROTECT)
     def __str__(self):
         return f'{self.resina}'
+
+class Envelopamento_bloco(models.Model):
+    envelopamento = models.ForeignKey(Envelopamento, on_delete=PROTECT,)
+    resina = models.ForeignKey(Resina, on_delete=PROTECT, default=59, verbose_name="Manta")
+    preco = models.FloatField(default=0)
+    unidade = models.ForeignKey(Unidade, on_delete=PROTECT, default=1)

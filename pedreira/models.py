@@ -29,6 +29,7 @@ class Lancamento(models.Model):
 class Lancamento_Item(models.Model):
     lancamento = models.ForeignKey(Lancamento, on_delete=CASCADE)
     item = models.ForeignKey(Item, on_delete=CASCADE)
+    descricao = models.CharField(max_length=100, blank=True, null=True)
     bem = models.ForeignKey(Bem, on_delete=PROTECT, null=True, blank=True)
     quantidade = models.DecimalField(max_digits=10, decimal_places=3)
     preco = models.DecimalField(max_digits=10, default = 0,decimal_places=2)

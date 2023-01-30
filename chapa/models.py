@@ -1,6 +1,7 @@
 from django.db import models
 from producao.models import *
 from polimento.models import *
+from comercial.models import *
 
 # Create your models here.
 
@@ -25,13 +26,13 @@ class Chapa(models.Model):
     status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default=1)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    pedido = models.BigIntegerField(null=True, blank=True)
     
     class Meta:
         unique_together = ['bloco', 'chapa_numero',]
 
     def __str__(self):
-        return  str(self.chapa_numero) + ' Bloco ' + str(self.bloco.bloco)
-
+        return   'Bloco:    ' + str(self.bloco.bloco)+'  Chapa:   '+ str(self.chapa_numero)+' -->  '+ str(self.acabamento)
 class Lancamento_manual_chapa(models.Model):
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     chapa_inicial = models.IntegerField(default=1)

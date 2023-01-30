@@ -1,13 +1,10 @@
 from producao.models import Qualidade
-from polimento.models import Abrasivo, Chapas_Polidas, Chp_Pol_por_Jogo_de_Abr, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade_Polimento, Tipo_Polimento, Chapas_Ini_Fin
+from polimento.models import Abrasivo, Chp_Pol_por_Jogo_de_Abr, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade, Tipo_Polimento, Chapas_Ini_Fin
 from django.contrib import admin
 from django.contrib.admin.sites import site
 
 # Register your models here.
-class ChapasPolidasInline(admin.TabularInline):    
-    autocomplete_fields = ['bloco']
-    model = Chapas_Polidas
-    extra = 1
+
 class Chapas_Ini_FinInline(admin.TabularInline):    
     model = Chapas_Ini_Fin
     extra = 1
@@ -24,9 +21,8 @@ class Chp_Pol_por_Jogo_de_AbrInline(admin.TabularInline):
 @admin.register(Polimento)
 class PolimentoAdmin(admin.ModelAdmin):
     ordering = ('data',)
-    list_display = ('data','maquina','turno')
+    list_display = ('id','maquina','bloco','acabamento','qualidade', 'data')
     inlines = [
-        ChapasPolidasInline,
         Chapas_Ini_FinInline,
         ParadaPolitrizInline,
         #Jogo_de_AbrasivoInline,
@@ -35,7 +31,7 @@ class PolimentoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Abrasivo)
-admin.site.register(Qualidade_Polimento)
+admin.site.register(Qualidade)
 admin.site.register(Tipo_Polimento)
 
 @admin.register(Jogo_de_Abrasivos)

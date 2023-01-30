@@ -8,20 +8,6 @@ from django.db import models
 #from caixa.models import Filial
 
 # Create your models here.
-class Bem(models.Model):
-    bem = models.CharField(max_length=100)
-    descricao = models.TextField()
-    #Filial = models.ForeignKey(Filial, on_delete=models.CASCADE, blank=True, null=True)
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, blank=True, null=True)
-    garantia = models.DateField(auto_now=True)
-    data_cadastro = models.DateTimeField(auto_now_add=True)
-    data_atualizacao = models.DateTimeField(auto_now=True)
-    ativo = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.bem
-
-
 
 class Veiculo(models.Model):
     veiculo = models.CharField(max_length=100)
@@ -42,3 +28,20 @@ class Veiculo(models.Model):
     class Meta:
         verbose_name = 'Veículo'
         verbose_name_plural = 'Veículos'
+
+class Bem(models.Model):
+    bem = models.CharField(max_length=100)    
+    marca = models.CharField(max_length=50, blank=True, null=True)
+    modelo = models.CharField(max_length=50, blank=True, null=True)
+    ano = models.IntegerField(blank=True, null=True)
+    serial = models.CharField(max_length=100, blank=True, null=True)
+    descricao = models.TextField()
+    #Filial = models.ForeignKey(Filial, on_delete=models.CASCADE, blank=True, null=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, blank=True, null=True)
+    garantia = models.DateField(auto_now=True)
+    data_cadastro = models.DateTimeField(auto_now_add=True)
+    data_atualizacao = models.DateTimeField(auto_now=True)
+    ativo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.bem
