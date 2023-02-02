@@ -1,5 +1,8 @@
 from django.db import models
 from producao.models import *
+from polimento.models import *
+from chapa.models import Chapa
+from smart_selects.db_fields import ChainedForeignKey
 
 # Create your models here.
 TIPO_DE_ABRASIVOS = (
@@ -18,7 +21,7 @@ class Tipo_Polimento(models.Model):
         return self.tipo_polimento
 
 class Abrasivo(models.Model):
-    fornecedor = models.ForeignKey(Pessoa, on_delete=models.PROTECT, default=2)
+    fornecedor = models.ForeignKey(Pessoa, on_delete=models.PROTECT, default=1)
     grao = models.IntegerField(default=0)
     descricao = models.CharField(max_length=100)
     tipo = models.CharField(max_length=50)  
@@ -104,6 +107,14 @@ class Chapas_Polidas(models.Model):
 ################################
 class Chapas_Ini_Fin(models.Model):
     polimento = models.ForeignKey(Polimento, on_delete=models.CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE, default=2)
+    #chapa = models.ForeignKey(Chapa, on_delete=models.CASCADE, blank=True, null=True)
+    chapa = ChainedForeignKey(Chapa, on_delete=models.PROTECT,
+        chained_field="bloco",
+        chained_model_field="bloco",
+        show_all=False,
+        auto_choose=True        
+        )
     chapa_inicial = models.PositiveIntegerField(default=0)
     chapa_final = models.PositiveIntegerField(default=0)
 ##########################

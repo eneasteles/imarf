@@ -1,3 +1,4 @@
+from django.conf.urls import url
 import cadastro
 from django.contrib import admin
 from django.urls import path, include
@@ -10,4 +11,5 @@ urlpatterns = [
     path('', include('custos_gerais.urls')),
     path('', include('setor_pessoal.urls')),
     path('', include('corte.urls')),
+    url(r'^chaining/', include('smart_selects.urls')),
 ]

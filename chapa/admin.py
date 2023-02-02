@@ -13,6 +13,7 @@ class ChapaAdmin(admin.ModelAdmin):
     list_display = ('id', 'bloco', 'chapa_numero','status_chapa', 'acabamento',)
     list_filter = ('status_chapa',)
     ordering = ('bloco', 'chapa_numero')
+    autocomplete_fields = ['bloco']
 
 #admin.site.register(Lancamento_manual_chapa)
 @admin.register(Lancamento_manual_chapa)

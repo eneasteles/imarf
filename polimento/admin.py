@@ -8,6 +8,7 @@ from django.contrib.admin.sites import site
 class Chapas_Ini_FinInline(admin.TabularInline):    
     model = Chapas_Ini_Fin
     extra = 1
+    autocomplete_fields = ('bloco',)
 
 class ParadaPolitrizInline(admin.TabularInline):
     model = Parada_Politriz

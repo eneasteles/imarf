@@ -11,7 +11,8 @@ from django.utils import timezone
 from estoque.models import *
 from producao.models import *
 from outlet.models import *
-from chapa.models import *
+from chapa.models import Chapa
+from smart_selects.db_fields import ChainedForeignKey
 
 class OSComercial(models.Model):
     STATUS_CHOICES = (
@@ -144,6 +145,12 @@ class Pedido_de_venda_item(models.Model):
 class Venda_chapa_produzida(models.Model):
     pedido = models.ForeignKey(Pedido_de_venda, on_delete=models.PROTECT)
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    chapa = ChainedForeignKey(Chapa, on_delete=models.PROTECT,
+        chained_field="bloco",
+        chained_model_field="bloco",
+        show_all=False,
+        auto_choose=True        
+        )
     chapa_inicial = models.IntegerField(default=0)
     chapa_final = models.IntegerField(default=0)
     status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default='RESERVADA')
@@ -154,7 +161,7 @@ class Venda_chapa_produzida(models.Model):
         unique_together = ['bloco', 'chapa_inicial', 'chapa_final',]
 
     def __str__(self):
-        return  str(self.chapa_inicial) + ' a ' + str(self.chapa_final) + ' Bloco: ' + str(self.bloco.bloco)
+        return  str(self.chapa_inicial) 
 
 class Venda_chapa_mult_select(models.Model):
     pedido = models.ForeignKey(Pedido_de_venda, on_delete=models.PROTECT)

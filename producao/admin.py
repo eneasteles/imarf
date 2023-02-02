@@ -67,6 +67,7 @@ class ResinaAdmin(admin.ModelAdmin):
 class Resinamento_chapaInline(admin.TabularInline):    
     model = Resinamento_chapa
     extra = 1
+
 class Resinamento_itemInline(admin.TabularInline):    
     model = Resinamento_item
     extra = 1

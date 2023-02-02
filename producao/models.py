@@ -9,7 +9,10 @@ from django.utils.regex_helper import Group
 from django.utils import timezone
 from django.utils.tree import Node
 from django.contrib.auth.models import User
+
+#from chapa.models import Chapa
 #from django_pgviews import view as pg
+#from smart_selects.db_fields import ChainedForeignKey
 
 MES_CHOICES = (
         (1,'JANEIRO'),
@@ -651,7 +654,9 @@ class Resinamento_Insumo(models.Model):
         return str(self.id)
 
 class Resinamento_chapa(models.Model):
-    resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número")
+    resinamento = ForeignKey(Resinamento, on_delete=PROTECT, verbose_name="Chapa número") 
+    #bloco = models.ForeignKey(Bloco, on_delete=PROTECT, default=2)
+    #chapa_numero = models.ForeignKey(Chapa, on_delete=PROTECT)   
     chapa_inicial= models.IntegerField()
     chapa_final = models.IntegerField()
 

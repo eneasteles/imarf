@@ -36,11 +36,13 @@ class Pedido_de_venda_item_inline(admin.TabularInline):
     model = Pedido_de_venda_item
     extra = 0
     readonly_fields=('valor', 'metragem', )
+    autocomplete_fields = ['bloco']
 
 class Venda_chapa_produzida_inline(admin.TabularInline):
     model = Venda_chapa_produzida
     extra = 0
     readonly_fields=('status_chapa', )
+    autocomplete_fields = ['bloco', ]
 
 class Venda_chapa_mult_select_inline(admin.TabularInline):
     model = Venda_chapa_mult_select
@@ -73,10 +75,9 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
     inlines = [
         Pedido_de_venda_item_inline,
         Venda_chapa_produzida_inline,
-        Venda_chapa_mult_select_inline,
+        #Venda_chapa_mult_select_inline,
         Pedido_de_venda_outlet_inline,
-        Forma_de_pagamento_inline,
-        
+        Forma_de_pagamento_inline,      
        
     ]
 

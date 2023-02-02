@@ -1,7 +1,7 @@
 from django.db import models
 from producao.models import *
-from polimento.models import *
-from comercial.models import *
+#from polimento.models import *
+#from comercial.models import *
 
 # Create your models here.
 
@@ -32,7 +32,8 @@ class Chapa(models.Model):
         unique_together = ['bloco', 'chapa_numero',]
 
     def __str__(self):
-        return   'Bloco:    ' + str(self.bloco.bloco)+'  Chapa:   '+ str(self.chapa_numero)+' -->  '+ str(self.acabamento)
+        return    str(self.chapa_numero)
+        
 class Lancamento_manual_chapa(models.Model):
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     chapa_inicial = models.IntegerField(default=1)
