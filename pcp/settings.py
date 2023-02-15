@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     'telamento',
     'chapa',
     'smart_selects',
+    'resinagem',
+    'almoxarifado',
+    'setor',
 ]
 
 DECIMAL_SEPARATOR = ','

@@ -147,4 +147,44 @@ class Entrada_Item(models.Model):
 
     def __str__(self):
         return str(self.item)
+
+class Classe_do_Produto(models.Model):
+    classe_do_produto = models.CharField(max_length=50, primary_key=True)
+    def __str__(self):
+        return self.classe_do_produto
+class Grupo_do_Produto(models.Model):
+    grupo_do_item = models.CharField(max_length=50, primary_key=True)
+    def __str__(self):
+        return self.grupo_do_produto
+
+class Categoria_do_Produto(models.Model):
+    categoria_do_produto = models.CharField(max_length=50, primary_key=True)
+    def __str__(self):
+        return self.categoria_do_produto
+
+class Unidade_Produto(models.Model):
+    unidade = models.CharField(max_length=100, primary_key=True)
+    descricao = models.CharField(max_length=100)
+    fator = models.FloatField()
+
+    def __str__(self):
+        return self.unidade
+
+class Produto(models.Model):
+    produto = models.CharField(max_length=150)
+    apelido = models.CharField(max_length=150, blank=True, null=True)
+    grupo_produto = models.ForeignKey(Grupo_do_Produto, on_delete=PROTECT, blank=True, null=True)
+    classe_produto = models.ForeignKey(Classe_do_Produto, on_delete=PROTECT, blank=True, null=True)
+    categoria_produto = models.ForeignKey(Categoria_do_Produto, on_delete=PROTECT, blank=True, null=True)
+    unidade_produto = models.ForeignKey(Unidade_Produto, on_delete=PROTECT, blank=True, null=True)
+    #unidade_entrada = models.ForeignKey(Unidade_Produto, on_delete=PROTECT, blank=True, null=True)
+    inativo = models.BooleanField(default=False)
+    valor = models.FloatField(default=0)
+    saldo = models.FloatField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        #return self.nome
+        return '{}  -->> Saldo: {}'.format(self.produto, self.saldo)
         
