@@ -82,8 +82,8 @@ class Pedido_de_venda(models.Model):
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable = False)
 
-    def full_url(self):
-        url = 'https://www.ebttecnologia.com/scriptcase/app/imarf/grid_public_outlet_view/?nmgp_outra_jan=true&nmgp_start=SC&5216'
+    def full_url(self):        
+        url = '/comercial/pdf/'+str(f'{self.id}')
         from django.utils.html import format_html
         return format_html("<a href='%s'>%s</a>" % (url, url))
 

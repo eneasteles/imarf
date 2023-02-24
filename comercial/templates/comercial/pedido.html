@@ -1,0 +1,62 @@
+{% extends 'comercial/layout_pedido.html' %}
+{% load static %}
+{% block titulo %}Pedido de Venda{% endblock %}
+{% block empresa %}{{ pedido.empresa }}
+    <h6>Cliente: {{ pedido.pessoa }}</h6> 
+    <h6>Vendedor: {{ pedido.user }}</h6>
+    <h6>Forma de Pagamento: {{ pedido.forma_pagamento }}</h6>
+{% endblock %}
+{% block pedido_n %} PEDIDO n° 00{{ pedido.id }}{% endblock %}
+{% block total %} {{ pedido.total }}{% endblock %}
+{% block status %} {{ pedido.status_venda }} {% endblock %}
+{% block data %} {{ pedido.data| date:"d/m/Y" }}{% endblock %}
+{% block content %}  
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">GRUPO</th>
+          <th scope="col">MATERIAL</th>
+          <th scope="col">ACABAMENTO</th>
+          <th scope="col">QUANTIDADE</th>
+          <th scope="col">UNIDADE</th>
+          <th scope="col">PREÇO</th>
+          <th scope="col">VALOR</th>
+          <th scope="col">ALT/ESPESSURA</th>          
+          <th scope="col">COMPRIMENTO</th>
+          <th scope="col">LARGURA</th>
+          <th scope="col">METRAGEM</th>           
+          <th scope="col">IPI %</th>          
+                    
+        </tr>
+      </thead>
+      <tbody>
+   {% for item in pedido_item %} 
+<tr>
+    <td>{{ item.grupo }}</td>
+    <td>{{ item.material }}</td>
+    <td>{{ item.acabamento }}</td>
+    <td align="center">{{ item.quantidade|floatformat:"2g"  }}</td>
+    <td>{{ item.un }}</td>
+    <td align="right">{{ item.preco|floatformat:"2g"  }}</td>
+    <td align="right">{{ item.valor|floatformat:"2g"  }}</td>
+    <td align="right">{{ item.altura_espessura }}</td>
+    <td align="right">{{ item.comprimento|floatformat:"2g"  }}</td>
+    <td align="right">{{ item.largura|floatformat:"2g"  }}</td> 
+    <td align="right">{{ item.metragem|floatformat:"2g"  }}</td>   
+    <td align="center">{{ item.percentual_ipi|floatformat:"2g"  }}</td>    
+  </tr>
+    {% endfor %}  
+   
+</tbody>
+<tfoot>
+    <tr>
+        <th colspan="6" align="right">TOTAL</th>
+        <th align="right">{{ pedido.total|floatformat:"2g"  }}</th>
+        <td colspan="5"></td>
+    </tr>
+</table> 
+OBSERVAÇÃO:
+<div class="badge bg-primary text-wrap" >
+     {{pedido.observacao}}
+  </div>
+{% endblock %}
