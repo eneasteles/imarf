@@ -11,9 +11,10 @@ def pedido_pdf(request,id):
     try:
         obj = Pedido_de_venda.objects.get(pk=id)
         obj_item = Pedido_de_venda_item.objects.filter(pedido_de_venda=id)
+        obj_endereco = Endereco_de_Entrega.objects.filter(pedido_de_venda=id)
     except Pedido_de_venda.DoesNotExist:
         raise Http404("Pedido não encontrado")
-    return render(request, "comercial/pedido.html", {'pedido': obj, 'pedido_item': obj_item})
+    return render(request, "comercial/pedido.html", {'pedido': obj, 'pedido_item': obj_item, 'pedido_endereco': obj_endereco,})
 
 def some_view(request, id):
     obj = get_object_or_404(Pedido_de_venda, id=id)

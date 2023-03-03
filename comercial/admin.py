@@ -44,6 +44,11 @@ class Venda_chapa_produzida_inline(admin.TabularInline):
     readonly_fields=('status_chapa', )
     autocomplete_fields = ['bloco', ]
 
+class Endereco_de_entrega_inline(admin.TabularInline):
+    model = Endereco_de_Entrega
+    extra = 0
+
+
 class Venda_chapa_mult_select_inline(admin.TabularInline):
     model = Venda_chapa_mult_select
     extra = 0
@@ -70,14 +75,15 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
     readonly_fields=('total',)
     list_filter = ('user',)
     
-    list_per_page = 10
+    list_per_page = 15
     autocomplete_fields = ['pessoa']
     inlines = [
         Pedido_de_venda_item_inline,
         Venda_chapa_produzida_inline,
         #Venda_chapa_mult_select_inline,
         Pedido_de_venda_outlet_inline,
-        Forma_de_pagamento_inline,      
+        Forma_de_pagamento_inline, 
+        Endereco_de_entrega_inline,     
        
     ]
 

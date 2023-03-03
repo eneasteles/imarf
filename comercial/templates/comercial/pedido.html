@@ -2,15 +2,25 @@
 {% load static %}
 {% block titulo %}Pedido de Venda{% endblock %}
 {% block empresa %}{{ pedido.empresa }}
-    <h6>Cliente: {{ pedido.pessoa }}</h6> 
-    <h6>Vendedor: {{ pedido.user }}</h6>
-    <h6>Forma de Pagamento: {{ pedido.forma_pagamento }}</h6>
+    <div class="card text-dark bg-light mb-3" style="max-width: 28rem;">
+        <div class="card-body">
+            <h6 class="card-title">{{ pedido.pessoa }}</h6>
+            <h6 class="card-title">{{ pedido.cpfcnpj }}</h6>
+            <h6 class="card-title">{{ pedido.forma_pagamento }}</h6>
+        </div>
+    </div>
+    <button type="button" class="btn btn-dark">Vendedor: {{ pedido.user }}</button>
 {% endblock %}
-{% block pedido_n %} PEDIDO n° 00{{ pedido.id }}{% endblock %}
-{% block total %} {{ pedido.total }}{% endblock %}
-{% block status %} {{ pedido.status_venda }} {% endblock %}
-{% block data %} {{ pedido.data| date:"d/m/Y" }}{% endblock %}
-{% block content %}  
+<div class="card-body">
+    <h5 class="card-title">{% block pedido_n %} PEDIDO n° 00{{ pedido.id }}{% endblock %}</h5>
+    <p class="card-text">CPF/CNPJ do Cliente.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{% block total %} {{ pedido.total }}{% endblock %}</li>
+    <li class="list-group-item">{% block status %} {{ pedido.status_venda }} {% endblock %}</li>
+    <li class="list-group-item">{% block data %}{% endblock %} {{ pedido.data| date:"d/m/Y" }}{% block content %}</li>
+  </ul>
+</div>  
 <table class="table table-sm table-striped table-hover">
     <thead>
         <tr>
@@ -25,8 +35,7 @@
           <th scope="col">COMPRIMENTO</th>
           <th scope="col">LARGURA</th>
           <th scope="col">METRAGEM</th>           
-          <th scope="col">IPI %</th>          
-                    
+          <th scope="col">IPI %</th>  
         </tr>
       </thead>
       <tbody>
@@ -55,8 +64,23 @@
         <td colspan="5"></td>
     </tr>
 </table> 
-OBSERVAÇÃO:
-<div class="badge bg-primary text-wrap" >
-     {{pedido.observacao}}
-  </div>
+<h6>OBSERVAÇÃO:</h6> 
+<div class="card">
+    <div class="alert alert-dark bg-light" role="alert">       
+        <pre>
+           {{pedido.observacao}} 
+        </pre>
+    </div>
+</div>
+<h6>ENDEREÇO DE ENTREGA</h6>
+<div class="card">
+    <div class="alert alert-dark bg-light" role="alert">       
+        <pre>
+            {% for end in pedido_endereco %}
+            {{ end.endereco }} 
+            {% endfor %}           
+        </pre>
+    </div>
+</div>
+
 {% endblock %}

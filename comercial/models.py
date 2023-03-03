@@ -169,7 +169,12 @@ class Venda_chapa_mult_select(models.Model):
     status_chapa = models.ForeignKey(Status_chapa, on_delete=models.PROTECT, default='RESERVADA')
 
     
+class Endereco_de_Entrega(models.Model):
+    pedido_de_venda  = models.ForeignKey(Pedido_de_venda, on_delete=models.PROTECT)
+    endereco = models.TextField(max_length=200, null=True, blank=True)
 
+    def __str__(self):
+        return str(self.endereco)
 
 
 class Pedido_de_venda_outlet(models.Model):
