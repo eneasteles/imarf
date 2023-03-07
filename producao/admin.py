@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.admin.filters import ListFilter
 
 from . models import *
+from resinagem.models import *
 
 admin.site.site_header = 'SISTEMA DE CONTROLE DE PRODUÇÃO - IMARF'
 admin.site.site_title = 'PRODUÇÃO'
@@ -239,6 +240,7 @@ admin.site.register(Status_venda)
 admin.site.register(Frete)
 admin.site.register(FioFatorConversao)
 admin.site.register(Resinamento, ResinamentoAdmin)
+admin.site.register(Resinagem)
 admin.site.register(Operador)
 admin.site.register(Setor)
 admin.site.register(Folha_de_Pagamento)

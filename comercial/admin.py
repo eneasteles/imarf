@@ -73,7 +73,7 @@ class Pedido_de_venda_Admin(admin.ModelAdmin):
     list_select_related = ('pessoa',)
     list_display_links = ('id','pessoa','data')
     readonly_fields=('total',)
-    list_filter = ('user',)
+    list_filter = ('user','status_venda')
     
     list_per_page = 15
     autocomplete_fields = ['pessoa']

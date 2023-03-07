@@ -23,9 +23,10 @@ class Lancamento_manual_chapaAdmin(admin.ModelAdmin):
     #    if request.user.is_superuser:
     #        return qs
     #    return qs.filter(usuario_id=request.user)
+    list_display = ('id', 'bloco', 'chapa_inicial', 'chapa_final','status_chapa', 'acabamento',)
     autocomplete_fields = ['bloco']
     ordering = ('bloco',)
-    search_fields = ('bloco',)
+    search_fields = ('bloco__bloco',)
 
 @admin.register(Lancamento_chapa_quebrada)
 class Lancamento_chapa_quebradaAdmin(admin.ModelAdmin):
