@@ -881,7 +881,8 @@ class Custos_Pedreira(models.Model):
 class Producao_Pedreira(models.Model):
     custos_pedreira = models.ForeignKey(Custos_Pedreira, on_delete=PROTECT)
     material = models.ForeignKey(Material, on_delete=PROTECT)
-    m3 = models.FloatField()
+    m3 = models.FloatField(default=0)
+    m2 = models.FloatField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True) 
     usuario = models.ForeignKey(User, default=8, on_delete=PROTECT)

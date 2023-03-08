@@ -186,6 +186,7 @@ class SerradaAdmin(admin.ModelAdmin):
         return obj.chapas_produzidas_set.last().bloco
     bloco_da_serrada_last.short_description = 'Último_Bloco'
     bloco_da_serrada_last.admin_order_field = 'chapas_produzidas__bloco'
+    
 @admin.register(Faturamento)
 class FaturamentoAdmin(admin.ModelAdmin):
     list_display = ('ano','mes', 'empresa', 'valor_interno','valor_externo')
