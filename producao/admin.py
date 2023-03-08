@@ -172,13 +172,20 @@ class Pedido_venda_Admin(admin.ModelAdmin):
 class SerradaAdmin(admin.ModelAdmin):
     search_fields = ('serrada',)
     list_filter = ['maquina', ]
-    list_display = ('serrada','maquina', 'created')    
+    list_display = ('serrada','maquina', 'bloco_da_serrada','bloco_da_serrada_last','created') 
+    
     inlines = [
-        #BlocoSerradaInline,
         Chapas_produzidasinline,
-        Paradainline,
-        
+        Paradainline,        
     ]
+    def bloco_da_serrada(self, obj):
+        return obj.chapas_produzidas_set.first().bloco
+    bloco_da_serrada.short_description = 'Bloco'
+    bloco_da_serrada.admin_order_field = 'chapas_produzidas__bloco'
+    def bloco_da_serrada_last(self, obj):
+        return obj.chapas_produzidas_set.last().bloco
+    bloco_da_serrada_last.short_description = 'Último_Bloco'
+    bloco_da_serrada_last.admin_order_field = 'chapas_produzidas__bloco'
 @admin.register(Faturamento)
 class FaturamentoAdmin(admin.ModelAdmin):
     list_display = ('ano','mes', 'empresa', 'valor_interno','valor_externo')
