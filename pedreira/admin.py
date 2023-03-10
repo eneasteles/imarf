@@ -35,4 +35,6 @@ class CaixaAdmin(admin.ModelAdmin):
     
     
     inlines = [Lancamento_Item_inline,]
-admin.site.register(Producao_pedreira_m3)
+@admin.register(Producao_pedreira_m3)
+class Producao_pedreira_m3Admin(admin.ModelAdmin):
+    list_display = ('ano', 'mes',  'empresa', 'pedreira','material','m3','m2')
