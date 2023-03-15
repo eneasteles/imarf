@@ -149,3 +149,21 @@ class Chp_Pol_por_Jogo_de_Abr(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+    # Model temporária de gastos com abrasivos
+class Consumo_de_Abrasivos(models.Model):
+    data = models.DateField(default=timezone.now)
+    abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
+    quantidade = models.DecimalField(max_digits=10, decimal_places=3)
+    unidade = models.ForeignKey(Unidade, on_delete=CASCADE)
+    preco = models.DecimalField(max_digits=10, default = 0,decimal_places=2)    
+    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0, editable=False)
+
+    class Meta:
+        verbose_name = 'Consumo de Abrasivo'
+        verbose_name_plural = 'Consumo de Abrasivos'
+    def save(self, *args, **kwargs):           
+        self.valor = self.quantidade * self.preco 
+        self.abrasivo.valor += self.valor
+        self.abrasivo.save()
+        super(Consumo_de_Abrasivos, self).save(*args, **kwargs)

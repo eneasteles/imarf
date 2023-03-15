@@ -1,5 +1,5 @@
 from producao.models import Qualidade
-from polimento.models import Abrasivo, Chp_Pol_por_Jogo_de_Abr, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade, Tipo_Polimento, Chapas_Ini_Fin
+from polimento.models import * #Abrasivo, Chp_Pol_por_Jogo_de_Abr, Jogo_de_Abrasivos, Parada_Politriz, Polimento, Qualidade, Tipo_Polimento, Chapas_Ini_Fin
 from django.contrib import admin
 from django.contrib.admin.sites import site
 
@@ -40,5 +40,9 @@ class Jogo_de_AbrasivosAdmin(admin.ModelAdmin):
     list_filter = ('finalizado',)    
     inlines = [Chp_Pol_por_Jogo_de_AbrInline,]
 
+@admin.register(Consumo_de_Abrasivos)
+class Consumo_de_AbrasivosAdmin(admin.ModelAdmin):
+    list_display= ('data','abrasivo','quantidade','unidade','preco','valor',)
+    list_filter = ('abrasivo',)
 
 
