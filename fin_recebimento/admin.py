@@ -19,11 +19,6 @@ class RecebimentoAdmin(admin.ModelAdmin):
     list_filter = ('tipo_documento', 'status')
     search_fields = ('pessoa', 'valor','status')
     autocomplete_fields = ('pessoa', )
-    def save_model(self, request, obj, form, change):
-        if not change:
-            obj.user = request.user
-            obj.save()
-        super(RecebimentoAdmin, self).save_model(self, request, obj, form, change)
     inlines = [Recebimento_vencimentoInline, Recebimento_comissaoInline, Forma_de_pagamentoInline]
 
 admin.site.register(Fin_tipo_documento)

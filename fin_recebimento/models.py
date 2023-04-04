@@ -44,7 +44,7 @@ class Recebimento_vencimento(models.Model):
     saldo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     observacao = models.TextField(blank=True, null=True)
     emissao = models.DateField(default=timezone.now)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
 
     def __str__(self):
         return self.recebimento.pessoa.nome
@@ -52,16 +52,18 @@ class Recebimento_vencimento(models.Model):
 class Recebimento_comissao(models.Model):
     recebimento = models.ForeignKey(Recebimento, on_delete=models.CASCADE)
     vendedor = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
-    percentual = models.DecimalField(max_digits=2, decimal_places=2)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    percentual = models.DecimalField(max_digits=5, decimal_places=2)
+
 
     def __str__(self):
         return self.recebimento.pessoa.nome
     
 class Forma_de_pagamento(models.Model):
     recebimento = models.ForeignKey(Recebimento, on_delete=models.CASCADE)
-    entrada = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    numero_de_parcelas = models.IntegerField(default=1)
-    quantidade_de_dias = models.IntegerField(default=30)
-    percentual_da_parcela = models.DecimalField(max_digits=2, decimal_places=2, default=0)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    numero_da_parcelas = models.IntegerField(default=1)
+    quantidade_de_dias = models.IntegerField(default=0)
+    percentual_da_parcela = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+
+    def __str__(self):
+        return str(self.numero_da_parcelas)
