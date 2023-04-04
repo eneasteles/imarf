@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'resinagem',
     'almoxarifado',
     'setor',
+    'fin_recebimento',
+    'fin_pagamento',
 ]
 
 DECIMAL_SEPARATOR = ','

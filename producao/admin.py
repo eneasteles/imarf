@@ -170,7 +170,7 @@ class Pedido_venda_Admin(admin.ModelAdmin):
 
 @admin.register(Serrada)
 class SerradaAdmin(admin.ModelAdmin):
-    search_fields = ('serrada',)
+    search_fields = ('serrada', )
     list_filter = ['maquina', ]
     list_display = ('serrada','maquina', 'bloco_da_serrada','bloco_da_serrada_last','created') 
     
