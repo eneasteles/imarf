@@ -21,7 +21,7 @@ class Recebimento(models.Model):
     emissao = models.DateField(default=timezone.now)
     modo_de_lancamento = models.CharField(max_length=1, default='M', choices=(('A', 'Automático'), ('M', 'Manual')))
     status = models.CharField(max_length=1, default='A', choices=(('A', 'Aberto'), ('P', 'Pago'), ('C', 'Cancelado')))
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False)
 
     def __str__(self):
         return self.pessoa.nome
