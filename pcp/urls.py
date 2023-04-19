@@ -11,7 +11,7 @@ urlpatterns = [
     path('', include('custos_gerais.urls')),
     path('', include('setor_pessoal.urls')),
     path('', include('corte.urls')),
-    path('comissao/', include('fin_recebimento.urls')),
+    path('recebimento/', include('fin_recebimento.urls')),
     path('comercial/', include('comercial.urls')),
     url(r'^chaining/', include('smart_selects.urls')),
 ]

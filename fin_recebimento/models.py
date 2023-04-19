@@ -44,6 +44,8 @@ class Recebimento_vencimento(models.Model):
     saldo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     observacao = models.TextField(blank=True, null=True)
     emissao = models.DateField(default=timezone.now)
+    status = models.CharField(max_length=1, default='A', choices=(('A', 'Aberto'), ('P', 'Pago'), ('C', 'Cancelado')))
+    data_pagamento = models.DateField(blank=True, null=True)
 
 
     def __str__(self):
