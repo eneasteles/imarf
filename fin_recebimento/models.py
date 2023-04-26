@@ -44,8 +44,9 @@ class Recebimento_vencimento(models.Model):
     saldo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     observacao = models.TextField(blank=True, null=True)
     emissao = models.DateField(default=timezone.now)
-    status = models.CharField(max_length=1, default='A', choices=(('A', 'Aberto'), ('P', 'Pago'), ('C', 'Cancelado')))
     data_pagamento = models.DateField(blank=True, null=True)
+    status = models.CharField(max_length=1, default='A', choices=(('A', 'Aberto'), ('P', 'Pago'), ('C', 'Cancelado')))
+    
 
 
     def __str__(self):
@@ -55,6 +56,8 @@ class Recebimento_comissao(models.Model):
     recebimento = models.ForeignKey(Recebimento, on_delete=models.CASCADE)
     vendedor = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
     percentual = models.DecimalField(max_digits=5, decimal_places=2)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0, editable=False)
+    status = models.CharField(max_length=1, default='A', choices=(('A', 'Aberto'), ('P', 'Pago'), ('C', 'Cancelado')))
 
 
     def __str__(self):
@@ -69,3 +72,8 @@ class Forma_de_pagamento(models.Model):
 
     def __str__(self):
         return str(self.numero_da_parcelas)
+
+class Pagamento_comissao(models.Model):
+    recebimento_comissao = models.ForeignKey(Recebimento, on_delete=models.CASCADE)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    data_pagamento = models.DateField(default=timezone.now)
