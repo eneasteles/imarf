@@ -10,6 +10,20 @@ class Recebimento_comissaoInline(admin.TabularInline):
     extra = 1
     autocomplete_fields = ('vendedor', )
     readonly_fields = ('valor', 'status')
+
+@admin.register(Pagamento_comissao)
+class Pagamento_comissaoAdmim(admin.ModelAdmin):
+    list_display = ( 'data_pagamento','valor','recebimento_comissao_id')
+"""
+def comissao_da_venda(self, obj):
+        return obj.recebimento_comissao_set.first().recebimento
+    comissao_da_venda.short_description = 'Percentual'
+    comissao_da_venda.admin_order_field = 'recebimento_comissao__percentual'
+
+"""
+
+    
+
 class Forma_de_pagamentoInline(admin.TabularInline):
     model = Forma_de_pagamento
     extra = 1
@@ -29,4 +43,4 @@ class RecebimentoAdmin(admin.ModelAdmin):
     inlines = [Recebimento_vencimentoInline, Recebimento_comissaoInline, Forma_de_pagamentoInline]
 
 admin.site.register(Fin_tipo_documento)
-admin.site.register(Pagamento_comissao)
+

@@ -77,3 +77,6 @@ class Pagamento_comissao(models.Model):
     recebimento_comissao = models.ForeignKey(Recebimento, on_delete=models.CASCADE)
     valor = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     data_pagamento = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.recebimento_comissao_id)
