@@ -16,6 +16,7 @@ class Recebimento(models.Model):
     referencia = models.CharField(max_length=100)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     valor_recebido = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    ipi_percentual = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     saldo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     observacao = models.TextField(blank=True, null=True)
     emissao = models.DateField(default=timezone.now)

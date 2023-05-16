@@ -13,16 +13,13 @@ class Recebimento_comissaoInline(admin.TabularInline):
 
 @admin.register(Pagamento_comissao)
 class Pagamento_comissaoAdmim(admin.ModelAdmin):
-    list_display = ( 'data_pagamento','valor','recebimento_comissao_id')
-"""
-def comissao_da_venda(self, obj):
-        return obj.recebimento_comissao_set.first().recebimento
+    list_display = ( 'data_pagamento','valor','comissao_da_venda','recebimento_comissao_id',)
+ 
+    def comissao_da_venda(self, obj):
+        return Recebimento_comissao.objects.filter(recebimento_id=obj.recebimento_comissao_id).values_list('percentual', flat=True).get()
     comissao_da_venda.short_description = 'Percentual'
     comissao_da_venda.admin_order_field = 'recebimento_comissao__percentual'
-
-"""
-
-    
+""""""
 
 class Forma_de_pagamentoInline(admin.TabularInline):
     model = Forma_de_pagamento

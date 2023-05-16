@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'setor',
     'fin_recebimento',
     'fin_pagamento',
+    'contrato',
 ]
 
 DECIMAL_SEPARATOR = ','
