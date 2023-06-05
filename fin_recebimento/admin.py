@@ -4,10 +4,10 @@ from django.contrib import admin
 from .models import *
 class Recebimento_vencimentoInline(admin.TabularInline):
     model = Recebimento_vencimento
-    extra = 1
+    extra = 0
 class Recebimento_comissaoInline(admin.TabularInline):
     model = Recebimento_comissao
-    extra = 1
+    extra = 0
     autocomplete_fields = ('vendedor', )
     readonly_fields = ('valor', 'status')
 
@@ -23,7 +23,7 @@ class Pagamento_comissaoAdmim(admin.ModelAdmin):
 
 class Forma_de_pagamentoInline(admin.TabularInline):
     model = Forma_de_pagamento
-    extra = 1
+    extra = 0
 
 @admin.register(Recebimento)
 class RecebimentoAdmin(admin.ModelAdmin):
