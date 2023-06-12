@@ -9,7 +9,7 @@ from django.http import Http404
 class ComissaoList(LoginRequiredMixin ,ListView):
     login_url = reverse_lazy('login')
     model = Recebimento
-    template_name = 'fin_recebimento/comissao.html'
+    template_name = '/fin_recebimento/comissao.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(ComissaoList, self).get_context_data(*args, **kwargs)
