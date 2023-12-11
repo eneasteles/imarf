@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'fin_recebimento',
     'fin_pagamento',
     'contrato',
+    'ata',
 ]
 
 DECIMAL_SEPARATOR = ','
