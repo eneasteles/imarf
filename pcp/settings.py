@@ -110,13 +110,13 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'df7lmp2vede8si',
+        'NAME': 'imarfdb',
 
-        'USER': 'u7b6s0fb2lc3v8',
+        'USER': 'ubuntu',
 
-        'PASSWORD': 'pafedc08cd96f1a09ed72ef663a32323d8bb4f6e0b2af8bb25f14e9a2b34a8cf5',
+        'PASSWORD': 'kajumi',
 
-        'HOST': 'ec2-3-225-97-52.compute-1.amazonaws.com',
+        'HOST': '185.137.92.14',
  
         'PORT': '5432',
 

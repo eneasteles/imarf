@@ -236,7 +236,7 @@ class Serrada(models.Model):
 
 
 class BlocoSerrada(models.Model):
-    serrada = ForeignKey(Serrada, on_delete=PROTECT)
+    serrada = ForeignKey(Serrada, on_delete=CASCADE)
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
@@ -249,7 +249,7 @@ class BlocoSerrada(models.Model):
 
 
 class Parada(models.Model):
-    serrada = models.ForeignKey(Serrada, on_delete=PROTECT)
+    serrada = models.ForeignKey(Serrada, on_delete=CASCADE)
     data_inicial = models.DateTimeField()
     data_final = models.DateTimeField() 
     motivo = models.TextField()
@@ -286,7 +286,7 @@ class Produto(models.Model):
 
 
 class Chapas_produzidas(models.Model):
-    serrada = models.ForeignKey(Serrada, on_delete=models.PROTECT)
+    serrada = models.ForeignKey(Serrada, on_delete=models.CASCADE)
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     comprimento = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
     altura = models.DecimalField(max_digits=6, decimal_places=3, default=0) 
