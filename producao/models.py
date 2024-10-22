@@ -1,5 +1,7 @@
 from datetime import date, datetime
-from django.conf.urls import url
+#from django.conf.urls import url
+from django.urls import path  # Para URLs com regex
+
 from django.contrib.admin.sites import DefaultAdminSite
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
