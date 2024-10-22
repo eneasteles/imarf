@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-oqb%43_i+6cop^x%-0o*yykp@vrd4+vl6sl1nm@vuuhbd9no*$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','ebtec.store','www.ebtec.store',]
 
 
 # Application definition
