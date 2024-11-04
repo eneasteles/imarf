@@ -104,20 +104,7 @@ class Chapas_Polidas(models.Model):
 
 
 
-################################
-class Chapas_Ini_Fin(models.Model):
-    polimento = models.ForeignKey(Polimento, on_delete=models.CASCADE)
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE, default=2)
-    #chapa = models.ForeignKey(Chapa, on_delete=models.CASCADE, blank=True, null=True)
-    chapa = ChainedForeignKey(Chapa, on_delete=models.PROTECT,
-        chained_field="bloco",
-        chained_model_field="bloco",
-        show_all=False,
-        auto_choose=True        
-        )
-    chapa_inicial = models.PositiveIntegerField(default=0)
-    chapa_final = models.PositiveIntegerField(default=0)
-##########################
+
 
 class Jogo_de_Abrasivos(models.Model):
     #polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
@@ -149,7 +136,23 @@ class Chp_Pol_por_Jogo_de_Abr(models.Model):
 
     def __str__(self):
         return str(self.id)
-    
+
+
+################################
+class Chapas_Ini_Fin(models.Model):
+    polimento = models.ForeignKey(Polimento, on_delete=models.CASCADE)
+    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE, default=2)
+    #chapa = models.ForeignKey(Chapa, on_delete=models.CASCADE, blank=True, null=True)
+    chapa = ChainedForeignKey(Chapa, on_delete=models.PROTECT,
+        chained_field="bloco",
+        chained_model_field="bloco",
+        show_all=False,
+        auto_choose=True        
+        )
+    chapa_inicial = models.PositiveIntegerField(default=0)
+    chapa_final = models.PositiveIntegerField(default=0)
+    jogo_abrasivos = models.ManyToManyField(Jogo_de_Abrasivos, limit_choices_to={'finalizado': False})
+##########################    
     # Model temporária de gastos com abrasivos
 class Consumo_de_Abrasivos(models.Model):
     data = models.DateField(default=timezone.now)
