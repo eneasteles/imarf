@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'fin_pagamento',
     'contrato',
     'ata',
+    'sesmt',
 ]
 
 DECIMAL_SEPARATOR = ','
@@ -163,7 +164,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # configurações de autenticação
 LOGIN_REDIRECT_URL = 'sobre'
 LOGOUT_REDIRECT_URL = 'login'

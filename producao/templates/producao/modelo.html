@@ -14,8 +14,12 @@
 <body>
   <div class="container">
     {% block menu %}   
-    
-      <nav class="navbar navbar-expand-lg navbar-light bg-transparent rounded text-black-50" aria-label="Sistema de Controle de Produção">
+    <style>
+      .custom-navbar-bg {
+          background-color: #33373b; /* Light gray */
+      }
+  </style>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light rounded text-black-50" aria-label="Sistema de Controle de Produção">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
             <img src="/static/img/logo2.png" alt="" width="70" height="45">
@@ -28,7 +32,7 @@
           <div class="collapse navbar-collapse fw-bolder text-white" id="navbarsExample09">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="https://imarf.herokuapp.com/">Página Inicial</a>
+                <a class="nav-link active" aria-current="page" href="http://ebtec.store:8000/">Página Inicial</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/admin">Administração</a>
@@ -41,6 +45,13 @@
                   <li><a class="dropdown-item" href="{% url 'pd_serrada_total' %}">Serrada Produção Mensal</a></li>
                   <li><a class="dropdown-item" href="{% url 'lista-fio-producao' %}">Producao Fio</a></li>
                   <li><a class="dropdown-item" href="{% url 'lista-fio-producao-resumo' %}">Producao Fio Resumo</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">SESMT</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdown09">
+                  <li><a class="dropdown-item" href="{% url 'pdf_list' %}">Lista de Documentos Emitidos</a></li>
+                  <li><a class="dropdown-item" href="{% url 'upload_pdf' %}">Upload de Documentos</a></li>
                 </ul>
               </li>
               {% if request.user.is_authenticated %}

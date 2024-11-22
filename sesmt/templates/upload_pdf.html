@@ -1,0 +1,17 @@
+{% extends 'producao/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+{% load crispy_forms_tags %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-primary">Upload</button>
+    <br>
+    <br>
+    <a href="http://127.0.0.1:8000/admin/sesmt/" class="btn btn-secondary">Voltar Para Administração</a>
+</form>
+
+{% endblock %}

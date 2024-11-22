@@ -29,11 +29,11 @@ class BlocoAdmin(admin.ModelAdmin):
     #    return qs.filter(usuario_id=request.user)
     
     ordering = ('bloco',)
-    list_filter = ('status','tipo','material',)
+    list_filter = ('status','tipo','material')
     list_display = ('id','bloco','material','tipo','comprimento','altura','largura','status','data')
     #list_editable = ('comprimento','altura','largura','status')
     
-    search_fields = ('bloco',)
+    search_fields = ('blobo__bloco',)
     inlines = [
         BlocoIteminline
     ]

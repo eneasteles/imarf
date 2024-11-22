@@ -10,7 +10,6 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 class Resumo(LoginRequiredMixin ,ListView):
     login_url = reverse_lazy('login')
-    model = Resumo_Funcionarios_View
     template_name = 'setor_pessoal/resumo.html'
 
     
