@@ -1,7 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
-#from caixa.models import Filial
 
-# Create your models here.
+
 class Adm_empresa(models.Model):
     empresa = models.CharField(max_length=100)
     cnpj = models.CharField(max_length=14, blank=True, null=True)
@@ -10,3 +10,11 @@ class Adm_empresa(models.Model):
 
     def __str__(self):
         return self.empresa
+
+
+class UserEnterprise(models.Model):
+    user = models.ManyToManyField(User, verbose_name="Usuário")
+    enterprise = models.ForeignKey(Adm_empresa, on_delete=models.CASCADE, verbose_name="Empresa")
+
+    def __str__(self):
+        return f"{self.enterprise} - {', '.join(user.username for user in self.user.all())}"
