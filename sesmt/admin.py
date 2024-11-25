@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import PDFDocument, Title
 from cadastro.models import UserEnterprise
+from django.db.models import QuerySet
 
 
 @admin.register(PDFDocument)
@@ -10,7 +11,7 @@ class PDFDocumentoAdmin(admin.ModelAdmin):
     list_display = ('enterprise', 'worker', 'title', 'pdf_file')
     list_filter = ('enterprise',)
 
-    def get_queryset(self, request):
+    def get_queryset(self, request) -> QuerySet:
         """
         Filtra os documentos para que usuários normais só vejam documentos
         relacionados à empresa associada.
@@ -23,8 +24,9 @@ class PDFDocumentoAdmin(admin.ModelAdmin):
 
         try:
             # Obtém a empresa associada ao usuário
-            user_enterprise = UserEnterprise.objects.get(user=request.user).enterprise
-            return qs.filter(enterprise=user_enterprise)
+            user_enterprises = UserEnterprise.objects.filter(user=request.user).values_list('enterprise', flat=True)
+            #return qs.filter(enterprise=user_enterprise)
+            return qs.filter(enterprise__in=user_enterprises)
         except UserEnterprise.DoesNotExist:
             # Caso o usuário não tenha uma empresa associada, retorna um queryset vazio
             return qs.none()
