@@ -7,7 +7,7 @@
 <form method="get" action="{% url 'pdf_list' %}">  
     <input type="text" name="q" placeholder="Digite o Funcionário" value="{{ search_query }}">    
     <button type="submit" class="btn btn-primary">Busca Funcionário</button>
-    <p>Para listar todos os registros digite 'todos' na pesquisa!</p>
+
 </form>
 
 <table class="table">
@@ -28,7 +28,7 @@
                 <td>{{ result.title }}</td>
                 <td>{{ result.emissao_documento }}</td>
                 <td>
-                    <a href="{{ result.pdf_file.url }}" target="_blank">Download PDF</a>
+                    <a href="{{ result.pdf_file.url }}" target="_blank">Visualizar/Download</a>
                 </td>
             </tr>
         {% empty %}

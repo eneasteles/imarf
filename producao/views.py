@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from django.db.models import Sum, Max, Min, Avg
 from django.db.models.aggregates import Avg, Min
 import pandas as pd
-
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
