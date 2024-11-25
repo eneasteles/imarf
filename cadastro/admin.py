@@ -10,6 +10,8 @@ class AdmEmpresaAdmin(admin.ModelAdmin):
 class UserEnterpriseAdmin(admin.ModelAdmin):
     list_display = ['enterprise', 'get_users']
     filter_horizontal = ['user']
+    class Meta:
+        verbose_name = "Relacionamento Usuário/Empresa"
 
     def get_users(self, obj):
         # Exibe os nomes dos usuários associados como string

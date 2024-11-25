@@ -12,9 +12,11 @@ class Adm_empresa(models.Model):
         return self.empresa
 
 
-class UserEnterprise(models.Model):
-    user = models.ManyToManyField(User, verbose_name="Usuário")
+class UserEnterprise(models.Model):    
     enterprise = models.ForeignKey(Adm_empresa, on_delete=models.CASCADE, verbose_name="Empresa")
-
+    user = models.ManyToManyField(User, verbose_name="Usuário")
+    
+    class  Meta:
+        verbose_name = "Relacionamento Usuário/Empresa"
     def __str__(self):
         return f"{self.enterprise} - {', '.join(user.username for user in self.user.all())}"
