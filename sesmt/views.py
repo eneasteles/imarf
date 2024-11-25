@@ -9,7 +9,7 @@ def upload_pdf(request):
         form = PDFUploadForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('http://localhost:8000/upload/')  # Redirect to a success page
+            return redirect('http://ebtec.store:8000/upload/')  # Redirect to a success page
     else:
         form = PDFUploadForm()
     return render(request, 'upload_pdf.html', {'form': form})
