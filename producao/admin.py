@@ -111,6 +111,18 @@ class FioAdmin(admin.ModelAdmin):
         Fio_diamantadoinline
     ]
 
+#admin.site.register(Fio_diamantado)
+@admin.register(Fio_diamantado)
+class FioAdmin(admin.ModelAdmin):
+    list_display = ('jogo_fio','maquina','espessura_fio','referencia','nome','status_fio','liga','garantia')
+
+@admin.register(FioFatorConversao)
+class FioFatorConversaoadmin(admin.ModelAdmin):
+    model = FioFatorConversao
+    extra = 1
+    list_display = ('maquina', 'fornecedor', 'dureza', 'fator')
+    search_fields = ('maquina', 'fornecedor')
+#admin.site.register(FioFatorConversao)
 class DespesaIteminline(admin.TabularInline):
     model = DespesaItem
     extra = 1
@@ -227,7 +239,7 @@ admin.site.register(Unidade)
 admin.site.register(Un)
 admin.site.register(Maquina)     #       admin.site.register()
 #admin.site.register(Serrada, SerradaAdmin) #, ChapasAdmin
-admin.site.register(Fio_diamantado)
+
 
 admin.site.register(Grupo)
 admin.site.register(Produto)
@@ -246,7 +258,7 @@ admin.site.register(Forma_pagamento)
 
 admin.site.register(Status_venda)
 admin.site.register(Frete)
-admin.site.register(FioFatorConversao)
+
 admin.site.register(Resinamento, ResinamentoAdmin)
 admin.site.register(Resinagem)
 admin.site.register(Operador)
