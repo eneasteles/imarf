@@ -58,6 +58,7 @@ admin.site.register(Abrasivo)
 admin.site.register(Qualidade)
 admin.site.register(Tipo_Polimento)
 admin.site.register(Jogo_de_Abrasivos)
+admin.site.register(Set_de_Abrasivos)
 
 
 @admin.register(Consumo_de_Abrasivos)

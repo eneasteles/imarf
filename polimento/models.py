@@ -121,6 +121,15 @@ class Jogo_de_Abrasivos(models.Model):
     def __str__(self):
         return str(self.id)
 
+class Set_de_Abrasivos(models.Model):
+    maquina = models.ForeignKey(Maquina, on_delete=models.PROTECT)
+    set_de_abrasivos = models.ManyToManyField(Jogo_de_Abrasivos, limit_choices_to={'finalizado': False})
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return str(self.id)
+
 class Chp_Pol_por_Jogo_de_Abr(models.Model):
     data = models.DateField(default=timezone.now)
     maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
