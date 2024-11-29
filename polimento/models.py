@@ -160,7 +160,7 @@ class Chapas_Ini_Fin(models.Model):
         )
     chapa_inicial = models.PositiveIntegerField(default=0)
     chapa_final = models.PositiveIntegerField(default=0)
-    jogo_abrasivos = models.ManyToManyField(Jogo_de_Abrasivos, limit_choices_to={'finalizado': False})
+    set_de_abrasivos = models.ForeignKey(Set_de_Abrasivos, on_delete=models.PROTECT, default=1)
 ##########################    
     # Model temporária de gastos com abrasivos
 class Consumo_de_Abrasivos(models.Model):
