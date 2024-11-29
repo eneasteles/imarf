@@ -58,10 +58,21 @@ admin.site.register(Abrasivo)
 admin.site.register(Qualidade)
 admin.site.register(Tipo_Polimento)
 admin.site.register(Jogo_de_Abrasivos)
-admin.site.register(Set_de_Abrasivos)
+#admin.site.register(Set_de_Abrasivos)
 
 
 @admin.register(Consumo_de_Abrasivos)
 class Consumo_de_AbrasivosAdmin(admin.ModelAdmin):
     list_display= ('data','abrasivo','quantidade','unidade','preco','valor',)
     list_filter = ('abrasivo',)
+
+@admin.register(Set_de_Abrasivos)
+class SetDeAbrasivosAdmin(admin.ModelAdmin):
+    list_display = ('id', 'maquina', 'created', 'modified', 'get_abrasivos')
+    search_fields = ('maquina__nome', 'set_de_abrasivos__nome')  # Ajuste o campo relacionado
+    list_filter = ('created', 'modified')
+    
+    def get_abrasivos(self, obj):
+        return ", ".join([str(abrasivo) for abrasivo in obj.set_de_abrasivos.all()])
+    
+    get_abrasivos.short_description = 'Abrasivos'
