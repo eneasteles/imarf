@@ -1,5 +1,7 @@
-from setor_pessoal.models import Cadastro_Funcionario
+from setor_pessoal.models import *
 from django.contrib import admin
+
+admin.site.register(Funcao)
 
 @admin.register(Cadastro_Funcionario)
 class Cadastro_FuncionarioAdmin(admin.ModelAdmin):

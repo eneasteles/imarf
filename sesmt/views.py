@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from .forms import PDFUploadForm
 from .models import PDFDocument
 from cadastro.models import UserEnterprise
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def upload_pdf(request):
     if request.method == 'POST':
         form = PDFUploadForm(request.POST, request.FILES)
@@ -15,7 +17,7 @@ def upload_pdf(request):
     return render(request, 'upload_pdf.html', {'form': form})
 
 
-
+@login_required
 def pdf_list(request):
     search_query = request.GET.get('q', '').strip()
     results = PDFDocument.objects.none()  # Inicializa como vazio

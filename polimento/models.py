@@ -17,6 +17,9 @@ LINHA_CHOICES = (
     )
 class Tipo_Polimento(models.Model):
     tipo_polimento = models.CharField(max_length=50)
+    class Meta:
+        verbose_name = 'Tipo de Polimento'
+        verbose_name_plural = 'Tipos de Polimentos'
     def __str__(self):
         return self.tipo_polimento
 
@@ -38,12 +41,7 @@ class Qualidade(models.Model):
     qualidade = models.CharField(max_length=100, primary_key=True)
     def __str__(self):
         return self.qualidade
-"""
-class Qualidade_Polimento(models.Model):
-    qualidade = models.CharField(max_length=100)
-    def __str__(self):
-        return self.qualidade
-"""
+
 
 
 class Polimento(models.Model):
@@ -82,41 +80,19 @@ class Parada_Politriz(models.Model):
 
     def __str__(self):
         return str(self.id)
-"""
-class Chapas_Polidas(models.Model):
-    polimento_id = models.ForeignKey(Polimento, on_delete=models.CASCADE,default=1)
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=0)
-    acabamento = models.ForeignKey(Acabamento, on_delete=models.PROTECT, default=1)
-    tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1, verbose_name="Acabamento")
-    chapas_quebradas = models.PositiveIntegerField(default=0)
-    chapas_trincadas = models.PositiveIntegerField(default=0)
-    velocidade = models.PositiveIntegerField(default=0)
-    qualidade = models.ForeignKey(Qualidade_Polimento, on_delete=models.PROTECT)    
-    frequencia = models.PositiveIntegerField(default=1)
-    finalizado = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return str(self.id)
-"""
-
-
-
-
 
 class Jogo_de_Abrasivos(models.Model):
-    #polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT,default=1)
+    id =  models.AutoField(primary_key=True)
     abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
     quantidade = models.PositiveIntegerField(default=6)
-    #cabeca = models.PositiveIntegerField(default=0)
-    #pausado = models.BooleanField(default=False)
     valor_abrasivo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    #data = models.DateField(default=timezone.now)
     finalizado = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'Jogo de Abrasivo'
+        verbose_name_plural = 'Jogo de Abrasivos'
 
     def __str__(self):
         return str(self.id)
@@ -125,8 +101,10 @@ class Set_de_Abrasivos(models.Model):
     maquina = models.ForeignKey(Maquina, on_delete=models.PROTECT)
     set_de_abrasivos = models.ManyToManyField(Jogo_de_Abrasivos, limit_choices_to={'finalizado': False})
     created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    
+    modified = models.DateTimeField(auto_now=True)    
+    class Meta:
+        verbose_name = 'Set de Abrasivo'
+        verbose_name_plural = 'Set de Abrasivos'    
     def __str__(self):
         return str(self.id)
 
@@ -137,17 +115,14 @@ class Chp_Pol_por_Jogo_de_Abr(models.Model):
     bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
     cabeca = models.PositiveIntegerField(default=0)
     quantidade = models.PositiveIntegerField(default=0)
-    #acabamento = models.ForeignKey(Acabamento, default=2 ,on_delete=PROTECT)
     tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1)
     velocidade = models.PositiveIntegerField(default=0)
-    #qualidade = models.ForeignKey(Qualidade_Polimento, on_delete=models.PROTECT)
     frequencia = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return str(self.id)
 
 
-################################
 class Chapas_Ini_Fin(models.Model):
     polimento = models.ForeignKey(Polimento, on_delete=models.CASCADE)
     bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE, default=2)
@@ -161,7 +136,7 @@ class Chapas_Ini_Fin(models.Model):
     chapa_inicial = models.PositiveIntegerField(default=0)
     chapa_final = models.PositiveIntegerField(default=0)
     set_de_abrasivos = models.ForeignKey(Set_de_Abrasivos, on_delete=models.PROTECT, default=1)
-##########################    
+  
     # Model temporária de gastos com abrasivos
 class Consumo_de_Abrasivos(models.Model):
     data = models.DateField(default=timezone.now)
@@ -179,3 +154,15 @@ class Consumo_de_Abrasivos(models.Model):
         self.abrasivo.valor += self.valor
         self.abrasivo.save()
         super(Consumo_de_Abrasivos, self).save(*args, **kwargs)
+        
+class Troca_de_jogo_de_abrasivos(models.Model):
+    maquina = models.ForeignKey(Maquina, on_delete=models.PROTECT)
+    cabeca = models.PositiveIntegerField(default=0)
+    jogo = models.PositiveBigIntegerField(default=0)
+    tipo_de_abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
+    grao = models.PositiveIntegerField(default=0)
+    mudanca_numero = models.PositiveIntegerField('Mudança de abrasico/Set',default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return str(self.id)

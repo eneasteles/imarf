@@ -8,7 +8,7 @@ from django.db.models import QuerySet
 class PDFDocumentoAdmin(admin.ModelAdmin):
     search_fields = ('worker__nome',)
     autocomplete_fields = ['worker']
-    list_display = ('enterprise', 'worker', 'title', 'pdf_file')
+    list_display = ('enterprise', 'worker', 'title', 'emissao_documento','pdf_file')
     list_filter = ('enterprise',)
 
     def get_queryset(self, request) -> QuerySet:

@@ -4,6 +4,14 @@ from django.contrib import admin
 from django.contrib.admin.sites import site
 from django.db.models import Q
 from .models import Polimento, Jogo_de_Abrasivos, Chapas_Ini_Fin
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django import forms
+
+class SetDeAbrasivosForm(forms.ModelForm):
+    class Meta:
+        model = Set_de_Abrasivos
+        fields = '__all__'
+
 
 
 class Chapas_Ini_FinInline(admin.TabularInline):    
@@ -11,31 +19,7 @@ class Chapas_Ini_FinInline(admin.TabularInline):
     extra = 1
     autocomplete_fields = ('bloco',)
 
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == "jogo_abrasivos":
-            # Verifica se o inline está sendo editado (existem instâncias de Chapas_Ini_Fin)
-            if hasattr(self, 'parent_model') and hasattr(request, 'obj'):
-                chapas_ini_fin_id = request.obj.id
-
-                # Consulta os IDs relacionados usando a tabela intermediária
-                from django.db import connection
-                with connection.cursor() as cursor:
-                    cursor.execute("""
-                        SELECT jogo_de_abrasivos_id 
-                        FROM polimento_chapas_ini_fin_jogo_abrasivos 
-                        WHERE chapas_ini_fin_id = %s
-                    """, [chapas_ini_fin_id])
-                    selecionados_ids = [row[0] for row in cursor.fetchall()]
-
-                # Filtrar o queryset baseado na condição desejada
-                kwargs["queryset"] = Jogo_de_Abrasivos.objects.filter(
-                    Q(finalizado=False) | Q(id__in=selecionados_ids)
-                )
-            else:
-                # Caso seja um novo objeto, exibir apenas itens não finalizados
-                kwargs["queryset"] = Jogo_de_Abrasivos.objects.filter(finalizado=False)
     
-        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
 
@@ -57,9 +41,13 @@ class PolimentoAdmin(admin.ModelAdmin):
 admin.site.register(Abrasivo)
 admin.site.register(Qualidade)
 admin.site.register(Tipo_Polimento)
-admin.site.register(Jogo_de_Abrasivos)
-#admin.site.register(Set_de_Abrasivos)
 
+
+@admin.register(Jogo_de_Abrasivos)
+class JogoDeAbrasivosAdmin(admin.ModelAdmin):
+    list_display = ('id','abrasivo', 'finalizado', 'created', 'updated')
+    list_filter = ('finalizado',)
+    ordering = ('id',)
 
 @admin.register(Consumo_de_Abrasivos)
 class Consumo_de_AbrasivosAdmin(admin.ModelAdmin):
@@ -68,11 +56,24 @@ class Consumo_de_AbrasivosAdmin(admin.ModelAdmin):
 
 @admin.register(Set_de_Abrasivos)
 class SetDeAbrasivosAdmin(admin.ModelAdmin):
-    list_display = ('id', 'maquina', 'created', 'modified', 'get_abrasivos')
+    list_display = ('id', 'maquina', 'get_jogo_de_abrasivos', 'created', 'modified')
     search_fields = ('maquina__nome', 'set_de_abrasivos__nome')  # Ajuste o campo relacionado
     list_filter = ('created', 'modified')
+    class Meta:
+        verbose_name = "Set de Abrasivos"
     
-    def get_abrasivos(self, obj):
-        return ", ".join([str(abrasivo) for abrasivo in obj.set_de_abrasivos.all()])
+    def get_jogo_de_abrasivos(self, obj):
+        return ", ".join([str(jogo) for jogo in obj.set_de_abrasivos.all()])
     
-    get_abrasivos.short_description = 'Abrasivos'
+    get_jogo_de_abrasivos.short_description = 'Jogo de Abrasivos'
+    
+@admin.register(Troca_de_jogo_de_abrasivos)
+class TrocaDeJogoDeAbrasivosAdmin(admin.ModelAdmin):
+    list_display = ('id','maquina', 'cabeca', 'jogo', 'tipo_de_abrasivo', 'grao', 'mudanca_numero')
+    list_filter = ('maquina','mudanca_numero',)
+    #list_editable = ('maquina', 'cabeca', 'jogo', 'tipo_de_abrasivo', 'grao', 'mudanca_numero')
+
+    class Meta:
+        verbose_name = "Troca de Jogo de Abrasivos"
+    
+
