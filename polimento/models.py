@@ -52,24 +52,28 @@ class Polimento(models.Model):
     maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
     horimetro_inicial = models.FloatField(default=0)
     horimetro_final = models.FloatField(default=0)
-    #############################################
-    bloco = models.ForeignKey(Bloco, on_delete=models.CASCADE)
-    # morreu --quantidade = models.PositiveIntegerField(default=0)
-    acabamento = models.ForeignKey(Acabamento, on_delete=models.PROTECT, default=2)
-    # substituído --tipo_polimento = models.ForeignKey(Tipo_Polimento, on_delete=models.PROTECT, default=1, verbose_name="Acabamento")
-    chapas_quebradas = models.PositiveIntegerField(default=0)
-    chapas_trincadas = models.PositiveIntegerField(default=0)
-    velocidade = models.PositiveIntegerField(default=0)
-    qualidade = models.ForeignKey(Qualidade, on_delete=models.PROTECT)    
-    frequencia = models.PositiveIntegerField(default=1)
-    finalizado = models.BooleanField(default=False)
-    #################################################
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    class Meta:
+        verbose_name = 'Chapas Polidas'
+        verbose_name_plural = 'Chapas Polidas'
 
     def __str__(self):
         return self.data.strftime('%d/%m/%Y')
+
+class Chapas_Polidas(models.Model):
+    polimento = models.ForeignKey(Polimento, on_delete=models.CASCADE)
+    mudanca_numero = models.BigIntegerField(default=0, verbose_name="Mudança/Set")
+    bloco = models.ForeignKey(Bloco, on_delete=models.PROTECT)
+    qtde_chapas = models.PositiveIntegerField(default=0)
+    acabamento = models.ForeignKey(Acabamento, on_delete=models.PROTECT, default=2)
+    chapas_quebradas = models.PositiveIntegerField(default=0)
+    velocidade = models.PositiveIntegerField(default=0)
+    frequencia = models.PositiveIntegerField(default=1)
+    
+    def __str__(self):
+        return str(self.id)
+    
 class Parada_Politriz(models.Model):
     polimento_id = models.ForeignKey(Polimento, on_delete=models.PROTECT, default=12)
     data_inicial = models.DateTimeField(default=timezone.now)
@@ -81,6 +85,7 @@ class Parada_Politriz(models.Model):
     def __str__(self):
         return str(self.id)
 
+"""
 class Jogo_de_Abrasivos(models.Model):
     id =  models.AutoField(primary_key=True)
     abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
@@ -107,7 +112,9 @@ class Set_de_Abrasivos(models.Model):
         verbose_name_plural = 'Set de Abrasivos'    
     def __str__(self):
         return str(self.id)
+"""
 
+"""
 class Chp_Pol_por_Jogo_de_Abr(models.Model):
     data = models.DateField(default=timezone.now)
     maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
@@ -136,7 +143,7 @@ class Chapas_Ini_Fin(models.Model):
     chapa_inicial = models.PositiveIntegerField(default=0)
     chapa_final = models.PositiveIntegerField(default=0)
     set_de_abrasivos = models.ForeignKey(Set_de_Abrasivos, on_delete=models.PROTECT, default=1)
-  
+
     # Model temporária de gastos com abrasivos
 class Consumo_de_Abrasivos(models.Model):
     data = models.DateField(default=timezone.now)
@@ -154,15 +161,22 @@ class Consumo_de_Abrasivos(models.Model):
         self.abrasivo.valor += self.valor
         self.abrasivo.save()
         super(Consumo_de_Abrasivos, self).save(*args, **kwargs)
+"""  
+
         
 class Troca_de_jogo_de_abrasivos(models.Model):
     maquina = models.ForeignKey(Maquina, on_delete=models.PROTECT)
-    cabeca = models.PositiveIntegerField(default=0)
+    cabeca = models.PositiveIntegerField(default=0, verbose_name="Cabeça")
     jogo = models.PositiveBigIntegerField(default=0)
-    tipo_de_abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1)
+    tipo_de_abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1, verbose_name="Abrasivo")
     grao = models.PositiveIntegerField(default=0)
-    mudanca_numero = models.PositiveIntegerField('Mudança de abrasico/Set',default=0)
+    mudanca_numero = models.PositiveIntegerField('Mudança/Set',default=0)
+    finalizado = models.BooleanField(default=False, verbose_name="Finalizado")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    class Meta:
+        verbose_name = 'Troca de Jogo de Abrasivo'
+        verbose_name_plural = 'Troca de Jogos de Abrasivos'
+    
     def __str__(self):
         return str(self.id)
