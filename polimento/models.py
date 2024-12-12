@@ -32,6 +32,8 @@ class Abrasivo(models.Model):
     data_cadastro = models.DateTimeField(auto_now_add=True)
     data_alteracao = models.DateTimeField(auto_now=True)
     usuario_cadastrou = models.ForeignKey(User, on_delete=PROTECT)
+    class Meta:
+        ordering = ['descricao']
 
     def __str__(self):
         return self.descricao
@@ -47,7 +49,6 @@ class Qualidade(models.Model):
 class Polimento(models.Model):
     data = models.DateField(default=timezone.now)
     turno = models.PositiveIntegerField(default=1)
-    #Operador = models.ForeignKey(Operador, on_delete=models.CASCADE)
     operador = models.ForeignKey(Operador, on_delete=models.CASCADE, default=3)
     maquina = models.ForeignKey(Maquina, on_delete=models.CASCADE)
     horimetro_inicial = models.FloatField(default=0)
@@ -168,7 +169,7 @@ class Troca_de_jogo_de_abrasivos(models.Model):
     maquina = models.ForeignKey(Maquina, on_delete=models.PROTECT)
     cabeca = models.PositiveIntegerField(default=0, verbose_name="Cabeça")
     jogo = models.PositiveBigIntegerField(default=0)
-    tipo_de_abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1, verbose_name="Abrasivo")
+    tipo_de_abrasivo = models.ForeignKey(Abrasivo, on_delete=models.PROTECT, default=1, verbose_name="Abrasivo", )
     grao = models.PositiveIntegerField(default=0)
     mudanca_numero = models.PositiveIntegerField('Mudança/Set',default=0)
     finalizado = models.BooleanField(default=False, verbose_name="Finalizado")
@@ -177,6 +178,7 @@ class Troca_de_jogo_de_abrasivos(models.Model):
     class Meta:
         verbose_name = 'Troca de Jogo de Abrasivo'
         verbose_name_plural = 'Troca de Jogos de Abrasivos'
+        
     
     def __str__(self):
         return str(self.id)
